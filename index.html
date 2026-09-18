@@ -354,6 +354,8 @@ footer{
 }
 
 </style>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
 </head>
 
 <body>
@@ -635,8 +637,7 @@ placeholder="Image URL"
 
 
 <script>
-
-
+    const db = supabase;
 /* =========================
    DEFAULT PRODUCTS
 ========================= */
