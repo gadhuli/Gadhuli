@@ -3,335 +3,478 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Gadhuli</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
-
 body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#fff5f9;
-  color:#222;
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#fff5f9;
 }
 
 header{
-  background:white;
-  padding:12px 18px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  box-shadow:0 2px 10px rgba(0,0,0,.12);
-  position:sticky;
-  top:0;
-  z-index:10;
+    background:white;
+    padding:15px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 2px 8px #0002;
 }
 
 .logo{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  color:#8f174d;
-  font-size:22px;
-  font-weight:bold;
-}
-
-.logo img{
-  width:45px;
-  height:45px;
-  object-fit:cover;
-  border-radius:10px;
-}
-
-.cartBtn{
-  background:#8f174d;
-  color:white;
-  border:none;
-  padding:11px 16px;
-  border-radius:10px;
-  font-size:16px;
-  cursor:pointer;
-}
-
-.hero{
-  background:linear-gradient(135deg,#8f174d,#d72f78);
-  color:white;
-  text-align:center;
-  padding:45px 20px;
-}
-
-.hero h1{
-  margin:0 0 10px;
-  font-size:32px;
-}
-
-.hero p{
-  margin:0;
-}
-
-.section{
-  padding:25px 18px;
-  max-width:1100px;
-  margin:auto;
-}
-
-.search{
-  width:100%;
-  padding:14px;
-  border:1px solid #ddd;
-  border-radius:10px;
-  font-size:16px;
-  margin-bottom:20px;
-}
-
-.products{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-  gap:15px;
-}
-
-.product{
-  background:white;
-  padding:15px;
-  border-radius:14px;
-  box-shadow:0 2px 10px rgba(0,0,0,.1);
-  text-align:center;
-}
-
-.product img{
-  width:100%;
-  height:150px;
-  object-fit:cover;
-  border-radius:10px;
-  background:#f7e1eb;
-}
-
-.product .emoji{
-  height:150px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-size:65px;
-  background:#fbe8f0;
-  border-radius:10px;
-}
-
-.product h3{
-  margin:12px 0 5px;
-}
-
-.price{
-  color:#8f174d;
-  font-size:19px;
-  font-weight:bold;
-  margin:7px 0 12px;
-}
-
-.btn{
-  width:100%;
-  padding:11px;
-  border:0;
-  border-radius:8px;
-  background:#8f174d;
-  color:white;
-  cursor:pointer;
-  font-size:15px;
-}
-
-.admin{
-  background:white;
-  padding:20px;
-  border-radius:14px;
-  box-shadow:0 2px 10px rgba(0,0,0,.1);
-}
-
-.admin h2{
-  color:#8f174d;
-}
-
-input,textarea{
-  width:100%;
-  padding:12px;
-  margin:7px 0;
-  border:1px solid #ddd;
-  border-radius:8px;
-  font-size:15px;
-}
-
-.adminProduct{
-  border-top:1px solid #eee;
-  padding:12px 0;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-}
-
-.smallBtn{
-  padding:7px 10px;
-  border:0;
-  border-radius:6px;
-  cursor:pointer;
-}
-
-.edit{
-  background:#eee;
-}
-
-.delete{
-  background:#d7194b;
-  color:white;
-}
-
-.order{
-  background:white;
-  padding:20px;
-  border-radius:14px;
-  box-shadow:0 2px 10px rgba(0,0,0,.1);
-}
-
-.order h2{
-  color:#8f174d;
-}
-
-.whatsapp{
-  background:#159447;
-  margin-top:10px;
+    font-size:24px;
+    font-weight:bold;
+    color:#8f174d;
 }
 
 .cart{
-  display:none;
-  position:fixed;
-  right:0;
-  top:0;
-  width:330px;
-  max-width:90%;
-  height:100%;
-  background:white;
-  z-index:100;
-  padding:20px;
-  box-shadow:-4px 0 15px rgba(0,0,0,.25);
-  overflow-y:auto;
+    background:#8f174d;
+    color:white;
+    border:0;
+    padding:10px 15px;
+    border-radius:8px;
 }
 
-.cartHeader{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+.hero{
+    background:#8f174d;
+    color:white;
+    text-align:center;
+    padding:40px 15px;
 }
 
-.close{
-  background:#eee;
-  border:0;
-  padding:8px 12px;
-  border-radius:7px;
-  cursor:pointer;
+.section{
+    padding:20px;
 }
 
-.cartItem{
-  padding:12px 0;
-  border-bottom:1px solid #eee;
+.search{
+    width:100%;
+    padding:13px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    font-size:16px;
+}
+
+.products{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+    margin-top:15px;
+}
+
+.product{
+    background:white;
+    padding:15px;
+    text-align:center;
+    border-radius:12px;
+    box-shadow:0 2px 8px #0002;
+}
+
+.emoji{
+    font-size:55px;
+}
+
+.price{
+    color:#8f174d;
+    font-weight:bold;
+    font-size:18px;
+}
+
+button{
+    cursor:pointer;
+}
+
+.add{
+    background:#8f174d;
+    color:white;
+    border:0;
+    padding:10px;
+    border-radius:7px;
+    width:100%;
+}
+
+input,textarea{
+    width:100%;
+    padding:12px;
+    margin:7px 0;
+    border:1px solid #ddd;
+    border-radius:8px;
+    box-sizing:border-box;
+}
+
+.order{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 2px 8px #0002;
+}
+
+.whatsapp{
+    background:#159447;
+    color:white;
+    border:0;
+    padding:12px;
+    width:100%;
+    border-radius:8px;
+}
+
+#cartBox{
+    display:none;
+    position:fixed;
+    right:0;
+    top:0;
+    width:300px;
+    height:100%;
+    background:white;
+    padding:20px;
+    box-shadow:-3px 0 10px #0003;
+    z-index:100;
 }
 
 .remove{
-  background:#d7194b;
-  color:white;
-  border:0;
-  padding:5px 8px;
-  border-radius:5px;
-  float:right;
-}
-
-.total{
-  font-size:20px;
-  font-weight:bold;
-  color:#8f174d;
-  margin:18px 0;
-}
-
-.empty{
-  text-align:center;
-  color:#777;
-  padding:20px;
-}
-
-footer{
-  margin-top:30px;
-  background:#8f174d;
-  color:white;
-  text-align:center;
-  padding:20px;
+    background:red;
+    color:white;
+    border:0;
+    padding:4px;
+    border-radius:5px;
 }
 
 @media(max-width:500px){
-  .hero h1{
-    font-size:25px;
-  }
-
-  .products{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .product img,
-  .product .emoji{
-    height:120px;
-  }
-
-  .cart{
-    width:100%;
-    max-width:100%;
-  }
+    .products{
+        grid-template-columns:repeat(2,1fr);
+    }
 }
 </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
 <header>
 
-  <div class="logo">
-    <img src="logo.png" alt="Gadhuli Logo">
-    <span>Gadhuli</span>
-  </div>
+    <div class="logo">
+        Gadhuli
+    </div>
 
-  <button class="cartBtn" onclick="openCart()">
-    🛒 Cart (<span id="cartCount">0</span>)
-  </button>
+    <button class="cart" onclick="openCart()">
+        🛒 <span id="cartCount">0</span>
+    </button>
 
 </header>
 
 
-<!-- HERO -->
-<section class="hero">
+<div class="hero">
 
-  <h1>Gadhuli</h1>
+    <h1>Gadhuli Official Website</h1>
 
-  <p>Shop Your Favorite Products</p>
+    <p>Online Shopping</p>
+
+</div>
+
+
+<section class="section">
+
+    <input
+        class="search"
+        id="search"
+        type="text"
+        placeholder="🔍 Search Product"
+        oninput="showProducts()"
+    >
+
+    <h2>🛍️ Products</h2>
+
+    <div class="products" id="products"></div>
 
 </section>
 
 
-<!-- PRODUCTS -->
 <section class="section">
 
-  <h2>🛍️ Products</h2>
+    <div class="order">
 
-  <input
-    class="search"
-    id="search"
-    type="text"
-    placeholder="🔍 Search product..."
-    oninput="showProducts()"
-  >
+        <h2>📦 Place Your Order</h2>
 
-  <div class="products" id="products"></div>
+        <input
+            id="name"
+            type="text"
+            placeholder="👤 Name"
+        >
+
+        <input
+            id="phone"
+            type="tel"
+            placeholder="📱 Phone"
+        >
+
+        <textarea
+            id="address"
+            rows="4"
+            placeholder="📍 Address"
+        ></textarea>
+
+        <button
+            class="whatsapp"
+            onclick="orderWhatsApp()"
+        >
+            💬 Order via WhatsApp
+        </button>
+
+    </div>
 
 </section>
 
 
-<!-- ORDER FORM -->
-<section class="section">
+<div id="cartBox">
+
+    <button onclick="closeCart()">✕</button>
+
+    <h2>🛒 Your Cart</h2>
+
+    <div id="cartItems"></div>
+
+    <h3>
+        Total ৳<span id="total">0</span>
+    </h3>
+
+</div>
+
+
+<script>
+
+let products = [
+    {
+        name:"T-Shirt",
+        price:800,
+        emoji:"👕"
+    },
+    {
+        name:"Watch",
+        price:1200,
+        emoji:"⌚"
+    },
+    {
+        name:"Shoes",
+        price:1500,
+        emoji:"👟"
+    },
+    {
+        name:"Bag",
+        price:950,
+        emoji:"🎒"
+    }
+];
+
+let cart = [];
+
+
+function showProducts(){
+
+    let box = document.getElementById("products");
+
+    let search =
+        document.getElementById("search").value.toLowerCase();
+
+    box.innerHTML = "";
+
+    products.forEach(function(product,index){
+
+        if(product.name.toLowerCase().includes(search)){
+
+            box.innerHTML += `
+
+                <div class="product">
+
+                    <div class="emoji">
+                        ${product.emoji}
+                    </div>
+
+                    <h3>
+                        ${product.name}
+                    </h3>
+
+                    <div class="price">
+                        ৳${product.price}
+                    </div>
+
+                    <br>
+
+                    <button
+                        class="add"
+                        onclick="addCart(${index})"
+                    >
+                        ➕ Add to Cart
+                    </button>
+
+                </div>
+
+            `;
+
+        }
+
+    });
+
+}
+
+
+function addCart(index){
+
+    cart.push(products[index]);
+
+    updateCart();
+
+}
+
+
+function updateCart(){
+
+    document.getElementById("cartCount").innerText =
+        cart.length;
+
+    let box =
+        document.getElementById("cartItems");
+
+    let total = 0;
+
+    box.innerHTML = "";
+
+    cart.forEach(function(item,index){
+
+        total += item.price;
+
+        box.innerHTML += `
+
+            <p>
+
+                ${item.emoji}
+                ${item.name}
+                - ৳${item.price}
+
+                <button
+                    class="remove"
+                    onclick="removeCart(${index})"
+                >
+                    ❌
+                </button>
+
+            </p>
+
+        `;
+
+    });
+
+    document.getElementById("total").innerText =
+        total;
+
+}
+
+
+function removeCart(index){
+
+    cart.splice(index,1);
+
+    updateCart();
+
+}
+
+
+function openCart(){
+
+    document.getElementById("cartBox")
+        .style.display="block";
+
+}
+
+
+function closeCart(){
+
+    document.getElementById("cartBox")
+        .style.display="none";
+
+}
+
+
+function orderWhatsApp(){
+
+    let name =
+        document.getElementById("name").value.trim();
+
+    let phone =
+        document.getElementById("phone").value.trim();
+
+    let address =
+        document.getElementById("address").value.trim();
+
+
+    if(name==="" || phone==="" || address===""){
+
+        alert("সব তথ্য পূরণ করুন");
+
+        return;
+
+    }
+
+
+    if(cart.length===0){
+
+        alert("আগে Product Add to Cart করুন");
+
+        return;
+
+    }
+
+
+    let message =
+        "🛍️ Gadhuli Order\n\n";
+
+    message +=
+        "👤 Name: " + name + "\n";
+
+    message +=
+        "📱 Phone: " + phone + "\n";
+
+    message +=
+        "📍 Address: " + address + "\n\n";
+
+    message +=
+        "🛒 Products:\n";
+
+
+    let total=0;
+
+
+    cart.forEach(function(item,index){
+
+        message +=
+            (index+1) +
+            ". " +
+            item.name +
+            " - ৳" +
+            item.price +
+            "\n";
+
+        total += item.price;
+
+    });
+
+
+    message +=
+        "\n💰 Total: ৳" + total;
+
+
+    let url =
+        "https://wa.me/8801333088194?text=" +
+        encodeURIComponent(message);
+
+
+    window.open(url,"_blank");
+
+}
+
+
+showProducts();
+
+updateCart();
+
+</script>
+
+</body>
+</html>
