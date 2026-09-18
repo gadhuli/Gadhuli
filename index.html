@@ -1,1 +1,463 @@
-<!DOCTYPE html><html><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Gadhuli</title><style>body{margin:0;font-family:Arial;background:#fff7fa}header{display:flex;justify-content:space-between;align-items:center;padding:14px;background:#fff;box-shadow:0 2px 10px #0002}.logo{display:flex;align-items:center;gap:10px;font-weight:700;color:#8f174d}.logo img{width:42px;height:42px;border-radius:12px}.hero{padding:60px;text-align:center;color:#fff;background:linear-gradient(135deg,#8f174d,#c52b70)}.s{padding:22px}.p{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}.c{background:#fff;border-radius:12px;box-shadow:0 2px 8px #0002;padding:12px;text-align:center}.b{background:#8f174d;color:#fff;border:0;padding:10px;border-radius:8px;width:100%}input,textarea{width:100%;padding:10px;margin:8px 0;border:1px solid #ddd;border-radius:8px}</style></head><body><header><div class='logo'><img src='logo.png'><span>Gadhuli</span></div><button class='b' style='width:auto' onclick='v()'>🛒<span id=x>0</span></button></header><section class='hero'><h1>Gadhuli Official Website</h1></section><section class='s'><input id=q placeholder='Search' oninput='r()'><div class='p' id=l></div></section><section class='s'><h2 style='color:#8f174d'>Place Your Order</h2><input id=n placeholder='Name'><input id=ph placeholder='Phone'><textarea id=a placeholder='Address'></textarea><button class='b' onclick='o()'>Order Now</button></section><div id=cart style='display:none;position:fixed;right:0;top:0;width:280px;height:100%;background:#fff;padding:15px;box-shadow:-2px 0 10px #0003'><button onclick='cart.style.display="none"'>✕</button><div id=i></div><p>Total ৳<span id=t>0</span></p></div><script>let d=[['👕','T-Shirt',800],['⌚','Watch',1200],['👟','Shoes',1500],['🎒','Bag',950]],k=[];function r(){l.innerHTML='';d.filter(z=>z[1].toLowerCase().includes(q.value.toLowerCase())).forEach((z,m)=>l.innerHTML+=`<div class=c><div style=font-size:42px>${z[0]}</div><b>${z[1]}</b><p>৳${z[2]}</p><button class=b onclick='A(${m})'>Add</button></div>`)}function A(m){k.push(d[m]);u();v()}function u(){x.innerText=k.length;i.innerHTML='';let s=0;k.forEach((z,j)=>{s+=z[2];i.innerHTML+=`${z[0]} ${z[1]} ৳${z[2]} <button onclick='R(${j})'>❌</button><br>`});t.innerText=s}function R(j){k.splice(j,1);u()}function v(){cart.style.display='block'}function o(){if(!n.value||!ph.value||!a.value){alert('সব তথ্য পূরণ করুন');return}let m=`🛍️ Gadhuli Order\nName:${n.value}\nPhone:${ph.value}\nAddress:${a.value}\nItems:${k.map(z=>z[1]).join(', ')}`;open('https://wa.me/8801333088194?text='+encodeURIComponent(m))}r()</script></body></html>
+<!DOCTYPE html><html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gadhuli</title><style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#fff7fa;
+  color:#333;
+}
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px;
+  background:#fff;
+  box-shadow:0 2px 10px #0002;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:700;
+  color:#8f174d;
+  font-size:20px;
+}
+.logo img{
+  width:42px;
+  height:42px;
+  border-radius:12px;
+  object-fit:cover;
+}
+.hero{
+  padding:60px 20px;
+  text-align:center;
+  color:#fff;
+  background:linear-gradient(135deg,#8f174d,#c52b70);
+}
+.s{
+  padding:22px;
+}
+.p{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:12px;
+}
+.c{
+  background:#fff;
+  border-radius:12px;
+  box-shadow:0 2px 8px #0002;
+  padding:12px;
+  text-align:center;
+}
+.c img{
+  width:100%;
+  height:150px;
+  object-fit:cover;
+  border-radius:10px;
+}
+.b{
+  background:#8f174d;
+  color:#fff;
+  border:0;
+  padding:10px;
+  border-radius:8px;
+  width:100%;
+  cursor:pointer;
+}
+.b:hover{
+  opacity:.9;
+}
+input,textarea{
+  width:100%;
+  box-sizing:border-box;
+  padding:10px;
+  margin:8px 0;
+  border:1px solid #ddd;
+  border-radius:8px;
+}
+.admin{
+  background:#fff;
+  margin:22px;
+  padding:20px;
+  border-radius:14px;
+  box-shadow:0 2px 10px #0002;
+}
+.admin h2{
+  color:#8f174d;
+}
+.admin-product{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:#fff7fa;
+  padding:10px;
+  border-radius:10px;
+  margin:8px 0;
+}
+.admin-product img{
+  width:55px;
+  height:55px;
+  object-fit:cover;
+  border-radius:8px;
+}
+.delete{
+  background:#d62828;
+  color:#fff;
+  border:0;
+  padding:8px 10px;
+  border-radius:7px;
+  cursor:pointer;
+  margin-left:auto;
+}
+#cart{
+  display:none;
+  position:fixed;
+  right:0;
+  top:0;
+  width:280px;
+  max-width:85%;
+  height:100%;
+  background:#fff;
+  padding:15px;
+  box-shadow:-2px 0 10px #0003;
+  z-index:20;
+  overflow:auto;
+}
+.cart-close{
+  background:#8f174d;
+  color:#fff;
+  border:0;
+  padding:8px 12px;
+  border-radius:7px;
+}
+.empty{
+  text-align:center;
+  color:#888;
+  padding:20px;
+}
+</style></head><body><header>
+  <div class="logo">
+    <img src="logo.png">
+    <span>Gadhuli</span>
+  </div>  <button class="b" style="width:auto" onclick="v()">
+    🛒 <span id="x">0</span>
+  </button>
+</header><section class="hero">
+  <h1>Gadhuli Official Website</h1>
+  <p>Shop your favorite products</p>
+</section><!-- PRODUCTS --><section class="s">
+  <input id="q" placeholder="🔍 Search products..." oninput="r()">
+  <div class="p" id="l"></div>
+</section><!-- ORDER --><section class="s">
+  <h2 style="color:#8f174d">Place Your Order</h2>  <input id="n" placeholder="Customer Name">
+  <input id="ph" placeholder="Phone Number">
+  <textarea id="a" placeholder="Delivery Address"></textarea><button class="b" onclick="o()">Order Now</button>
+
+</section><!-- ADMIN PANEL --><section class="admin">  <h2>🔐 Admin Panel</h2>  <input id="pi" placeholder="🖼️ Image URL">
+  <input id="pn" placeholder="📝 Product Name">
+  <input id="pp" type="number" placeholder="💰 Product Price">  <button class="b" onclick="addProduct()">
+    ➕ Add Product
+  </button>  <h3>Product Management</h3>  <div id="adminList"></div></section><!-- CART --><div id="cart">  <button class="cart-close" onclick="cart.style.display='none'">
+    ✕ Close
+  </button>  <h2>🛒 Your Cart</h2>  <div id="i"></div>  <hr>  <h3>Total ৳<span id="t">0</span></h3></div><script>
+
+let defaultProducts=[
+  ["👕","T-Shirt",800],
+  ["⌚","Watch",1200],
+  ["👟","Shoes",1500],
+  ["🎒","Bag",950]
+];
+
+let savedProducts=localStorage.getItem("gadhuliProducts");
+
+let d=savedProducts
+  ? JSON.parse(savedProducts)
+  : defaultProducts;
+
+let k=[];
+
+
+/* PRODUCT DISPLAY */
+
+function r(){
+
+  l.innerHTML="";
+
+  let search=q.value.toLowerCase();
+
+  let found=d.filter(z =>
+    z[1].toLowerCase().includes(search)
+  );
+
+  if(found.length===0){
+    l.innerHTML='<div class="empty">No product found</div>';
+    return;
+  }
+
+  found.forEach((z,m)=>{
+
+    let image=z[0];
+
+    if(image.startsWith("http")){
+      l.innerHTML+=`
+      <div class="c">
+        <img src="${image}">
+        <b>${z[1]}</b>
+        <p>৳${z[2]}</p>
+        <button class="b" onclick="A(${m})">Add to Cart</button>
+      </div>`;
+    }else{
+      l.innerHTML+=`
+      <div class="c">
+        <div style="font-size:60px">${z[0]}</div>
+        <b>${z[1]}</b>
+        <p>৳${z[2]}</p>
+        <button class="b" onclick="A(${m})">Add to Cart</button>
+      </div>`;
+    }
+
+  });
+}
+
+
+/* ADD TO CART */
+
+function A(m){
+
+  k.push(d[m]);
+
+  u();
+
+  v();
+}
+
+
+/* UPDATE CART */
+
+function u(){
+
+  x.innerText=k.length;
+
+  i.innerHTML="";
+
+  let s=0;
+
+  if(k.length===0){
+    i.innerHTML='<div class="empty">Cart is empty</div>';
+  }
+
+  k.forEach((z,j)=>{
+
+    s+=Number(z[2]);
+
+    i.innerHTML+=`
+      <div style="padding:8px 0">
+        ${z[0]} ${z[1]} — ৳${z[2]}
+        <button onclick="R(${j})">❌</button>
+      </div>
+    `;
+
+  });
+
+  t.innerText=s;
+}
+
+
+/* REMOVE CART ITEM */
+
+function R(j){
+
+  k.splice(j,1);
+
+  u();
+}
+
+
+/* OPEN CART */
+
+function v(){
+
+  cart.style.display="block";
+
+}
+
+
+/* ADD PRODUCT */
+
+function addProduct(){
+
+  let image=pi.value.trim();
+  let name=pn.value.trim();
+  let price=pp.value.trim();
+
+  if(!image || !name || !price){
+
+    alert("Image URL, Name এবং Price পূরণ করুন");
+
+    return;
+  }
+
+  d.push([
+    image,
+    name,
+    Number(price)
+  ]);
+
+  saveProducts();
+
+  pi.value="";
+  pn.value="";
+  pp.value="";
+
+  r();
+  adminRender();
+
+  alert("✅ Product added successfully!");
+
+}
+
+
+/* SAVE PRODUCTS */
+
+function saveProducts(){
+
+  localStorage.setItem(
+    "gadhuliProducts",
+    JSON.stringify(d)
+  );
+
+}
+
+
+/* ADMIN PRODUCT LIST */
+
+function adminRender(){
+
+  adminList.innerHTML="";
+
+  if(d.length===0){
+
+    adminList.innerHTML=
+      '<div class="empty">No products</div>';
+
+    return;
+
+  }
+
+  d.forEach((z,index)=>{
+
+    let image=z[0];
+
+    adminList.innerHTML+=`
+
+      <div class="admin-product">
+
+        ${
+          image.startsWith("http")
+          ? `<img src="${image}">`
+          : `<div style="font-size:35px">${image}</div>`
+        }
+
+        <div>
+          <b>${z[1]}</b>
+          <br>
+          ৳${z[2]}
+        </div>
+
+        <button class="delete"
+          onclick="deleteProduct(${index})">
+          🗑️ Delete
+        </button>
+
+      </div>
+
+    `;
+
+  });
+
+}
+
+
+/* DELETE PRODUCT */
+
+function deleteProduct(index){
+
+  if(!confirm("এই product টি delete করতে চান?")){
+
+    return;
+
+  }
+
+  d.splice(index,1);
+
+  saveProducts();
+
+  r();
+
+  adminRender();
+
+}
+
+
+/* WHATSAPP ORDER */
+
+function o(){
+
+  if(!n.value || !ph.value || !a.value){
+
+    alert("সব তথ্য পূরণ করুন");
+
+    return;
+  }
+
+  if(k.length===0){
+
+    alert("Cart-এ অন্তত একটি product যোগ করুন");
+
+    return;
+  }
+
+  let total=k.reduce(
+    (sum,z)=>sum+Number(z[2]),0
+  );
+
+  let items=k.map(
+    z=>z[1]+" - ৳"+z[2]
+  ).join("\n");
+
+  let m=
+`🛍️ Gadhuli Order
+
+👤 Name: ${n.value}
+
+📞 Phone: ${ph.value}
+
+📍 Address: ${a.value}
+
+🛒 Products:
+${items}
+
+💰 Total: ৳${total}`;
+
+  open(
+    "https://wa.me/8801333088194?text="
+    +encodeURIComponent(m)
+  );
+
+}
+
+
+/* START */
+
+r();
+adminRender();
+u();
+
+</script></body>
+</html>
