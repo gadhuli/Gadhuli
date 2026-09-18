@@ -752,7 +752,25 @@ function placeOrder(){
   +"Address: "+address;
 
   window.open("https://wa.me/8801333088194?text="+msg,"_blank");
-}
+      function placeOrder() {
+  const name = document.getElementById("name").value;
+  const phone = document.getElementById("phone").value;
+  const address = document.getElementById("address").value;
+
+  if (!name || !phone || !address) {
+    alert("সব তথ্য পূরণ করুন");
+    return;
+  }
+
+  const msg =
+    `🛍️ Gadhuli Order\n` +
+    `Name: ${name}\nPhone: ${phone}\nAddress: ${address}`;
+
+  window.open(
+    "https://wa.me/8801333088194?text=" + encodeURIComponent(msg),
+    "_blank"
+  );
+    
 </script>
 
 </body>
