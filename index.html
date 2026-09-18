@@ -1,463 +1,172 @@
-<!DOCTYPE html><html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Gadhuli</title><style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gadhuli</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
 body{
-  margin:0;
-  font-family:Arial;
-  background:#fff7fa;
-  color:#333;
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#fff5f9;
+    color:#222;
 }
+
 header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:14px;
-  background:#fff;
-  box-shadow:0 2px 10px #0002;
-  position:sticky;
-  top:0;
-  z-index:10;
+    background:#fff;
+    padding:12px 16px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 2px 8px #0002;
+    position:sticky;
+    top:0;
+    z-index:20;
 }
+
 .logo{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-weight:700;
-  color:#8f174d;
-  font-size:20px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:24px;
+    font-weight:bold;
+    color:#8f174d;
 }
+
 .logo img{
-  width:42px;
-  height:42px;
-  border-radius:12px;
-  object-fit:cover;
+    width:45px;
+    height:45px;
+    object-fit:contain;
+    border-radius:10px;
 }
+
+.cart-button{
+    background:#8f174d;
+    color:white;
+    border:0;
+    padding:10px 15px;
+    border-radius:8px;
+    font-size:16px;
+    cursor:pointer;
+}
+
 .hero{
-  padding:60px 20px;
-  text-align:center;
-  color:#fff;
-  background:linear-gradient(135deg,#8f174d,#c52b70);
+    background:linear-gradient(135deg,#8f174d,#d72f78);
+    color:white;
+    text-align:center;
+    padding:45px 15px;
 }
-.s{
-  padding:22px;
+
+.hero h1{
+    margin:0 0 10px;
+    font-size:30px;
 }
-.p{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-  gap:12px;
+
+.hero p{
+    margin:0;
 }
-.c{
-  background:#fff;
-  border-radius:12px;
-  box-shadow:0 2px 8px #0002;
-  padding:12px;
-  text-align:center;
+
+.section{
+    max-width:1100px;
+    margin:auto;
+    padding:22px 16px;
 }
-.c img{
-  width:100%;
-  height:150px;
-  object-fit:cover;
-  border-radius:10px;
+
+.search{
+    width:100%;
+    padding:13px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    font-size:16px;
 }
-.b{
-  background:#8f174d;
-  color:#fff;
-  border:0;
-  padding:10px;
-  border-radius:8px;
-  width:100%;
-  cursor:pointer;
+
+.products{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+    margin-top:15px;
 }
-.b:hover{
-  opacity:.9;
+
+.product{
+    background:#fff;
+    padding:14px;
+    text-align:center;
+    border-radius:12px;
+    box-shadow:0 2px 8px #0002;
 }
-input,textarea{
-  width:100%;
-  box-sizing:border-box;
-  padding:10px;
-  margin:8px 0;
-  border:1px solid #ddd;
-  border-radius:8px;
+
+.product-image{
+    width:100%;
+    height:140px;
+    object-fit:cover;
+    border-radius:9px;
 }
+
+.emoji{
+    height:140px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:55px;
+    background:#fbe8f0;
+    border-radius:9px;
+}
+
+.product h3{
+    margin:10px 0 6px;
+}
+
+.price{
+    color:#8f174d;
+    font-size:18px;
+    font-weight:bold;
+    margin-bottom:12px;
+}
+
+.add-button,
+.admin-button{
+    width:100%;
+    background:#8f174d;
+    color:white;
+    border:0;
+    padding:11px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.order,
 .admin{
-  background:#fff;
-  margin:22px;
-  padding:20px;
-  border-radius:14px;
-  box-shadow:0 2px 10px #0002;
-}
-.admin h2{
-  color:#8f174d;
-}
-.admin-product{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  background:#fff7fa;
-  padding:10px;
-  border-radius:10px;
-  margin:8px 0;
-}
-.admin-product img{
-  width:55px;
-  height:55px;
-  object-fit:cover;
-  border-radius:8px;
-}
-.delete{
-  background:#d62828;
-  color:#fff;
-  border:0;
-  padding:8px 10px;
-  border-radius:7px;
-  cursor:pointer;
-  margin-left:auto;
-}
-#cart{
-  display:none;
-  position:fixed;
-  right:0;
-  top:0;
-  width:280px;
-  max-width:85%;
-  height:100%;
-  background:#fff;
-  padding:15px;
-  box-shadow:-2px 0 10px #0003;
-  z-index:20;
-  overflow:auto;
-}
-.cart-close{
-  background:#8f174d;
-  color:#fff;
-  border:0;
-  padding:8px 12px;
-  border-radius:7px;
-}
-.empty{
-  text-align:center;
-  color:#888;
-  padding:20px;
-}
-</style></head><body><header>
-  <div class="logo">
-    <img src="logo.png">
-    <span>Gadhuli</span>
-  </div>  <button class="b" style="width:auto" onclick="v()">
-    🛒 <span id="x">0</span>
-  </button>
-</header><section class="hero">
-  <h1>Gadhuli Official Website</h1>
-  <p>Shop your favorite products</p>
-</section><!-- PRODUCTS --><section class="s">
-  <input id="q" placeholder="🔍 Search products..." oninput="r()">
-  <div class="p" id="l"></div>
-</section><!-- ORDER --><section class="s">
-  <h2 style="color:#8f174d">Place Your Order</h2>  <input id="n" placeholder="Customer Name">
-  <input id="ph" placeholder="Phone Number">
-  <textarea id="a" placeholder="Delivery Address"></textarea><button class="b" onclick="o()">Order Now</button>
-
-</section><!-- ADMIN PANEL --><section class="admin">  <h2>🔐 Admin Panel</h2>  <input id="pi" placeholder="🖼️ Image URL">
-  <input id="pn" placeholder="📝 Product Name">
-  <input id="pp" type="number" placeholder="💰 Product Price">  <button class="b" onclick="addProduct()">
-    ➕ Add Product
-  </button>  <h3>Product Management</h3>  <div id="adminList"></div></section><!-- CART --><div id="cart">  <button class="cart-close" onclick="cart.style.display='none'">
-    ✕ Close
-  </button>  <h2>🛒 Your Cart</h2>  <div id="i"></div>  <hr>  <h3>Total ৳<span id="t">0</span></h3></div><script>
-
-let defaultProducts=[
-  ["👕","T-Shirt",800],
-  ["⌚","Watch",1200],
-  ["👟","Shoes",1500],
-  ["🎒","Bag",950]
-];
-
-let savedProducts=localStorage.getItem("gadhuliProducts");
-
-let d=savedProducts
-  ? JSON.parse(savedProducts)
-  : defaultProducts;
-
-let k=[];
-
-
-/* PRODUCT DISPLAY */
-
-function r(){
-
-  l.innerHTML="";
-
-  let search=q.value.toLowerCase();
-
-  let found=d.filter(z =>
-    z[1].toLowerCase().includes(search)
-  );
-
-  if(found.length===0){
-    l.innerHTML='<div class="empty">No product found</div>';
-    return;
-  }
-
-  found.forEach((z,m)=>{
-
-    let image=z[0];
-
-    if(image.startsWith("http")){
-      l.innerHTML+=`
-      <div class="c">
-        <img src="${image}">
-        <b>${z[1]}</b>
-        <p>৳${z[2]}</p>
-        <button class="b" onclick="A(${m})">Add to Cart</button>
-      </div>`;
-    }else{
-      l.innerHTML+=`
-      <div class="c">
-        <div style="font-size:60px">${z[0]}</div>
-        <b>${z[1]}</b>
-        <p>৳${z[2]}</p>
-        <button class="b" onclick="A(${m})">Add to Cart</button>
-      </div>`;
-    }
-
-  });
+    background:#fff;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 2px 8px #0002;
 }
 
-
-/* ADD TO CART */
-
-function A(m){
-
-  k.push(d[m]);
-
-  u();
-
-  v();
+h2{
+    color:#8f174d;
 }
 
-
-/* UPDATE CART */
-
-function u(){
-
-  x.innerText=k.length;
-
-  i.innerHTML="";
-
-  let s=0;
-
-  if(k.length===0){
-    i.innerHTML='<div class="empty">Cart is empty</div>';
-  }
-
-  k.forEach((z,j)=>{
-
-    s+=Number(z[2]);
-
-    i.innerHTML+=`
-      <div style="padding:8px 0">
-        ${z[0]} ${z[1]} — ৳${z[2]}
-        <button onclick="R(${j})">❌</button>
-      </div>
-    `;
-
-  });
-
-  t.innerText=s;
+input,
+textarea{
+    width:100%;
+    padding:12px;
+    margin:7px 0;
+    border:1px solid #ddd;
+    border-radius:8px;
+    font-size:15px;
 }
 
-
-/* REMOVE CART ITEM */
-
-function R(j){
-
-  k.splice(j,1);
-
-  u();
-}
-
-
-/* OPEN CART */
-
-function v(){
-
-  cart.style.display="block";
-
-}
-
-
-/* ADD PRODUCT */
-
-function addProduct(){
-
-  let image=pi.value.trim();
-  let name=pn.value.trim();
-  let price=pp.value.trim();
-
-  if(!image || !name || !price){
-
-    alert("Image URL, Name এবং Price পূরণ করুন");
-
-    return;
-  }
-
-  d.push([
-    image,
-    name,
-    Number(price)
-  ]);
-
-  saveProducts();
-
-  pi.value="";
-  pn.value="";
-  pp.value="";
-
-  r();
-  adminRender();
-
-  alert("✅ Product added successfully!");
-
-}
-
-
-/* SAVE PRODUCTS */
-
-function saveProducts(){
-
-  localStorage.setItem(
-    "gadhuliProducts",
-    JSON.stringify(d)
-  );
-
-}
-
-
-/* ADMIN PRODUCT LIST */
-
-function adminRender(){
-
-  adminList.innerHTML="";
-
-  if(d.length===0){
-
-    adminList.innerHTML=
-      '<div class="empty">No products</div>';
-
-    return;
-
-  }
-
-  d.forEach((z,index)=>{
-
-    let image=z[0];
-
-    adminList.innerHTML+=`
-
-      <div class="admin-product">
-
-        ${
-          image.startsWith("http")
-          ? `<img src="${image}">`
-          : `<div style="font-size:35px">${image}</div>`
-        }
-
-        <div>
-          <b>${z[1]}</b>
-          <br>
-          ৳${z[2]}
-        </div>
-
-        <button class="delete"
-          onclick="deleteProduct(${index})">
-          🗑️ Delete
-        </button>
-
-      </div>
-
-    `;
-
-  });
-
-}
-
-
-/* DELETE PRODUCT */
-
-function deleteProduct(index){
-
-  if(!confirm("এই product টি delete করতে চান?")){
-
-    return;
-
-  }
-
-  d.splice(index,1);
-
-  saveProducts();
-
-  r();
-
-  adminRender();
-
-}
-
-
-/* WHATSAPP ORDER */
-
-function o(){
-
-  if(!n.value || !ph.value || !a.value){
-
-    alert("সব তথ্য পূরণ করুন");
-
-    return;
-  }
-
-  if(k.length===0){
-
-    alert("Cart-এ অন্তত একটি product যোগ করুন");
-
-    return;
-  }
-
-  let total=k.reduce(
-    (sum,z)=>sum+Number(z[2]),0
-  );
-
-  let items=k.map(
-    z=>z[1]+" - ৳"+z[2]
-  ).join("\n");
-
-  let m=
-`🛍️ Gadhuli Order
-
-👤 Name: ${n.value}
-
-📞 Phone: ${ph.value}
-
-📍 Address: ${a.value}
-
-🛒 Products:
-${items}
-
-💰 Total: ৳${total}`;
-
-  open(
-    "https://wa.me/8801333088194?text="
-    +encodeURIComponent(m)
-  );
-
-}
-
-
-/* START */
-
-r();
-adminRender();
-u();
-
-</script></body>
-</html>
+.whatsapp{
+    width:100%;
+    background:#159447;
+    color:white;
+    border:0;
+    padding:12px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:15
