@@ -481,6 +481,17 @@ oninput="displayProducts()"
 
 <footer>
 © 2026 Gadhuli — All Rights Reserved.
+    <section id="order" style="padding:40px 6%;background:#fff;">
+  <h2 style="color:#8f174d;text-align:center;">Place Your Order</h2>
+
+  <input id="name" placeholder="Full Name" style="width:100%;padding:12px;margin:8px 0;">
+  <input id="phone" placeholder="Phone Number" style="width:100%;padding:12px;margin:8px 0;">
+  <textarea id="address" placeholder="Delivery Address" style="width:100%;padding:12px;margin:8px 0;height:90px;"></textarea>
+
+  <button onclick="placeOrder()" style="width:100%;padding:14px;background:#8f174d;color:#fff;border:0;border-radius:8px;">
+    Order Now
+  </button>
+    </section>
 </footer>
 
 
@@ -729,7 +740,9 @@ cart.length +
 displayProducts();
 
 updateCart();
-
+function placeOrder(){
+  alert("Order received! WhatsApp system next step.");
+}
 </script>
 
 </body>
