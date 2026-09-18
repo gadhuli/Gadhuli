@@ -44,6 +44,7 @@ header{
     border:0;
     padding:10px 15px;
     border-radius:8px;
+    cursor:pointer;
 }
 
 .hero{
@@ -81,6 +82,13 @@ header{
     box-shadow:0 2px 8px #0002;
 }
 
+.product img{
+    width:100%;
+    height:120px;
+    object-fit:cover;
+    border-radius:8px;
+}
+
 .emoji{
     font-size:55px;
 }
@@ -98,6 +106,7 @@ header{
     padding:10px;
     border-radius:7px;
     width:100%;
+    cursor:pointer;
 }
 
 input,textarea{
@@ -128,6 +137,7 @@ h2{
     padding:12px;
     width:100%;
     border-radius:8px;
+    cursor:pointer;
 }
 
 .adminAdd{
@@ -137,11 +147,22 @@ h2{
     padding:12px;
     width:100%;
     border-radius:8px;
+    cursor:pointer;
 }
 
 .adminItem{
     padding:12px 0;
     border-top:1px solid #eee;
+}
+
+.editButton{
+    background:#8f174d;
+    color:white;
+    border:0;
+    padding:7px 12px;
+    border-radius:6px;
+    margin-top:6px;
+    cursor:pointer;
 }
 
 .delete{
@@ -151,6 +172,7 @@ h2{
     padding:7px 12px;
     border-radius:6px;
     margin-top:6px;
+    cursor:pointer;
 }
 
 #cartBox{
@@ -168,12 +190,27 @@ h2{
     box-sizing:border-box;
 }
 
+.closeCart{
+    background:#333;
+    color:white;
+    border:0;
+    padding:7px 12px;
+    border-radius:6px;
+    cursor:pointer;
+}
+
 .remove{
     background:red;
     color:white;
     border:0;
     padding:4px;
     border-radius:5px;
+    cursor:pointer;
+}
+
+.empty{
+    text-align:center;
+    color:#777;
 }
 
 @media(max-width:500px){
@@ -313,7 +350,12 @@ h2{
 
 <div id="cartBox">
 
-    <button onclick="closeCart()">✕</button>
+    <button
+        class="closeCart"
+        onclick="closeCart()"
+    >
+        ✕ Close
+    </button>
 
     <h2>🛒 Your Cart</h2>
 
@@ -328,7 +370,9 @@ h2{
 
 <script>
 
-/* PRODUCTS */
+/* =========================
+   DEFAULT PRODUCTS
+========================= */
 
 let defaultProducts = [
 
@@ -363,7 +407,9 @@ let defaultProducts = [
 ];
 
 
-/* LOAD SAVED PRODUCTS */
+/* =========================
+   LOAD SAVED PRODUCTS
+========================= */
 
 let saved =
     localStorage.getItem("gadhuliProducts");
@@ -372,7 +418,19 @@ let products;
 
 if(saved){
 
-    products = JSON.parse(saved);
+    try{
+
+        products = JSON.parse(saved);
+
+        if(!Array.isArray(products)){
+            products = defaultProducts;
+        }
+
+    }catch(error){
+
+        products = defaultProducts;
+
+    }
 
 }else{
 
@@ -383,12 +441,16 @@ if(saved){
 }
 
 
-/* CART */
+/* =========================
+   CART
+========================= */
 
 let cart = [];
 
 
-/* SHOW PRODUCTS */
+/* =========================
+   SHOW PRODUCTS
+========================= */
 
 function showProducts(){
 
@@ -402,25 +464,38 @@ function showProducts(){
 
     box.innerHTML = "";
 
+    let found = false;
+
 
     products.forEach(function(product,index){
 
         if(
-            product.name
+            String(product.name)
             .toLowerCase()
             .includes(search)
         ){
 
-            let visual =
-                product.image
-                ?
-                '<img src="' +
-                product.image +
-                '" style="width:100%;height:120px;object-fit:cover;border-radius:8px">'
-                :
-                '<div class="emoji">' +
-                product.emoji +
-                '</div>';
+            found = true;
+
+            let visual;
+
+            if(product.image){
+
+                visual =
+                    '<img src="' +
+                    product.image +
+                    '" alt="' +
+                    product.name +
+                    '">';
+
+            }else{
+
+                visual =
+                    '<div class="emoji">' +
+                    (product.emoji || "🛍️") +
+                    '</div>';
+
+            }
 
 
             box.innerHTML +=
@@ -456,10 +531,20 @@ function showProducts(){
 
     });
 
+
+    if(!found){
+
+        box.innerHTML =
+            '<p class="empty">কোনো Product পাওয়া যায়নি 😔</p>';
+
+    }
+
 }
 
 
-/* ADD TO CART */
+/* =========================
+   ADD TO CART
+========================= */
 
 function addCart(index){
 
@@ -475,7 +560,9 @@ function addCart(index){
 }
 
 
-/* UPDATE CART */
+/* =========================
+   UPDATE CART
+========================= */
 
 function updateCart(){
 
@@ -491,6 +578,14 @@ function updateCart(){
     let total = 0;
 
 
+    if(cart.length === 0){
+
+        box.innerHTML =
+            '<p class="empty">Your cart is empty 🛒</p>';
+
+    }
+
+
     cart.forEach(function(item,index){
 
         total += Number(item.price);
@@ -500,7 +595,7 @@ function updateCart(){
 
             '<p>' +
 
-            item.emoji +
+            (item.emoji || "🛍️") +
             ' ' +
             item.name +
             ' - ৳' +
@@ -527,7 +622,9 @@ function updateCart(){
 }
 
 
-/* REMOVE CART */
+/* =========================
+   REMOVE CART
+========================= */
 
 function removeCart(index){
 
@@ -538,7 +635,9 @@ function removeCart(index){
 }
 
 
-/* OPEN CART */
+/* =========================
+   OPEN CART
+========================= */
 
 function openCart(){
 
@@ -548,7 +647,9 @@ function openCart(){
 }
 
 
-/* CLOSE CART */
+/* =========================
+   CLOSE CART
+========================= */
 
 function closeCart(){
 
@@ -558,7 +659,9 @@ function closeCart(){
 }
 
 
-/* WHATSAPP */
+/* =========================
+   WHATSAPP ORDER
+========================= */
 
 function orderWhatsApp(){
 
@@ -666,7 +769,9 @@ function orderWhatsApp(){
 }
 
 
-/* ADD PRODUCT */
+/* =========================
+   ADD PRODUCT
+========================= */
 
 function addProduct(){
 
@@ -692,6 +797,20 @@ function addProduct(){
 
         alert(
             "Product Name এবং Price দিন"
+        );
+
+        return;
+
+    }
+
+
+    if(
+        Number(price) <= 0 ||
+        isNaN(Number(price))
+    ){
+
+        alert(
+            "সঠিক Product Price দিন"
         );
 
         return;
@@ -739,7 +858,9 @@ function addProduct(){
 }
 
 
-/* SAVE */
+/* =========================
+   SAVE PRODUCTS
+========================= */
 
 function saveProducts(){
 
@@ -751,7 +872,9 @@ function saveProducts(){
 }
 
 
-/* ADMIN PRODUCT LIST */
+/* =========================
+   ADMIN PRODUCT LIST
+========================= */
 
 function showAdminProducts(){
 
@@ -759,6 +882,16 @@ function showAdminProducts(){
         document.getElementById("adminProducts");
 
     box.innerHTML = "";
+
+
+    if(products.length === 0){
+
+        box.innerHTML =
+            '<p class="empty">কোনো Product নেই</p>';
+
+        return;
+
+    }
 
 
     products.forEach(function(product,index){
@@ -779,6 +912,16 @@ function showAdminProducts(){
                 '<br>' +
 
                 '<button ' +
+                'class="editButton" ' +
+                'onclick="editProduct(' +
+                index +
+                ')">' +
+
+                '✏️ Edit Product' +
+
+                '</button> ' +
+
+                '<button ' +
                 'class="delete" ' +
                 'onclick="deleteProduct(' +
                 index +
@@ -795,7 +938,98 @@ function showAdminProducts(){
 }
 
 
-/* DELETE */
+/* =========================
+   EDIT PRODUCT
+========================= */
+
+function editProduct(index){
+
+    let name = prompt(
+        "Product Name:",
+        products[index].name
+    );
+
+
+    if(name === null){
+
+        return;
+
+    }
+
+
+    let price = prompt(
+        "Product Price:",
+        products[index].price
+    );
+
+
+    if(price === null){
+
+        return;
+
+    }
+
+
+    let image = prompt(
+        "Image URL:",
+        products[index].image || ""
+    );
+
+
+    if(image === null){
+
+        return;
+
+    }
+
+
+    name = name.trim();
+
+    price = price.trim();
+
+    image = image.trim();
+
+
+    if(
+        name === "" ||
+        price === "" ||
+        isNaN(Number(price)) ||
+        Number(price) <= 0
+    ){
+
+        alert(
+            "সঠিক Name এবং Price দিন"
+        );
+
+        return;
+
+    }
+
+
+    products[index].name = name;
+
+    products[index].price = Number(price);
+
+    products[index].image = image;
+
+
+    saveProducts();
+
+    showProducts();
+
+    showAdminProducts();
+
+
+    alert(
+        "Product Updated Successfully ✅"
+    );
+
+}
+
+
+/* =========================
+   DELETE PRODUCT
+========================= */
 
 function deleteProduct(index){
 
@@ -828,7 +1062,9 @@ function deleteProduct(index){
 }
 
 
-/* START */
+/* =========================
+   START
+========================= */
 
 showProducts();
 
