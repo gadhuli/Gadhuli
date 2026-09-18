@@ -741,7 +741,17 @@ displayProducts();
 
 updateCart();
 function placeOrder(){
-  alert("Order received! WhatsApp system next step.");
+  function placeOrder(){
+  let name=document.getElementById("name").value;
+  let phone=document.getElementById("phone").value;
+  let address=document.getElementById("address").value;
+
+  let msg="🛍️ Gadhuli Order%0A"
+  +"Name: "+name+"%0A"
+  +"Phone: "+phone+"%0A"
+  +"Address: "+address;
+
+  window.open("https://wa.me/8801333088194?text="+msg,"_blank");
 }
 </script>
 
