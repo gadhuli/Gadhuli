@@ -3,12 +3,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Gadhuli</title><style>
+*{box-sizing:border-box}
+
 body{
   margin:0;
-  font-family:Arial;
+  font-family:Arial,sans-serif;
   background:#fff7fa;
   color:#333;
 }
+
 header{
   display:flex;
   justify-content:space-between;
@@ -20,6 +23,7 @@ header{
   top:0;
   z-index:10;
 }
+
 .logo{
   display:flex;
   align-items:center;
@@ -28,39 +32,59 @@ header{
   color:#8f174d;
   font-size:20px;
 }
+
 .logo img{
   width:42px;
   height:42px;
   border-radius:12px;
   object-fit:cover;
 }
+
 .hero{
   padding:60px 20px;
   text-align:center;
   color:#fff;
   background:linear-gradient(135deg,#8f174d,#c52b70);
 }
+
+.hero h1{
+  margin:0 0 8px;
+}
+
 .s{
   padding:22px;
 }
+
 .p{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
   gap:12px;
 }
+
 .c{
   background:#fff;
   border-radius:12px;
   box-shadow:0 2px 8px #0002;
   padding:12px;
   text-align:center;
+  overflow:hidden;
 }
+
 .c img{
   width:100%;
   height:150px;
   object-fit:cover;
   border-radius:10px;
 }
+
+.product-emoji{
+  height:150px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:60px;
+}
+
 .b{
   background:#8f174d;
   color:#fff;
@@ -69,18 +93,27 @@ header{
   border-radius:8px;
   width:100%;
   cursor:pointer;
+  font-weight:600;
 }
+
 .b:hover{
   opacity:.9;
 }
+
 input,textarea{
   width:100%;
-  box-sizing:border-box;
-  padding:10px;
+  padding:11px;
   margin:8px 0;
   border:1px solid #ddd;
   border-radius:8px;
+  font-size:15px;
 }
+
+textarea{
+  min-height:90px;
+  resize:vertical;
+}
+
 .admin{
   background:#fff;
   margin:22px;
@@ -88,9 +121,12 @@ input,textarea{
   border-radius:14px;
   box-shadow:0 2px 10px #0002;
 }
+
 .admin h2{
   color:#8f174d;
+  margin-top:0;
 }
+
 .admin-product{
   display:flex;
   align-items:center;
@@ -100,12 +136,40 @@ input,textarea{
   border-radius:10px;
   margin:8px 0;
 }
+
 .admin-product img{
-  width:55px;
-  height:55px;
+  width:60px;
+  height:60px;
   object-fit:cover;
   border-radius:8px;
 }
+
+.admin-info{
+  flex:1;
+  min-width:0;
+}
+
+.admin-info b{
+  display:block;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.admin-actions{
+  display:flex;
+  gap:6px;
+}
+
+.edit{
+  background:#8f174d;
+  color:#fff;
+  border:0;
+  padding:8px 10px;
+  border-radius:7px;
+  cursor:pointer;
+}
+
 .delete{
   background:#d62828;
   color:#fff;
@@ -113,15 +177,27 @@ input,textarea{
   padding:8px 10px;
   border-radius:7px;
   cursor:pointer;
-  margin-left:auto;
 }
+
+.cancel{
+  background:#777;
+  color:#fff;
+  border:0;
+  padding:10px;
+  border-radius:8px;
+  width:100%;
+  cursor:pointer;
+  margin-top:6px;
+  display:none;
+}
+
 #cart{
   display:none;
   position:fixed;
   right:0;
   top:0;
-  width:280px;
-  max-width:85%;
+  width:300px;
+  max-width:88%;
   height:100%;
   background:#fff;
   padding:15px;
@@ -129,6 +205,7 @@ input,textarea{
   z-index:20;
   overflow:auto;
 }
+
 .cart-close{
   background:#8f174d;
   color:#fff;
@@ -136,243 +213,195 @@ input,textarea{
   padding:8px 12px;
   border-radius:7px;
 }
+
+.cart-item{
+  padding:9px 0;
+  border-bottom:1px solid #eee;
+}
+
+.cart-item button{
+  border:0;
+  background:none;
+  cursor:pointer;
+}
+
 .empty{
   text-align:center;
   color:#888;
   padding:20px;
 }
-</style></head><body><header>
-  <div class="logo">
-    <img src="logo.png">
+
+.editing{
+  border:2px solid #8f174d;
+  background:#fff0f6;
+}
+</style></head><body><header>  <div class="logo">
+    <img src="logo.png" alt="Gadhuli Logo">
     <span>Gadhuli</span>
   </div>  <button class="b" style="width:auto" onclick="v()">
     🛒 <span id="x">0</span>
-  </button>
-</header><section class="hero">
-  <h1>Gadhuli Official Website</h1>
-  <p>Shop your favorite products</p>
-</section><!-- PRODUCTS --><section class="s">
-  <input id="q" placeholder="🔍 Search products..." oninput="r()">
-  <div class="p" id="l"></div>
-</section><!-- ORDER --><section class="s">
-  <h2 style="color:#8f174d">Place Your Order</h2>  <input id="n" placeholder="Customer Name">
-  <input id="ph" placeholder="Phone Number">
-  <textarea id="a" placeholder="Delivery Address"></textarea><button class="b" onclick="o()">Order Now</button>
+  </button></header><section class="hero">  <h1>Gadhuli Official Website</h1>
+  <p>Shop your favorite products</p></section><!-- PRODUCT SEARCH --><section class="s"><input
+id="q"
+placeholder="🔍 Search products..."
+oninput="r()"
 
-</section><!-- ADMIN PANEL --><section class="admin">  <h2>🔐 Admin Panel</h2>  <input id="pi" placeholder="🖼️ Image URL">
-  <input id="pn" placeholder="📝 Product Name">
-  <input id="pp" type="number" placeholder="💰 Product Price">  <button class="b" onclick="addProduct()">
-    ➕ Add Product
-  </button>  <h3>Product Management</h3>  <div id="adminList"></div></section><!-- CART --><div id="cart">  <button class="cart-close" onclick="cart.style.display='none'">
-    ✕ Close
-  </button>  <h2>🛒 Your Cart</h2>  <div id="i"></div>  <hr>  <h3>Total ৳<span id="t">0</span></h3></div><script>
+«»
 
-let defaultProducts=[
+  <div class="p" id="l"></div></section><!-- ORDER FORM --><section class="s">  <h2 style="color:#8f174d">
+    Place Your Order
+  </h2><input
+id="n"
+placeholder="Customer Name"
+
+«»
+
+<input
+id="ph"
+placeholder="Phone Number"
+type="tel"
+
+«»
+
+  <textarea
+    id="a"
+    placeholder="Delivery Address"
+  ></textarea>  <button class="b" onclick="o()">
+    Order Now
+  </button></section><!-- ADMIN PANEL --><section class="admin">  <h2>🔐 Admin Panel</h2><input
+id="pi"
+placeholder="🖼️ Image URL"
+
+«»
+
+<input
+id="pn"
+placeholder="📝 Product Name"
+
+«»
+
+<input
+id="pp"
+type="number"
+placeholder="💰 Product Price"
+
+«»
+
+<button
+class="b"
+id="saveBtn"
+onclick="saveProduct()"
+
+«»
+
+➕ Add Product
+
+  </button><button
+class="cancel"
+id="cancelBtn"
+onclick="cancelEdit()"
+
+«»
+
+Cancel Edit
+
+  </button>  <h3>
+    📦 Product Management
+  </h3>  <div id="adminList"></div></section><!-- CART --><div id="cart"><button
+class="cart-close"
+onclick="closeCart()"
+
+«»
+
+✕ Close
+
+  </button>  <h2>🛒 Your Cart</h2>  <div id="i"></div>  <hr>  <h3>
+    Total ৳<span id="t">0</span>
+  </h3></div><script>
+
+/* =========================
+   PRODUCT DATA
+========================= */
+
+const defaultProducts = [
   ["👕","T-Shirt",800],
   ["⌚","Watch",1200],
   ["👟","Shoes",1500],
   ["🎒","Bag",950]
 ];
 
-let savedProducts=localStorage.getItem("gadhuliProducts");
+let savedProducts =
+  localStorage.getItem("gadhuliProducts");
 
-let d=savedProducts
+let d = savedProducts
   ? JSON.parse(savedProducts)
   : defaultProducts;
 
-let k=[];
+let k = [];
+
+let editingIndex = -1;
 
 
-/* PRODUCT DISPLAY */
+/* =========================
+   PRODUCT DISPLAY
+========================= */
 
 function r(){
 
-  l.innerHTML="";
+  l.innerHTML = "";
 
-  let search=q.value.toLowerCase();
+  let search =
+    q.value.toLowerCase().trim();
 
-  let found=d.filter(z =>
-    z[1].toLowerCase().includes(search)
-  );
+  let found = d
+    .map((product,index)=>({
+      product,
+      index
+    }))
+    .filter(item =>
+      item.product[1]
+        .toLowerCase()
+        .includes(search)
+    );
 
-  if(found.length===0){
-    l.innerHTML='<div class="empty">No product found</div>';
+  if(found.length === 0){
+
+    l.innerHTML =
+      '<div class="empty">No product found</div>';
+
     return;
   }
 
-  found.forEach((z,m)=>{
+  found.forEach(item=>{
 
-    let image=z[0];
+    let z = item.product;
+    let index = item.index;
 
-    if(image.startsWith("http")){
-      l.innerHTML+=`
+    let image = z[0];
+
+    let visual = image.startsWith("http")
+      ? `<img src="${escapeHtml(image)}"
+              alt="${escapeHtml(z[1])}"
+              onerror="this.style.display='none'">`
+      : `<div class="product-emoji">${escapeHtml(image)}</div>`;
+
+    l.innerHTML += `
+
       <div class="c">
-        <img src="${image}">
-        <b>${z[1]}</b>
-        <p>৳${z[2]}</p>
-        <button class="b" onclick="A(${m})">Add to Cart</button>
-      </div>`;
-    }else{
-      l.innerHTML+=`
-      <div class="c">
-        <div style="font-size:60px">${z[0]}</div>
-        <b>${z[1]}</b>
-        <p>৳${z[2]}</p>
-        <button class="b" onclick="A(${m})">Add to Cart</button>
-      </div>`;
-    }
 
-  });
-}
+        ${visual}
 
+        <h3>${escapeHtml(z[1])}</h3>
 
-/* ADD TO CART */
+        <p>
+          <b>৳${Number(z[2]).toLocaleString()}</b>
+        </p>
 
-function A(m){
-
-  k.push(d[m]);
-
-  u();
-
-  v();
-}
-
-
-/* UPDATE CART */
-
-function u(){
-
-  x.innerText=k.length;
-
-  i.innerHTML="";
-
-  let s=0;
-
-  if(k.length===0){
-    i.innerHTML='<div class="empty">Cart is empty</div>';
-  }
-
-  k.forEach((z,j)=>{
-
-    s+=Number(z[2]);
-
-    i.innerHTML+=`
-      <div style="padding:8px 0">
-        ${z[0]} ${z[1]} — ৳${z[2]}
-        <button onclick="R(${j})">❌</button>
-      </div>
-    `;
-
-  });
-
-  t.innerText=s;
-}
-
-
-/* REMOVE CART ITEM */
-
-function R(j){
-
-  k.splice(j,1);
-
-  u();
-}
-
-
-/* OPEN CART */
-
-function v(){
-
-  cart.style.display="block";
-
-}
-
-
-/* ADD PRODUCT */
-
-function addProduct(){
-
-  let image=pi.value.trim();
-  let name=pn.value.trim();
-  let price=pp.value.trim();
-
-  if(!image || !name || !price){
-
-    alert("Image URL, Name এবং Price পূরণ করুন");
-
-    return;
-  }
-
-  d.push([
-    image,
-    name,
-    Number(price)
-  ]);
-
-  saveProducts();
-
-  pi.value="";
-  pn.value="";
-  pp.value="";
-
-  r();
-  adminRender();
-
-  alert("✅ Product added successfully!");
-
-}
-
-
-/* SAVE PRODUCTS */
-
-function saveProducts(){
-
-  localStorage.setItem(
-    "gadhuliProducts",
-    JSON.stringify(d)
-  );
-
-}
-
-
-/* ADMIN PRODUCT LIST */
-
-function adminRender(){
-
-  adminList.innerHTML="";
-
-  if(d.length===0){
-
-    adminList.innerHTML=
-      '<div class="empty">No products</div>';
-
-    return;
-
-  }
-
-  d.forEach((z,index)=>{
-
-    let image=z[0];
-
-    adminList.innerHTML+=`
-
-      <div class="admin-product">
-
-        ${
-          image.startsWith("http")
-          ? `<img src="${image}">`
-          : `<div style="font-size:35px">${image}</div>`
-        }
-
-        <div>
-          <b>${z[1]}</b>
-          <br>
-          ৳${z[2]}
-        </div>
-
-        <button class="delete"
-          onclick="deleteProduct(${index})">
-          🗑️ Delete
+        <button
+          class="b"
+          onclick="A(${index})"
+        >
+          🛒 Add to Cart
         </button>
 
       </div>
@@ -384,17 +413,175 @@ function adminRender(){
 }
 
 
-/* DELETE PRODUCT */
+/* =========================
+   ADD TO CART
+========================= */
 
-function deleteProduct(index){
+function A(index){
 
-  if(!confirm("এই product টি delete করতে চান?")){
+  if(!d[index]) return;
 
-    return;
+  k.push(d[index]);
+
+  u();
+
+  v();
+
+}
+
+
+/* =========================
+   UPDATE CART
+========================= */
+
+function u(){
+
+  x.innerText = k.length;
+
+  i.innerHTML = "";
+
+  let total = 0;
+
+  if(k.length === 0){
+
+    i.innerHTML =
+      '<div class="empty">Cart is empty</div>';
 
   }
 
-  d.splice(index,1);
+  k.forEach((z,j)=>{
+
+    total += Number(z[2]);
+
+    i.innerHTML += `
+
+      <div class="cart-item">
+
+        ${escapeHtml(z[0])}
+        <b>${escapeHtml(z[1])}</b>
+        — ৳${Number(z[2]).toLocaleString()}
+
+        <button
+          onclick="R(${j})"
+          title="Remove"
+        >
+          ❌
+        </button>
+
+      </div>
+
+    `;
+
+  });
+
+  t.innerText =
+    total.toLocaleString();
+
+}
+
+
+/* =========================
+   REMOVE CART ITEM
+========================= */
+
+function R(index){
+
+  k.splice(index,1);
+
+  u();
+
+}
+
+
+/* =========================
+   CART OPEN/CLOSE
+========================= */
+
+function v(){
+
+  cart.style.display = "block";
+
+}
+
+function closeCart(){
+
+  cart.style.display = "none";
+
+}
+
+
+/* =========================
+   SAVE PRODUCT / UPDATE
+========================= */
+
+function saveProduct(){
+
+  let image =
+    pi.value.trim();
+
+  let name =
+    pn.value.trim();
+
+  let price =
+    pp.value.trim();
+
+
+  if(!image || !name || !price){
+
+    alert(
+      "Image URL, Product Name এবং Price পূরণ করুন"
+    );
+
+    return;
+  }
+
+
+  if(Number(price) < 0){
+
+    alert("Price সঠিকভাবে দিন");
+
+    return;
+  }
+
+
+  /* EDIT */
+
+  if(editingIndex !== -1){
+
+    d[editingIndex] = [
+      image,
+      name,
+      Number(price)
+    ];
+
+    alert(
+      "✅ Product updated successfully!"
+    );
+
+    cancelEdit();
+
+  }
+
+  /* ADD */
+
+  else{
+
+    d.push([
+      image,
+      name,
+      Number(price)
+    ]);
+
+    pi.value = "";
+    pn.value = "";
+    pp.value = "";
+
+    alert(
+      "✅ Product added successfully!"
+    );
+
+  }
+
 
   saveProducts();
 
@@ -405,58 +592,300 @@ function deleteProduct(index){
 }
 
 
-/* WHATSAPP ORDER */
+/* =========================
+   START EDIT
+========================= */
+
+function editProduct(index){
+
+  if(!d[index]) return;
+
+  editingIndex = index;
+
+  pi.value = d[index][0];
+  pn.value = d[index][1];
+  pp.value = d[index][2];
+
+  saveBtn.innerText =
+    "💾 Update Product";
+
+  cancelBtn.style.display =
+    "block";
+
+  document
+    .querySelector(".admin")
+    .classList.add("editing");
+
+  window.scrollTo({
+    top:
+      document.querySelector(".admin")
+      .offsetTop - 20,
+    behavior:"smooth"
+  });
+
+}
+
+
+/* =========================
+   CANCEL EDIT
+========================= */
+
+function cancelEdit(){
+
+  editingIndex = -1;
+
+  pi.value = "";
+  pn.value = "";
+  pp.value = "";
+
+  saveBtn.innerText =
+    "➕ Add Product";
+
+  cancelBtn.style.display =
+    "none";
+
+  document
+    .querySelector(".admin")
+    .classList.remove("editing");
+
+}
+
+
+/* =========================
+   SAVE TO BROWSER
+========================= */
+
+function saveProducts(){
+
+  localStorage.setItem(
+    "gadhuliProducts",
+    JSON.stringify(d)
+  );
+
+}
+
+
+/* =========================
+   ADMIN PRODUCT LIST
+========================= */
+
+function adminRender(){
+
+  adminList.innerHTML = "";
+
+  if(d.length === 0){
+
+    adminList.innerHTML =
+      '<div class="empty">No products</div>';
+
+    return;
+  }
+
+
+  d.forEach((z,index)=>{
+
+    let image = z[0];
+
+    let visual =
+      image.startsWith("http")
+      ? `<img src="${escapeHtml(image)}"
+              alt="${escapeHtml(z[1])}">`
+      : `<div style="width:60px;
+                    height:60px;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    font-size:35px">
+            ${escapeHtml(image)}
+         </div>`;
+
+
+    adminList.innerHTML += `
+
+      <div class="admin-product">
+
+        ${visual}
+
+        <div class="admin-info">
+
+          <b>
+            ${escapeHtml(z[1])}
+          </b>
+
+          <span>
+            ৳${Number(z[2]).toLocaleString()}
+          </span>
+
+        </div>
+
+
+        <div class="admin-actions">
+
+          <button
+            class="edit"
+            onclick="editProduct(${index})"
+          >
+            ✏️
+          </button>
+
+          <button
+            class="delete"
+            onclick="deleteProduct(${index})"
+          >
+            🗑️
+          </button>
+
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+}
+
+
+/* =========================
+   DELETE PRODUCT
+========================= */
+
+function deleteProduct(index){
+
+  if(!d[index]) return;
+
+
+  let confirmed =
+    confirm(
+      `"${d[index][1]}" delete করতে চান?`
+    );
+
+
+  if(!confirmed) return;
+
+
+  d.splice(index,1);
+
+  saveProducts();
+
+  if(editingIndex === index){
+
+    cancelEdit();
+
+  }
+  else if(editingIndex > index){
+
+    editingIndex--;
+
+  }
+
+
+  r();
+
+  adminRender();
+
+}
+
+
+/* =========================
+   WHATSAPP ORDER
+========================= */
 
 function o(){
 
-  if(!n.value || !ph.value || !a.value){
+  let name =
+    n.value.trim();
 
-    alert("সব তথ্য পূরণ করুন");
+  let phone =
+    ph.value.trim();
+
+  let address =
+    a.value.trim();
+
+
+  if(!name || !phone || !address){
+
+    alert(
+      "সব customer information পূরণ করুন"
+    );
 
     return;
   }
 
-  if(k.length===0){
 
-    alert("Cart-এ অন্তত একটি product যোগ করুন");
+  if(k.length === 0){
+
+    alert(
+      "Cart-এ অন্তত একটি product যোগ করুন"
+    );
 
     return;
   }
 
-  let total=k.reduce(
-    (sum,z)=>sum+Number(z[2]),0
-  );
 
-  let items=k.map(
-    z=>z[1]+" - ৳"+z[2]
-  ).join("\n");
+  let total =
+    k.reduce(
+      (sum,z)=>
+        sum + Number(z[2]),
+      0
+    );
 
-  let m=
+
+  let items =
+    k.map(
+      (z,index)=>
+        `${index+1}. ${z[1]} - ৳${z[2]}`
+    ).join("\n");
+
+
+  let message =
 `🛍️ Gadhuli Order
 
-👤 Name: ${n.value}
+👤 Name: ${name}
 
-📞 Phone: ${ph.value}
+📞 Phone: ${phone}
 
-📍 Address: ${a.value}
+📍 Address: ${address}
 
 🛒 Products:
 ${items}
 
 💰 Total: ৳${total}`;
 
-  open(
+
+  window.open(
     "https://wa.me/8801333088194?text="
-    +encodeURIComponent(m)
+    + encodeURIComponent(message),
+    "_blank"
   );
 
 }
 
 
-/* START */
+/* =========================
+   BASIC HTML SAFETY
+========================= */
+
+function escapeHtml(value){
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================
+   START WEBSITE
+========================= */
 
 r();
+
 adminRender();
+
 u();
 
 </script></body>
