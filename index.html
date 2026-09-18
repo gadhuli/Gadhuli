@@ -1,8 +1,12 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Gadhuli</title><style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Gadhuli</title>
+
+<style>
 *{
   box-sizing:border-box;
 }
@@ -10,20 +14,20 @@
 body{
   margin:0;
   font-family:Arial,sans-serif;
-  background:#fff7fa;
-  color:#333;
+  background:#fff5f9;
+  color:#222;
 }
 
 header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:12px 15px;
   background:white;
-  box-shadow:0 2px 10px #0002;
+  padding:12px 18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  box-shadow:0 2px 10px rgba(0,0,0,.12);
   position:sticky;
   top:0;
-  z-index:100;
+  z-index:10;
 }
 
 .logo{
@@ -31,37 +35,37 @@ header{
   align-items:center;
   gap:10px;
   color:#8f174d;
-  font-size:21px;
+  font-size:22px;
   font-weight:bold;
 }
 
 .logo img{
-  width:42px;
-  height:42px;
-  border-radius:10px;
+  width:45px;
+  height:45px;
   object-fit:cover;
+  border-radius:10px;
 }
 
-.cart-button{
+.cartBtn{
   background:#8f174d;
   color:white;
-  border:0;
-  padding:10px 15px;
-  border-radius:9px;
+  border:none;
+  padding:11px 16px;
+  border-radius:10px;
   font-size:16px;
   cursor:pointer;
 }
 
 .hero{
-  padding:55px 20px;
-  text-align:center;
+  background:linear-gradient(135deg,#8f174d,#d72f78);
   color:white;
-  background:linear-gradient(135deg,#8f174d,#c52b70);
+  text-align:center;
+  padding:45px 20px;
 }
 
 .hero h1{
-  margin:0 0 8px;
-  font-size:30px;
+  margin:0 0 10px;
+  font-size:32px;
 }
 
 .hero p{
@@ -69,85 +73,86 @@ header{
 }
 
 .section{
-  padding:20px;
+  padding:25px 18px;
+  max-width:1100px;
+  margin:auto;
 }
 
 .search{
   width:100%;
-  padding:13px;
+  padding:14px;
   border:1px solid #ddd;
-  border-radius:9px;
+  border-radius:10px;
   font-size:16px;
-  margin-bottom:18px;
+  margin-bottom:20px;
 }
 
 .products{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-  gap:14px;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:15px;
 }
 
 .product{
   background:white;
-  border-radius:13px;
-  padding:12px;
+  padding:15px;
+  border-radius:14px;
+  box-shadow:0 2px 10px rgba(0,0,0,.1);
   text-align:center;
-  box-shadow:0 2px 8px #0002;
 }
 
 .product img{
   width:100%;
-  height:160px;
+  height:150px;
   object-fit:cover;
   border-radius:10px;
+  background:#f7e1eb;
 }
 
-.emoji{
-  width:100%;
-  height:160px;
+.product .emoji{
+  height:150px;
   display:flex;
   justify-content:center;
   align-items:center;
   font-size:65px;
+  background:#fbe8f0;
+  border-radius:10px;
 }
 
 .product h3{
-  margin:10px 0 5px;
+  margin:12px 0 5px;
 }
 
 .price{
-  font-weight:bold;
-  font-size:18px;
   color:#8f174d;
-  margin:8px 0 12px;
+  font-size:19px;
+  font-weight:bold;
+  margin:7px 0 12px;
 }
 
-.add{
+.btn{
   width:100%;
-  padding:10px;
+  padding:11px;
   border:0;
   border-radius:8px;
   background:#8f174d;
   color:white;
   cursor:pointer;
-  font-weight:bold;
+  font-size:15px;
 }
 
-.order-box{
+.admin{
   background:white;
   padding:20px;
-  border-radius:13px;
-  box-shadow:0 2px 8px #0002;
+  border-radius:14px;
+  box-shadow:0 2px 10px rgba(0,0,0,.1);
 }
 
-.order-box h2{
+.admin h2{
   color:#8f174d;
-  margin-top:0;
 }
 
-.order-box input,
-.order-box textarea,
-.admin input{
+input,textarea{
   width:100%;
   padding:12px;
   margin:7px 0;
@@ -156,969 +161,177 @@ header{
   font-size:15px;
 }
 
-.order-box textarea{
-  min-height:90px;
-  resize:vertical;
-}
-
-.order-btn{
-  width:100%;
-  padding:12px;
-  border:0;
-  border-radius:8px;
-  background:#8f174d;
-  color:white;
-  font-size:16px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-/* ADMIN */
-
-.admin{
-  margin:20px;
-  padding:20px;
-  background:white;
-  border-radius:13px;
-  box-shadow:0 2px 10px #0002;
-}
-
-.admin h2{
-  color:#8f174d;
-  margin-top:0;
-}
-
-.admin button{
-  cursor:pointer;
-}
-
-.admin-save{
-  width:100%;
-  padding:12px;
-  border:0;
-  border-radius:8px;
-  background:#8f174d;
-  color:white;
-  font-weight:bold;
-}
-
-.cancel{
-  width:100%;
-  padding:10px;
-  border:0;
-  border-radius:8px;
-  background:#777;
-  color:white;
-  margin-top:7px;
-  display:none;
-}
-
-.admin-product{
+.adminProduct{
+  border-top:1px solid #eee;
+  padding:12px 0;
   display:flex;
+  justify-content:space-between;
   align-items:center;
   gap:10px;
-  padding:10px;
-  margin-top:10px;
-  background:#fff7fa;
-  border-radius:10px;
 }
 
-.admin-product img{
-  width:60px;
-  height:60px;
-  object-fit:cover;
-  border-radius:8px;
-}
-
-.admin-info{
-  flex:1;
-}
-
-.admin-info b{
-  display:block;
-  margin-bottom:5px;
+.smallBtn{
+  padding:7px 10px;
+  border:0;
+  border-radius:6px;
+  cursor:pointer;
 }
 
 .edit{
-  background:#8f174d;
-  color:white;
-  border:0;
-  padding:8px;
-  border-radius:7px;
+  background:#eee;
 }
 
 .delete{
-  background:#d62828;
+  background:#d7194b;
   color:white;
-  border:0;
-  padding:8px;
-  border-radius:7px;
 }
 
-/* CART */
+.order{
+  background:white;
+  padding:20px;
+  border-radius:14px;
+  box-shadow:0 2px 10px rgba(0,0,0,.1);
+}
 
-#cart{
+.order h2{
+  color:#8f174d;
+}
+
+.whatsapp{
+  background:#159447;
+  margin-top:10px;
+}
+
+.cart{
   display:none;
   position:fixed;
   right:0;
   top:0;
-  width:310px;
+  width:330px;
   max-width:90%;
   height:100%;
   background:white;
-  z-index:500;
-  padding:18px;
-  box-shadow:-3px 0 15px #0003;
+  z-index:100;
+  padding:20px;
+  box-shadow:-4px 0 15px rgba(0,0,0,.25);
   overflow-y:auto;
 }
 
+.cartHeader{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
 .close{
-  background:#8f174d;
-  color:white;
+  background:#eee;
   border:0;
   padding:8px 12px;
   border-radius:7px;
+  cursor:pointer;
 }
 
-.cart-item{
+.cartItem{
   padding:12px 0;
   border-bottom:1px solid #eee;
 }
 
-.remove-cart{
-  float:right;
+.remove{
+  background:#d7194b;
+  color:white;
   border:0;
-  background:none;
-  cursor:pointer;
+  padding:5px 8px;
+  border-radius:5px;
+  float:right;
 }
 
 .total{
   font-size:20px;
   font-weight:bold;
   color:#8f174d;
+  margin:18px 0;
 }
 
 .empty{
   text-align:center;
-  color:#888;
+  color:#777;
   padding:20px;
 }
 
-</style></head><body><!-- HEADER --><header>  <div class="logo"><img src="logo.png" alt="Gadhuli">
+footer{
+  margin-top:30px;
+  background:#8f174d;
+  color:white;
+  text-align:center;
+  padding:20px;
+}
 
-<span>Gadhuli</span>
-
-  </div>  <button class="cart-button" onclick="openCart()">🛒 Cart (<span id="cartCount">0</span>)
-
-  </button></header><!-- HERO --><section class="hero">  <h1>Gadhuli Official Website</h1>  <p>Shop your favorite products</p></section><!-- PRODUCTS --><section class="section"><input
-class="search"
-id="search"
-type="text"
-placeholder="🔍 Search products..."
-oninput="showProducts()"
-
-«»
-
-  <div class="products" id="products"></div></section><!-- PLACE ORDER --><section class="section">  <div class="order-box"><h2>🛍️ Place Your Order</h2>
-
-<input
-  id="customerName"
-  type="text"
-  placeholder="Customer Name"
->
-
-<input
-  id="customerPhone"
-  type="tel"
-  placeholder="Phone Number"
->
-
-<textarea
-  id="customerAddress"
-  placeholder="Delivery Address"
-></textarea>
-
-<button class="order-btn" onclick="placeOrder()">
-
-  📱 Order via WhatsApp
-
-</button>
-
-  </div></section><!-- ADMIN PANEL --><section class="admin">  <h2>🔐 Admin Panel</h2><input
-id="imageUrl"
-type="text"
-placeholder="🖼️ Product Image URL"
-
-«»
-
-<input
-id="productName"
-type="text"
-placeholder="📝 Product Name"
-
-«»
-
-<input
-id="productPrice"
-type="number"
-placeholder="💰 Product Price"
-
-«»
-
-<button
-class="admin-save"
-id="saveButton"
-onclick="saveProduct()"
-
-«»
-
-➕ Add Product
-
-  </button><button
-class="cancel"
-id="cancelButton"
-onclick="cancelEdit()"
-
-«»
-
-Cancel Edit
-
-  </button>  <h3>📦 Product Management</h3>  <div id="adminProducts"></div></section><!-- CART --><div id="cart">  <button class="close" onclick="closeCart()">✕ Close
-
-  </button>  <h2>🛒 Your Cart</h2>  <div id="cartItems"></div>  <hr>  <div class="total">Total: ৳<span id="cartTotal">0</span>
-
-  </div></div><script>
-
-/* =====================================
-   DEFAULT PRODUCTS
-===================================== */
-
-const defaultProducts = [
-
-  {
-    image:"👕",
-    name:"T-Shirt",
-    price:800
-  },
-
-  {
-    image:"⌚",
-    name:"Watch",
-    price:1200
-  },
-
-  {
-    image:"👟",
-    name:"Shoes",
-    price:1500
-  },
-
-  {
-    image:"🎒",
-    name:"Bag",
-    price:950
+@media(max-width:500px){
+  .hero h1{
+    font-size:25px;
   }
 
-];
-
-
-/* =====================================
-   LOAD PRODUCTS FROM BROWSER
-===================================== */
-
-let saved =
-  localStorage.getItem("gadhuliProducts");
-
-let products =
-  saved
-  ? JSON.parse(saved)
-  : defaultProducts;
-
-
-/* =====================================
-   CART
-===================================== */
-
-let cartItems = [];
-
-
-/* =====================================
-   EDIT MODE
-===================================== */
-
-let editIndex = -1;
-
-
-/* =====================================
-   SAVE PRODUCTS
-===================================== */
-
-function saveToBrowser(){
-
-  localStorage.setItem(
-    "gadhuliProducts",
-    JSON.stringify(products)
-  );
-
-}
-
-
-/* =====================================
-   SHOW PRODUCTS
-===================================== */
-
-function showProducts(){
-
-  const container =
-    document.getElementById("products");
-
-  const search =
-    document
-      .getElementById("search")
-      .value
-      .toLowerCase()
-      .trim();
-
-  container.innerHTML = "";
-
-
-  const filtered =
-    products.filter(product =>
-      product.name
-        .toLowerCase()
-        .includes(search)
-    );
-
-
-  if(filtered.length === 0){
-
-    container.innerHTML =
-      '<div class="empty">No product found</div>';
-
-    return;
-
+  .products{
+    grid-template-columns:repeat(2,1fr);
   }
 
-
-  filtered.forEach(product => {
-
-    const realIndex =
-      products.indexOf(product);
-
-    let imageHTML = "";
-
-
-    if(
-      product.image.startsWith("http://") ||
-      product.image.startsWith("https://")
-    ){
-
-      imageHTML =
-        `<img
-          src="${product.image}"
-          alt="${product.name}"
-        >`;
-
-    }else{
-
-      imageHTML =
-        `<div class="emoji">
-          ${product.image}
-        </div>`;
-
-    }
-
-
-    container.innerHTML += `
-
-      <div class="product">
-
-        ${imageHTML}
-
-        <h3>${product.name}</h3>
-
-        <div class="price">
-          ৳${Number(product.price).toLocaleString()}
-        </div>
-
-        <button
-          class="add"
-          onclick="addToCart(${realIndex})"
-        >
-
-          🛒 Add to Cart
-
-        </button>
-
-      </div>
-
-    `;
-
-  });
-
-}
-
-
-/* =====================================
-   ADD TO CART
-===================================== */
-
-function addToCart(index){
-
-  if(!products[index]) return;
-
-  cartItems.push(products[index]);
-
-  updateCart();
-
-  openCart();
-
-}
-
-
-/* =====================================
-   UPDATE CART
-===================================== */
-
-function updateCart(){
-
-  const container =
-    document.getElementById("cartItems");
-
-  const count =
-    document.getElementById("cartCount");
-
-  const total =
-    document.getElementById("cartTotal");
-
-
-  count.innerText =
-    cartItems.length;
-
-  container.innerHTML = "";
-
-
-  let sum = 0;
-
-
-  if(cartItems.length === 0){
-
-    container.innerHTML =
-      '<div class="empty">Your cart is empty</div>';
-
+  .product img,
+  .product .emoji{
+    height:120px;
   }
 
-
-  cartItems.forEach((item,index) => {
-
-    sum += Number(item.price);
-
-
-    container.innerHTML += `
-
-      <div class="cart-item">
-
-        <b>${item.name}</b>
-
-        <br>
-
-        ৳${Number(item.price).toLocaleString()}
-
-        <button
-          class="remove-cart"
-          onclick="removeFromCart(${index})"
-        >
-
-          ❌
-
-        </button>
-
-      </div>
-
-    `;
-
-  });
-
-
-  total.innerText =
-    sum.toLocaleString();
-
-}
-
-
-/* =====================================
-   REMOVE FROM CART
-===================================== */
-
-function removeFromCart(index){
-
-  cartItems.splice(index,1);
-
-  updateCart();
-
-}
-
-
-/* =====================================
-   OPEN CART
-===================================== */
-
-function openCart(){
-
-  document
-    .getElementById("cart")
-    .style.display = "block";
-
-}
-
-
-/* =====================================
-   CLOSE CART
-===================================== */
-
-function closeCart(){
-
-  document
-    .getElementById("cart")
-    .style.display = "none";
-
-}
-
-
-/* =====================================
-   ADD / UPDATE PRODUCT
-===================================== */
-
-function saveProduct(){
-
-  const image =
-    document
-      .getElementById("imageUrl")
-      .value
-      .trim();
-
-  const name =
-    document
-      .getElementById("productName")
-      .value
-      .trim();
-
-  const price =
-    document
-      .getElementById("productPrice")
-      .value
-      .trim();
-
-
-  if(!image || !name || !price){
-
-    alert(
-      "Image URL, Product Name এবং Price দিন"
-    );
-
-    return;
-
+  .cart{
+    width:100%;
+    max-width:100%;
   }
-
-
-  if(Number(price) < 0){
-
-    alert("সঠিক Price দিন");
-
-    return;
-
-  }
-
-
-  const product = {
-
-    image:image,
-
-    name:name,
-
-    price:Number(price)
-
-  };
-
-
-  /* UPDATE */
-
-  if(editIndex !== -1){
-
-    products[editIndex] =
-      product;
-
-    alert(
-      "✅ Product updated successfully!"
-    );
-
-    cancelEdit();
-
-  }
-
-  /* ADD */
-
-  else{
-
-    products.push(product);
-
-    document
-      .getElementById("imageUrl")
-      .value = "";
-
-    document
-      .getElementById("productName")
-      .value = "";
-
-    document
-      .getElementById("productPrice")
-      .value = "";
-
-    alert(
-      "✅ Product added successfully!"
-    );
-
-  }
-
-
-  saveToBrowser();
-
-  showProducts();
-
-  showAdminProducts();
-
 }
+</style>
+</head>
 
+<body>
 
-/* =====================================
-   EDIT PRODUCT
-===================================== */
+<!-- HEADER -->
+<header>
 
-function editProduct(index){
+  <div class="logo">
+    <img src="logo.png" alt="Gadhuli Logo">
+    <span>Gadhuli</span>
+  </div>
 
-  if(!products[index]) return;
+  <button class="cartBtn" onclick="openCart()">
+    🛒 Cart (<span id="cartCount">0</span>)
+  </button>
 
+</header>
 
-  editIndex = index;
 
+<!-- HERO -->
+<section class="hero">
 
-  document
-    .getElementById("imageUrl")
-    .value =
-      products[index].image;
+  <h1>Gadhuli</h1>
 
-  document
-    .getElementById("productName")
-    .value =
-      products[index].name;
+  <p>Shop Your Favorite Products</p>
 
-  document
-    .getElementById("productPrice")
-    .value =
-      products[index].price;
+</section>
 
 
-  document
-    .getElementById("saveButton")
-    .innerText =
-      "💾 Update Product";
+<!-- PRODUCTS -->
+<section class="section">
 
+  <h2>🛍️ Products</h2>
 
-  document
-    .getElementById("cancelButton")
-    .style.display =
-      "block";
+  <input
+    class="search"
+    id="search"
+    type="text"
+    placeholder="🔍 Search product..."
+    oninput="showProducts()"
+  >
 
+  <div class="products" id="products"></div>
 
-  window.scrollTo({
-    top:
-      document
-        .querySelector(".admin")
-        .offsetTop - 20,
-    behavior:"smooth"
-  });
+</section>
 
-}
 
-
-/* =====================================
-   CANCEL EDIT
-===================================== */
-
-function cancelEdit(){
-
-  editIndex = -1;
-
-
-  document
-    .getElementById("imageUrl")
-    .value = "";
-
-  document
-    .getElementById("productName")
-    .value = "";
-
-  document
-    .getElementById("productPrice")
-    .value = "";
-
-
-  document
-    .getElementById("saveButton")
-    .innerText =
-      "➕ Add Product";
-
-
-  document
-    .getElementById("cancelButton")
-    .style.display =
-      "none";
-
-}
-
-
-/* =====================================
-   SHOW ADMIN PRODUCTS
-===================================== */
-
-function showAdminProducts(){
-
-  const container =
-    document.getElementById("adminProducts");
-
-  container.innerHTML = "";
-
-
-  if(products.length === 0){
-
-    container.innerHTML =
-      '<div class="empty">No products</div>';
-
-    return;
-
-  }
-
-
-  products.forEach((product,index) => {
-
-    let imageHTML;
-
-
-    if(
-      product.image.startsWith("http://") ||
-      product.image.startsWith("https://")
-    ){
-
-      imageHTML =
-        `<img
-          src="${product.image}"
-          alt="${product.name}"
-        >`;
-
-    }else{
-
-      imageHTML =
-        `<div style="
-          width:60px;
-          height:60px;
-          display:flex;
-          align-items:center;
-          justify-content:center;
-          font-size:35px;
-        ">
-          ${product.image}
-        </div>`;
-
-    }
-
-
-    container.innerHTML += `
-
-      <div class="admin-product">
-
-        ${imageHTML}
-
-        <div class="admin-info">
-
-          <b>${product.name}</b>
-
-          <span>
-            ৳${Number(product.price).toLocaleString()}
-          </span>
-
-        </div>
-
-        <button
-          class="edit"
-          onclick="editProduct(${index})"
-        >
-
-          ✏️
-
-        </button>
-
-        <button
-          class="delete"
-          onclick="deleteProduct(${index})"
-        >
-
-          🗑️
-
-        </button>
-
-      </div>
-
-    `;
-
-  });
-
-}
-
-
-/* =====================================
-   DELETE PRODUCT
-===================================== */
-
-function deleteProduct(index){
-
-  if(!products[index]) return;
-
-
-  const confirmDelete =
-    confirm(
-      "এই product টি delete করতে চান?"
-    );
-
-
-  if(!confirmDelete) return;
-
-
-  products.splice(index,1);
-
-
-  saveToBrowser();
-
-  showProducts();
-
-  showAdminProducts();
-
-
-  alert(
-    "🗑️ Product deleted"
-  );
-
-}
-
-
-/* =====================================
-   PLACE ORDER VIA WHATSAPP
-===================================== */
-
-function placeOrder(){
-
-  const name =
-    document
-      .getElementById("customerName")
-      .value
-      .trim();
-
-  const phone =
-    document
-      .getElementById("customerPhone")
-      .value
-      .trim();
-
-  const address =
-    document
-      .getElementById("customerAddress")
-      .value
-      .trim();
-
-
-  if(!name || !phone || !address){
-
-    alert(
-      "Customer Name, Phone এবং Address পূরণ করুন"
-    );
-
-    return;
-
-  }
-
-
-  if(cartItems.length === 0){
-
-    alert(
-      "প্রথমে Add to Cart করে product নির্বাচন করুন"
-    );
-
-    return;
-
-  }
-
-
-  let total = 0;
-
-
-  let itemText =
-    cartItems.map((item,index) => {
-
-      total += Number(item.price);
-
-      return (
-        (index + 1) +
-        ". " +
-        item.name +
-        " - ৳" +
-        item.price
-      );
-
-    }).join("\n");
-
-
-  const message =
-`🛍️ Gadhuli Order
-
-👤 Customer Name: ${name}
-
-📞 Phone: ${phone}
-
-📍 Address: ${address}
-
-🛒 Products:
-${itemText}
-
-💰 Total: ৳${total}`;
-
-
-  const whatsappNumber =
-    "8801333088194";
-
-
-  const whatsappURL =
-    "https://wa.me/" +
-    whatsappNumber +
-    "?text=" +
-    encodeURIComponent(message);
-
-
-  window.open(
-    whatsappURL,
-    "_blank"
-  );
-
-}
-
-
-/* =====================================
-   START
-===================================== */
-
-showProducts();
-
-showAdminProducts();
-
-updateCart();
-
-</script></body>
-</html>
+<!-- ORDER FORM -->
+<section class="section">
