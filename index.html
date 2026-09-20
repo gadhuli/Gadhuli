@@ -2,10 +2,10 @@
 <html lang="bn">
 <head>
 
-<meta name="google-site-verification" content="lkVxExaUcJinZDbyNwrJL4Jhc3kjkYTwQXLFYYKu_p8">
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="google-site-verification" content="lkVxExaUcJinZDbyNwrJL4Jhc3kjkYTwQXLFYYKu_p8">
 
 <title>Gadhuli | Official Website</title>
 
@@ -24,7 +24,7 @@ body{
 }
 
 header{
-    background:white;
+    background:#fff;
     padding:12px 5%;
     display:flex;
     justify-content:space-between;
@@ -109,11 +109,10 @@ header{
 }
 
 .product{
-    background:white;
+    background:#fff;
     border-radius:14px;
     overflow:hidden;
     box-shadow:0 3px 12px rgba(0,0,0,.08);
-    position:relative;
 }
 
 .product img{
@@ -177,7 +176,7 @@ header{
 .historySection,
 .reviewSection,
 .adminSection{
-    background:white;
+    background:#fff;
     margin:25px auto;
     padding:20px;
     border-radius:14px;
@@ -189,10 +188,10 @@ header{
 }
 
 #loginBox{
-    max-width:500px;
+    max-width:520px;
     margin:20px auto;
     padding:20px;
-    background:white;
+    background:#fff;
     border-radius:14px;
     box-shadow:0 3px 12px rgba(0,0,0,.08);
     display:flex;
@@ -215,6 +214,13 @@ header{
     padding:12px 16px;
     border-radius:8px;
     cursor:pointer;
+}
+
+#status{
+    width:100%;
+    text-align:center;
+    margin-top:8px;
+    font-size:14px;
 }
 
 .cartItem{
@@ -390,6 +396,7 @@ footer{
 
 </style>
 
+<!-- SUPABASE -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
 
@@ -413,319 +420,336 @@ footer{
         placeholder="Password"
     >
 
-    <button onclick="login()">
+    <button
+        id="loginButton"
+        type="button"
+    >
         Admin Login
     </button>
 
+    <div id="status"></div>
+
 </div>
 
+
+<!-- HEADER -->
 
 <header>
 
-<div class="logo">
+    <div class="logo">
 
-    <img
-        src="logo.png"
-        alt="Gadhuli Logo"
-    >
+        <img
+            src="logo.png"
+            alt="Gadhuli Logo"
+        >
 
-    <span>Gadhuli</span>
+        <span>Gadhuli</span>
 
-</div>
+    </div>
 
-<div class="headerButtons">
+    <div class="headerButtons">
 
-<button onclick="scrollToCart()">
-🛒 Cart (<span id="cartCount">0</span>)
-</button>
+        <button id="cartButton">
+            🛒 Cart (<span id="cartCount">0</span>)
+        </button>
 
-<button onclick="scrollToWishlist()">
-❤️ Wishlist
-</button>
+        <button id="wishlistButton">
+            ❤️ Wishlist
+        </button>
 
-</div>
+    </div>
 
 </header>
 
 
+<!-- HERO -->
+
 <section class="hero">
 
-<h1>Gadhuli</h1>
+    <h1>Gadhuli</h1>
 
-<p>Shop Smart. Shop Easy.</p>
+    <p>Shop Smart. Shop Easy.</p>
 
 </section>
 
 
+<!-- SEARCH -->
+
 <div class="searchBox">
 
-<input
-    type="text"
-    id="search"
-    placeholder="🔎 Product Search..."
-    oninput="showProducts()"
->
+    <input
+        type="text"
+        id="search"
+        placeholder="🔎 Product Search..."
+    >
 
 </div>
 
 
 <div class="container">
 
-<h2 class="sectionTitle">
-🛍️ Products
-</h2>
+    <!-- PRODUCTS -->
 
-<div id="products" class="products"></div>
+    <h2 class="sectionTitle">
+        🛍️ Products
+    </h2>
 
+    <div
+        id="products"
+        class="products"
+    ></div>
 
-<!-- CART -->
 
-<section class="cartSection" id="cartSection">
+    <!-- CART -->
 
-<h2 class="sectionTitle">
-🛒 Shopping Cart
-</h2>
+    <section
+        class="cartSection"
+        id="cartSection"
+    >
 
-<div id="cart"></div>
+        <h2 class="sectionTitle">
+            🛒 Shopping Cart
+        </h2>
 
-<div class="cartSummary">
+        <div id="cart"></div>
 
-<p>
-🛍️ Product Total:
-৳<span id="productTotal">0</span>
-</p>
+        <div class="cartSummary">
 
-<div class="deliveryBox">
+            <p>
+                🛍️ Product Total:
+                ৳<span id="productTotal">0</span>
+            </p>
 
-🚚 Delivery Charge:
-৳<span id="deliveryCharge">0</span>
+            <div class="deliveryBox">
 
-</div>
+                🚚 Delivery Charge:
+                ৳<span id="deliveryCharge">0</span>
 
-<h3 class="grandTotal">
+            </div>
 
-💰 Grand Total:
-৳<span id="total">0</span>
+            <h3 class="grandTotal">
 
-</h3>
+                💰 Grand Total:
+                ৳<span id="total">0</span>
 
-</div>
+            </h3>
 
-</section>
+        </div>
 
+    </section>
 
-<!-- ORDER -->
 
-<section class="orderSection">
+    <!-- ORDER -->
 
-<h2 class="sectionTitle">
-📦 Order Information
-</h2>
+    <section class="orderSection">
 
-<form onsubmit="placeOrder(event)">
+        <h2 class="sectionTitle">
+            📦 Order Information
+        </h2>
 
-<input
-    type="text"
-    id="customerName"
-    placeholder="আপনার নাম"
-    required
->
+        <form id="orderForm">
 
-<input
-    type="tel"
-    id="customerPhone"
-    placeholder="মোবাইল নম্বর"
-    required
->
+            <input
+                type="text"
+                id="customerName"
+                placeholder="আপনার নাম"
+                required
+            >
 
-<textarea
-    id="customerAddress"
-    placeholder="সম্পূর্ণ ঠিকানা"
-    required
-></textarea>
+            <input
+                type="tel"
+                id="customerPhone"
+                placeholder="মোবাইল নম্বর"
+                required
+            >
 
-<select
-    id="deliveryArea"
-    onchange="updateCart()"
-    required
->
+            <textarea
+                id="customerAddress"
+                placeholder="সম্পূর্ণ ঠিকানা"
+                required
+            ></textarea>
 
-<option value="">
-Delivery Area নির্বাচন করুন
-</option>
+            <select
+                id="deliveryArea"
+                required
+            >
 
-<option value="dhaka">
-ঢাকার মধ্যে — ৳60
-</option>
+                <option value="">
+                    Delivery Area নির্বাচন করুন
+                </option>
 
-<option value="outside">
-ঢাকার বাইরে — ৳120
-</option>
+                <option value="dhaka">
+                    ঢাকার মধ্যে — ৳60
+                </option>
 
-</select>
+                <option value="outside">
+                    ঢাকার বাইরে — ৳120
+                </option>
 
-<button
-    class="mainButton whatsapp"
-    type="submit"
->
-📲 WhatsApp এ Order করুন
-</button>
+            </select>
 
-</form>
+            <button
+                class="mainButton whatsapp"
+                type="submit"
+            >
+                📲 WhatsApp এ Order করুন
+            </button>
 
-</section>
+        </form>
 
+    </section>
 
-<!-- ORDER HISTORY -->
 
-<section class="historySection">
+    <!-- ORDER HISTORY -->
 
-<h2 class="sectionTitle">
-📋 My Order History
-</h2>
+    <section class="historySection">
 
-<div id="orderHistory"></div>
+        <h2 class="sectionTitle">
+            📋 My Order History
+        </h2>
 
-</section>
+        <div id="orderHistory"></div>
 
+    </section>
 
-<!-- REVIEWS -->
 
-<section
-    class="reviewSection"
-    id="reviewSection"
->
+    <!-- REVIEWS -->
 
-<h2 class="sectionTitle">
-⭐ Product Reviews
-</h2>
+    <section
+        class="reviewSection"
+        id="reviewSection"
+    >
 
-<form onsubmit="addReview(event)">
+        <h2 class="sectionTitle">
+            ⭐ Product Reviews
+        </h2>
 
-<input
-    type="text"
-    id="reviewName"
-    placeholder="আপনার নাম"
-    required
->
+        <form id="reviewForm">
 
-<select
-    id="reviewRating"
-    required
->
+            <input
+                type="text"
+                id="reviewName"
+                placeholder="আপনার নাম"
+                required
+            >
 
-<option value="">
-Rating দিন
-</option>
+            <select
+                id="reviewRating"
+                required
+            >
 
-<option value="5">
-⭐⭐⭐⭐⭐
-</option>
+                <option value="">
+                    Rating দিন
+                </option>
 
-<option value="4">
-⭐⭐⭐⭐
-</option>
+                <option value="5">
+                    ⭐⭐⭐⭐⭐
+                </option>
 
-<option value="3">
-⭐⭐⭐
-</option>
+                <option value="4">
+                    ⭐⭐⭐⭐
+                </option>
 
-<option value="2">
-⭐⭐
-</option>
+                <option value="3">
+                    ⭐⭐⭐
+                </option>
 
-<option value="1">
-⭐
-</option>
+                <option value="2">
+                    ⭐⭐
+                </option>
 
-</select>
+                <option value="1">
+                    ⭐
+                </option>
 
-<textarea
-    id="reviewText"
-    placeholder="আপনার মতামত লিখুন"
-    required
-></textarea>
+            </select>
 
-<button
-    class="mainButton"
-    type="submit"
->
-Review Submit
-</button>
+            <textarea
+                id="reviewText"
+                placeholder="আপনার মতামত লিখুন"
+                required
+            ></textarea>
 
-</form>
+            <button
+                class="mainButton"
+                type="submit"
+            >
+                Review Submit
+            </button>
 
-<div id="reviews"></div>
+        </form>
 
-</section>
+        <div id="reviews"></div>
 
+    </section>
 
-<!-- ADMIN PANEL -->
 
-<section
-    class="adminSection"
-    id="adminPanel"
->
+    <!-- ADMIN PANEL -->
 
-<h2 class="sectionTitle">
-⚙️ Admin Panel
-</h2>
+    <section
+        class="adminSection"
+        id="adminPanel"
+    >
 
-<form onsubmit="addProduct(event)">
+        <h2 class="sectionTitle">
+            ⚙️ Admin Panel
+        </h2>
 
-<input
-    type="text"
-    id="productName"
-    placeholder="Product Name"
-    required
->
+        <form id="productForm">
 
-<input
-    type="number"
-    id="productPrice"
-    placeholder="Product Price"
-    required
->
+            <input
+                type="text"
+                id="productName"
+                placeholder="Product Name"
+                required
+            >
 
-<input
-    type="text"
-    id="productImage"
-    placeholder="Image URL"
->
+            <input
+                type="number"
+                id="productPrice"
+                placeholder="Product Price"
+                required
+            >
 
-<button
-    class="mainButton"
-    type="submit"
->
-➕ Add Product
-</button>
+            <input
+                type="text"
+                id="productImage"
+                placeholder="Image URL"
+            >
 
-</form>
+            <button
+                class="mainButton"
+                type="submit"
+            >
+                ➕ Add Product
+            </button>
 
-<br>
+        </form>
 
-<div id="adminProducts"></div>
+        <br>
 
-<br>
+        <div id="adminProducts"></div>
 
-<button
-    class="mainButton"
-    type="button"
-    onclick="logout()"
->
-🚪 Admin Logout
-</button>
+        <br>
 
-</section>
+        <button
+            class="mainButton"
+            id="logoutButton"
+            type="button"
+        >
+            🚪 Admin Logout
+        </button>
+
+    </section>
 
 </div>
 
 
 <footer>
 
-<p>© 2026 Gadhuli</p>
+    <p>© 2026 Gadhuli</p>
 
-<p>Online Shopping</p>
+    <p>Online Shopping</p>
 
 </footer>
 
@@ -733,682 +757,458 @@ Review Submit
 <script>
 
 /* ================================================= */
-/* BASIC CHECK */
+/* GADHULI WEBSITE JAVASCRIPT */
 /* ================================================= */
 
-if(typeof supabase === "undefined"){
+document.addEventListener("DOMContentLoaded", function(){
 
-    alert("Supabase load হয়নি ❌");
+    /* --------------------------------------------- */
+    /* CHECK SUPABASE */
+    /* --------------------------------------------- */
 
-}
+    const status =
+        document.getElementById("status");
 
+    if(typeof window.supabase === "undefined"){
 
-/* ================================================= */
-/* PRODUCTS */
-/* ================================================= */
+        status.innerText =
+            "Website loaded, কিন্তু Supabase পাওয়া যায়নি ❌";
 
-const defaultProducts = [
+        status.style.color = "red";
 
-{
-    name:"Premium T-Shirt",
-    price:800,
-    image:""
-},
+        return;
 
-{
-    name:"Stylish Watch",
-    price:1200,
-    image:""
-},
-
-{
-    name:"Casual Shirt",
-    price:950,
-    image:""
-}
-
-];
+    }
 
 
-let savedProducts =
-localStorage.getItem("gadhuliProducts");
-
-let products;
+    const supabaseClient =
+        window.supabase;
 
 
-if(savedProducts){
+    /* --------------------------------------------- */
+    /* PRODUCTS */
+    /* --------------------------------------------- */
 
-    try{
+    const defaultProducts = [
 
-        products = JSON.parse(savedProducts);
+        {
+            name:"Premium T-Shirt",
+            price:800,
+            image:""
+        },
 
-        if(!Array.isArray(products)){
+        {
+            name:"Stylish Watch",
+            price:1200,
+            image:""
+        },
 
-            products = [...defaultProducts];
-
+        {
+            name:"Casual Shirt",
+            price:950,
+            image:""
         }
 
-    }catch(error){
-
-        products = [...defaultProducts];
-
-    }
-
-}else{
-
-    products = [...defaultProducts];
-
-    saveProducts();
-
-}
+    ];
 
 
-function saveProducts(){
-
-    localStorage.setItem(
-        "gadhuliProducts",
-        JSON.stringify(products)
-    );
-
-}
+    let products = [];
 
 
-/* ================================================= */
-/* CART */
-/* ================================================= */
+    function loadProducts(){
 
-let cart =
-JSON.parse(
-    localStorage.getItem("gadhuliCart")
-) || [];
+        const saved =
+            localStorage.getItem(
+                "gadhuliProducts"
+            );
 
 
-/* ================================================= */
-/* WISHLIST */
-/* ================================================= */
+        if(!saved){
 
-let wishlist =
-JSON.parse(
-    localStorage.getItem("gadhuliWishlist")
-) || [];
+            products =
+                defaultProducts.slice();
 
-
-/* ================================================= */
-/* DELIVERY */
-/* ================================================= */
-
-function getDeliveryCharge(){
-
-    const area =
-    document.getElementById("deliveryArea").value;
-
-    if(area === "dhaka"){
-        return 60;
-    }
-
-    if(area === "outside"){
-        return 120;
-    }
-
-    return 0;
-
-}
-
-
-/* ================================================= */
-/* SHOW PRODUCTS */
-/* ================================================= */
-
-function showProducts(){
-
-    const search =
-    document.getElementById("search")
-        .value
-        .toLowerCase();
-
-    const box =
-    document.getElementById("products");
-
-    box.innerHTML = "";
-
-    let found = false;
-
-
-    products.forEach(function(product,index){
-
-        const productName =
-        String(product.name || "");
-
-
-        if(
-            !productName
-                .toLowerCase()
-                .includes(search)
-        ){
+            saveProducts();
 
             return;
 
         }
 
 
-        found = true;
+        try{
+
+            const parsed =
+                JSON.parse(saved);
 
 
-        const image =
-        product.image ||
-        "https://via.placeholder.com/500x400?text=Gadhuli";
+            if(Array.isArray(parsed)){
+
+                products = parsed;
+
+            }else{
+
+                products =
+                    defaultProducts.slice();
+
+            }
+
+        }catch(error){
+
+            products =
+                defaultProducts.slice();
+
+        }
+
+    }
 
 
-        const isWish =
-        wishlist.includes(index);
+    function saveProducts(){
+
+        localStorage.setItem(
+            "gadhuliProducts",
+            JSON.stringify(products)
+        );
+
+    }
 
 
-        box.innerHTML += `
+    /* --------------------------------------------- */
+    /* CART */
+    /* --------------------------------------------- */
 
-        <div class="product">
+    let cart = [];
 
-            <img
-                src="${image}"
-                alt="${productName}"
-                onerror="this.src='https://via.placeholder.com/500x400?text=Gadhuli'"
-            >
 
-            <div class="productInfo">
+    try{
 
-                <h3>
-                    ${productName}
-                </h3>
+        cart =
+            JSON.parse(
+                localStorage.getItem(
+                    "gadhuliCart"
+                )
+            ) || [];
 
-                <div class="price">
-                    ৳${product.price}
-                </div>
+        if(!Array.isArray(cart)){
+            cart = [];
+        }
 
-                <div class="productButtons">
+    }catch(error){
 
-                    <button
-                        class="cartBtn"
-                        onclick="addToCart(${index})"
+        cart = [];
+
+    }
+
+
+    function saveCart(){
+
+        localStorage.setItem(
+            "gadhuliCart",
+            JSON.stringify(cart)
+        );
+
+    }
+
+
+    /* --------------------------------------------- */
+    /* WISHLIST */
+    /* --------------------------------------------- */
+
+    let wishlist = [];
+
+
+    try{
+
+        wishlist =
+            JSON.parse(
+                localStorage.getItem(
+                    "gadhuliWishlist"
+                )
+            ) || [];
+
+        if(!Array.isArray(wishlist)){
+            wishlist = [];
+        }
+
+    }catch(error){
+
+        wishlist = [];
+
+    }
+
+
+    /* --------------------------------------------- */
+    /* DELIVERY */
+    /* --------------------------------------------- */
+
+    function getDeliveryCharge(){
+
+        const area =
+            document.getElementById(
+                "deliveryArea"
+            ).value;
+
+
+        if(area === "dhaka"){
+            return 60;
+        }
+
+
+        if(area === "outside"){
+            return 120;
+        }
+
+
+        return 0;
+
+    }
+
+
+    /* --------------------------------------------- */
+    /* SHOW PRODUCTS */
+    /* --------------------------------------------- */
+
+    function showProducts(){
+
+        const search =
+            document.getElementById(
+                "search"
+            ).value
+            .trim()
+            .toLowerCase();
+
+
+        const box =
+            document.getElementById(
+                "products"
+            );
+
+
+        box.innerHTML = "";
+
+
+        let found = false;
+
+
+        products.forEach(
+            function(product,index){
+
+                const name =
+                    String(
+                        product.name || ""
+                    );
+
+
+                if(
+                    !name
+                        .toLowerCase()
+                        .includes(search)
+                ){
+
+                    return;
+
+                }
+
+
+                found = true;
+
+
+                const image =
+                    product.image ||
+                    "https://via.placeholder.com/500x400?text=Gadhuli";
+
+
+                const active =
+                    wishlist.includes(index);
+
+
+                const card =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                card.className =
+                    "product";
+
+
+                card.innerHTML = `
+
+                    <img
+                        src="${image}"
+                        alt="${name}"
                     >
-                        🛒 Add
-                    </button>
 
-                    <button
-                        class="wishBtn ${isWish ? "wishActive" : ""}"
-                        onclick="toggleWishlist(${index})"
-                    >
-                        ❤️
-                    </button>
+                    <div class="productInfo">
 
-                </div>
+                        <h3>${name}</h3>
 
-            </div>
+                        <div class="price">
+                            ৳${product.price}
+                        </div>
 
-        </div>
+                        <div class="productButtons">
 
-        `;
+                            <button
+                                class="cartBtn"
+                                data-cart="${index}"
+                            >
+                                🛒 Add
+                            </button>
 
-    });
+                            <button
+                                class="wishBtn ${active ? "wishActive" : ""}"
+                                data-wish="${index}"
+                            >
+                                ❤️
+                            </button>
 
+                        </div>
 
-    if(!found){
+                    </div>
 
-        box.innerHTML =
-        '<div class="empty">কোনো Product পাওয়া যায়নি</div>';
-
-    }
-
-}
-
-
-/* ================================================= */
-/* CART */
-/* ================================================= */
-
-function addToCart(index){
-
-    if(!products[index]){
-        return;
-    }
-
-    cart.push(products[index]);
-
-    saveCart();
-
-    updateCart();
-
-    alert("Product Cart এ যোগ হয়েছে ✅");
-
-}
+                `;
 
 
-function saveCart(){
-
-    localStorage.setItem(
-        "gadhuliCart",
-        JSON.stringify(cart)
-    );
-
-}
+                const imageElement =
+                    card.querySelector("img");
 
 
-function updateCart(){
+                imageElement.onerror =
+                    function(){
 
-    const box =
-    document.getElementById("cart");
+                        this.src =
+                            "https://via.placeholder.com/500x400?text=Gadhuli";
 
-    box.innerHTML = "";
-
-    let productTotal = 0;
-
-
-    if(cart.length === 0){
-
-        box.innerHTML =
-        '<div class="empty">Cart এখন খালি</div>';
-
-    }else{
-
-        cart.forEach(function(item,index){
-
-            productTotal +=
-            Number(item.price) || 0;
+                    };
 
 
-            box.innerHTML += `
+                card.querySelector(
+                    "[data-cart]"
+                ).addEventListener(
+                    "click",
+                    function(){
 
-            <div class="cartItem">
+                        addToCart(index);
 
-                <div>
+                    }
+                );
 
-                    <b>
-                        ${item.name}
-                    </b>
 
-                    <br>
+                card.querySelector(
+                    "[data-wish]"
+                ).addEventListener(
+                    "click",
+                    function(){
 
-                    ৳${item.price}
+                        toggleWishlist(index);
 
-                </div>
+                    }
+                );
 
-                <button
-                    onclick="removeCart(${index})"
-                >
-                    🗑️ Remove
-                </button>
 
-            </div>
+                box.appendChild(card);
 
-            `;
+            }
+        );
 
-        });
+
+        if(!found){
+
+            box.innerHTML =
+                '<div class="empty">কোনো Product পাওয়া যায়নি</div>';
+
+        }
 
     }
 
 
-    const delivery =
-    getDeliveryCharge();
+    /* --------------------------------------------- */
+    /* CART FUNCTIONS */
+    /* --------------------------------------------- */
+
+    function addToCart(index){
+
+        if(!products[index]){
+            return;
+        }
 
 
-    const grandTotal =
-    productTotal + delivery;
+        cart.push(products[index]);
 
 
-    document.getElementById("productTotal")
-        .innerText = productTotal;
+        saveCart();
+
+        updateCart();
 
 
-    document.getElementById("deliveryCharge")
-        .innerText =
-        cart.length > 0 ? delivery : 0;
-
-
-    document.getElementById("total")
-        .innerText = grandTotal;
-
-
-    document.getElementById("cartCount")
-        .innerText = cart.length;
-
-}
-
-
-function removeCart(index){
-
-    cart.splice(index,1);
-
-    saveCart();
-
-    updateCart();
-
-}
-
-
-/* ================================================= */
-/* CART SCROLL */
-/* ================================================= */
-
-function scrollToCart(){
-
-    document.getElementById("cartSection")
-        .scrollIntoView({
-            behavior:"smooth"
-        });
-
-}
-
-
-/* ================================================= */
-/* WISHLIST */
-/* ================================================= */
-
-function toggleWishlist(index){
-
-    const position =
-    wishlist.indexOf(index);
-
-
-    if(position === -1){
-
-        wishlist.push(index);
-
-    }else{
-
-        wishlist.splice(position,1);
+        alert(
+            "Product Cart এ যোগ হয়েছে ✅"
+        );
 
     }
 
 
-    localStorage.setItem(
-        "gadhuliWishlist",
-        JSON.stringify(wishlist)
-    );
+    function removeCart(index){
 
+        cart.splice(index,1);
 
-    showProducts();
+        saveCart();
 
-}
-
-
-function scrollToWishlist(){
-
-    document.getElementById("reviewSection")
-        .scrollIntoView({
-            behavior:"smooth"
-        });
-
-}
-
-
-/* ================================================= */
-/* ADD PRODUCT */
-/* ================================================= */
-
-function addProduct(event){
-
-    event.preventDefault();
-
-
-    const name =
-    document.getElementById("productName")
-        .value
-        .trim();
-
-
-    const price =
-    document.getElementById("productPrice")
-        .value;
-
-
-    const image =
-    document.getElementById("productImage")
-        .value
-        .trim();
-
-
-    if(
-        name === "" ||
-        price === "" ||
-        isNaN(Number(price)) ||
-        Number(price) <= 0
-    ){
-
-        alert("সঠিক Product Name এবং Price দিন");
-
-        return;
+        updateCart();
 
     }
 
 
-    products.push({
+    function updateCart(){
 
-        name:name,
-        price:Number(price),
-        image:image
+        const box =
+            document.getElementById(
+                "cart"
+            );
 
-    });
 
+        box.innerHTML = "";
 
-    saveProducts();
 
-    showProducts();
+        let productTotal = 0;
 
-    showAdminProducts();
 
+        if(cart.length === 0){
 
-    document.getElementById("productName")
-        .value = "";
+            box.innerHTML =
+                '<div class="empty">Cart এখন খালি</div>';
 
-    document.getElementById("productPrice")
-        .value = "";
+        }else{
 
-    document.getElementById("productImage")
-        .value = "";
+            cart.forEach(
+                function(item,index){
 
+                    productTotal +=
+                        Number(item.price) || 0;
 
-    alert("Product Added Successfully ✅");
 
-}
+                    const itemBox =
+                        document.createElement(
+                            "div"
+                        );
 
 
-/* ================================================= */
-/* ADMIN PRODUCTS */
-/* ================================================= */
+                    itemBox.className =
+                        "cartItem";
 
-function showAdminProducts(){
 
-    const box =
-    document.getElementById("adminProducts");
+                    itemBox.innerHTML = `
 
-    box.innerHTML = "";
+                        <div>
 
+                            <b>
+                                ${item.name}
+                            </b>
 
-    products.forEach(function(product,index){
+                            <br>
 
-        box.innerHTML += `
+                            ৳${item.price}
 
-        <div class="adminProduct">
+                        </div>
 
-            <b>
-                ${product.name}
-            </b>
-
-            <br>
-
-            ৳${product.price}
-
-            <br>
-
-            <button
-                class="editButton"
-                onclick="editProduct(${index})"
-            >
-                ✏️ Edit Product
-            </button>
-
-            <button
-                class="delete"
-                onclick="deleteProduct(${index})"
-            >
-                🗑️ Delete Product
-            </button>
-
-        </div>
-
-        `;
-
-    });
-
-}
-
-
-/* ================================================= */
-/* EDIT PRODUCT */
-/* ================================================= */
-
-function editProduct(index){
-
-    const name =
-    prompt(
-        "Product Name:",
-        products[index].name
-    );
-
-
-    if(name === null){
-        return;
-    }
-
-
-    const price =
-    prompt(
-        "Product Price:",
-        products[index].price
-    );
-
-
-    if(price === null){
-        return;
-    }
-
-
-    const image =
-    prompt(
-        "Image URL:",
-        products[index].image || ""
-    );
-
-
-    if(image === null){
-        return;
-    }
-
-
-    const cleanName =
-    name.trim();
-
-
-    const cleanPrice =
-    price.trim();
-
-
-    const cleanImage =
-    image.trim();
-
-
-    if(
-        cleanName === "" ||
-        cleanPrice === "" ||
-        isNaN(Number(cleanPrice)) ||
-        Number(cleanPrice) <= 0
-    ){
-
-        alert("সঠিক Name এবং Price দিন");
-
-        return;
-
-    }
-
-
-    products[index].name =
-    cleanName;
-
-
-    products[index].price =
-    Number(cleanPrice);
-
-
-    products[index].image =
-    cleanImage;
-
-
-    saveProducts();
-
-    showProducts();
-
-    showAdminProducts();
-
-
-    alert("Product Updated Successfully ✅");
-
-}
-
-
-/* ================================================= */
-/* DELETE PRODUCT */
-/* ================================================= */
-
-function deleteProduct(index){
-
-    const confirmDelete =
-    confirm(
-        "এই Product Delete করতে চান?"
-    );
-
-
-    if(!confirmDelete){
-        return;
-    }
-
-
-    products.splice(index,1);
-
-    saveProducts();
-
-    showProducts();
-
-    showAdminProducts();
-
-
-    alert("Product Deleted ✅");
-
-}
-
-
-/* ================================================= */
-/* ORDER */
-/* ================================================= */
-
-function placeOrder(event){
-
-    event.preventDefault();
-
-
-    if(cart.length === 0){
-
-        alert("আগে Cart এ Product যোগ করুন");
-
-        return;
-
-    }
-
-
-    const name =
-    document.getElementById("customerName")
-        .value
-        .trim();
-
-
-    const phone =
-    document.getElementById("customerPhone")
-        .value
-     
+                      
