@@ -18,7 +18,17 @@
 }
 
 body{
-    background:#fff5f9;
+  <div id="loginBox">
+  <input id="email" type="email" placeholder="Admin Gmail">
+  <input id="pass" type="password" placeholder="Password">
+  <button onclick="login()">Admin Login</button>
+</div>
+
+<div id="adminPanel" style="display:none;">
+  <!-- তোমার Add Product সেকশন এখানে রাখবে -->
+</div>
+   
+   background:#fff5f9;
     color:#333;
 }
 
@@ -1741,6 +1751,25 @@ showReviews();
 
 
 </script>
+<script>
+async function login() {
+  const { error } = await supabase.auth.signInWithPassword({
+    email: email.value,
+    password: pass.value
+  });
+  if (!error) {
+    loginBox.style.display = "none";
+    adminPanel.style.display = "block";
+  } else {
+    alert("Login failed");
+  }
+}
 
+supabase.auth.getUser().then(({data}) => {
+  if (data.user) {
+    loginBox.style.display = "none";
+    adminPanel.style.display = "block";
+  }
+});
 </body>
     </html>
