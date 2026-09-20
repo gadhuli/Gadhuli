@@ -392,6 +392,7 @@ footer{
     .productButtons button{
         font-size:11px;
     }
+
 }
 
 </style>
@@ -762,17 +763,20 @@ footer{
 
 document.addEventListener("DOMContentLoaded", function(){
 
-    /* --------------------------------------------- */
-    /* CHECK SUPABASE */
-    /* --------------------------------------------- */
-
     const status =
         document.getElementById("status");
 
-    if(typeof window.supabase === "undefined"){
+
+    /* --------------------------------------------- */
+    /* SUPABASE CHECK */
+    /* --------------------------------------------- */
+
+    if(
+        typeof window.supabase === "undefined"
+    ){
 
         status.innerText =
-            "Website loaded, কিন্তু Supabase পাওয়া যায়নি ❌";
+            "Supabase পাওয়া যায়নি ❌";
 
         status.style.color = "red";
 
@@ -781,12 +785,17 @@ document.addEventListener("DOMContentLoaded", function(){
     }
 
 
+    /*
+      supabase.js থেকে তৈরি করা client ব্যবহার করছি
+    */
+
     const supabaseClient =
+        window.supabaseClient ||
         window.supabase;
 
 
     /* --------------------------------------------- */
-    /* PRODUCTS */
+    /* DEFAULT PRODUCTS */
     /* --------------------------------------------- */
 
     const defaultProducts = [
@@ -814,6 +823,10 @@ document.addEventListener("DOMContentLoaded", function(){
 
     let products = [];
 
+
+    /* --------------------------------------------- */
+    /* LOAD PRODUCTS */
+    /* --------------------------------------------- */
 
     function loadProducts(){
 
@@ -850,12 +863,16 @@ document.addEventListener("DOMContentLoaded", function(){
                 products =
                     defaultProducts.slice();
 
+                saveProducts();
+
             }
 
         }catch(error){
 
             products =
                 defaultProducts.slice();
+
+            saveProducts();
 
         }
 
@@ -888,8 +905,11 @@ document.addEventListener("DOMContentLoaded", function(){
                 )
             ) || [];
 
+
         if(!Array.isArray(cart)){
+
             cart = [];
+
         }
 
     }catch(error){
@@ -925,13 +945,26 @@ document.addEventListener("DOMContentLoaded", function(){
                 )
             ) || [];
 
+
         if(!Array.isArray(wishlist)){
+
             wishlist = [];
+
         }
 
     }catch(error){
 
         wishlist = [];
+
+    }
+
+
+    function saveWishlist(){
+
+        localStorage.setItem(
+            "gadhuliWishlist",
+            JSON.stringify(wishlist)
+        );
 
     }
 
@@ -949,12 +982,16 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
         if(area === "dhaka"){
+
             return 60;
+
         }
 
 
         if(area === "outside"){
+
             return 120;
+
         }
 
 
@@ -1040,7 +1077,9 @@ document.addEventListener("DOMContentLoaded", function(){
 
                     <div class="productInfo">
 
-                        <h3>${name}</h3>
+                        <h3>
+                            ${name}
+                        </h3>
 
                         <div class="price">
                             ৳${product.price}
@@ -1123,17 +1162,21 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
     /* --------------------------------------------- */
-    /* CART FUNCTIONS */
+    /* CART */
     /* --------------------------------------------- */
 
     function addToCart(index){
 
         if(!products[index]){
+
             return;
+
         }
 
 
-        cart.push(products[index]);
+        cart.push(
+            products[index]
+        );
 
 
         saveCart();
@@ -1149,6 +1192,16 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
     function removeCart(index){
+
+        if(
+            index < 0 ||
+            index >= cart.length
+        ){
+
+            return;
+
+        }
+
 
         cart.splice(index,1);
 
@@ -1179,36 +1232,3 @@ document.addEventListener("DOMContentLoaded", function(){
                 '<div class="empty">Cart এখন খালি</div>';
 
         }else{
-
-            cart.forEach(
-                function(item,index){
-
-                    productTotal +=
-                        Number(item.price) || 0;
-
-
-                    const itemBox =
-                        document.createElement(
-                            "div"
-                        );
-
-
-                    itemBox.className =
-                        "cartItem";
-
-
-                    itemBox.innerHTML = `
-
-                        <div>
-
-                            <b>
-                                ${item.name}
-                            </b>
-
-                            <br>
-
-                            ৳${item.price}
-
-                        </div>
-
-                      
