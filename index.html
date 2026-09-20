@@ -1,1769 +1,391 @@
-<!DOCTYPE html>
-<html lang="bn">
-<head>
-   <meta name="google-site-verification" content="lkVxExaUcJinZDbyNwrJL4Jhc3kjkYTwQXLFYYKu_p8" />
-    <meta name="google-site-verification" content="lkVxExaUcJinZDbyNwrJL4Jhc3kjkYTwQXLFYYKu_p8" />
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Gadhuli - Online Shopping</title>
-
-<style>
-
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-    font-family:Arial,sans-serif;
-}
-
-body{
- background:#fff5f9;
-   color:#333;
-}
-
-header{
-    background:white;
-    padding:12px 5%;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    box-shadow:0 2px 10px rgba(0,0,0,.08);
-    position:sticky;
-    top:0;
-    z-index:100;
-}
-
-.logo{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    font-size:24px;
-    font-weight:bold;
-    color:#8f174d;
-}
-
-.logo img{
-    width:45px;
-    height:45px;
-    object-fit:contain;
-    border-radius:10px;
-}
-
-.headerButtons{
-    display:flex;
-    gap:8px;
-}
-
-.headerButtons button{
-    border:none;
-    background:#8f174d;
-    color:white;
-    padding:10px 14px;
-    border-radius:8px;
-    cursor:pointer;
-}
-
-.hero{
-    background:linear-gradient(135deg,#8f174d,#d52b72);
-    color:white;
-    text-align:center;
-    padding:55px 20px;
-}
-
-.hero h1{
-    font-size:38px;
-    margin-bottom:10px;
-}
-
-.hero p{
-    font-size:17px;
-}
-
-.searchBox{
-    padding:20px 5%;
-    text-align:center;
-}
-
-.searchBox input{
-    width:100%;
-    max-width:600px;
-    padding:14px;
-    border:1px solid #ddd;
-    border-radius:10px;
-    font-size:16px;
-}
-
-.container{
-    width:90%;
-    max-width:1200px;
-    margin:auto;
-}
-
-.products{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-    gap:20px;
-    padding:20px 0 40px;
-}
-
-.product{
-    background:white;
-    border-radius:14px;
-    overflow:hidden;
-    box-shadow:0 3px 12px rgba(0,0,0,.08);
-    position:relative;
-}
-
-.product img{
-    width:100%;
-    height:210px;
-    object-fit:cover;
-    background:#eee;
-}
-
-.productInfo{
-    padding:15px;
-}
-
-.productInfo h3{
-    margin-bottom:8px;
-}
-
-.price{
-    color:#b0185b;
-    font-weight:bold;
-    font-size:20px;
-    margin-bottom:12px;
-}
-
-.productButtons{
-    display:flex;
-    gap:7px;
-}
-
-.productButtons button{
-    flex:1;
-    padding:10px 5px;
-    border:none;
-    border-radius:7px;
-    cursor:pointer;
-}
-
-.cartBtn{
-    background:#8f174d;
-    color:white;
-}
-
-.wishBtn{
-    background:#ffe3ed;
-    color:#8f174d;
-}
-
-.wishActive{
-    background:#d52b72 !important;
-    color:white !important;
-}
-
-.sectionTitle{
-    text-align:center;
-    margin:25px 0 10px;
-    color:#8f174d;
-}
-
-.cartSection,
-.orderSection,
-.adminSection,
-.historySection,
-.reviewSection{
-    background:white;
-    margin:25px auto;
-    padding:20px;
-    border-radius:14px;
-    box-shadow:0 3px 12px rgba(0,0,0,.08);
-}
-
-.cartItem{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:10px;
-    padding:12px 0;
-    border-bottom:1px solid #eee;
-}
-
-.cartItem button{
-    border:none;
-    background:#ffdddd;
-    color:#b00000;
-    padding:7px 10px;
-    border-radius:6px;
-    cursor:pointer;
-}
-
-.cartSummary{
-    margin-top:20px;
-    padding:15px;
-    background:#fff0f5;
-    border-radius:10px;
-}
-
-.cartSummary p{
-    margin:7px 0;
-}
-
-.deliveryBox{
-    margin-top:10px;
-}
-
-.grandTotal{
-    color:#8f174d;
-    margin-top:12px;
-}
-
-form{
-    display:grid;
-    gap:12px;
-}
-
-form input,
-form textarea,
-form select{
-    width:100%;
-    padding:13px;
-    border:1px solid #ddd;
-    border-radius:8px;
-    font-size:15px;
-}
-
-textarea{
-    min-height:90px;
-    resize:vertical;
-}
-
-.mainButton{
-    border:none;
-    background:#8f174d;
-    color:white;
-    padding:13px;
-    border-radius:8px;
-    cursor:pointer;
-    font-size:16px;
-}
-
-.whatsapp{
-    background:#168c3b;
-}
-
-.adminProduct{
-    padding:12px;
-    border-bottom:1px solid #eee;
-}
-
-.adminProduct button{
-    border:none;
-    padding:8px 10px;
-    border-radius:6px;
-    margin:5px 4px 0 0;
-    cursor:pointer;
-}
-
-.editButton{
-    background:#ffd86b;
-}
-
-.delete{
-    background:#ff5b5b;
-    color:white;
-}
-
-.historyItem{
-    padding:12px;
-    margin:10px 0;
-    background:#fff5f9;
-    border-radius:8px;
-}
-
-.review{
-    padding:12px;
-    border-bottom:1px solid #eee;
-}
-
-.stars{
-    color:#f5a400;
-    font-size:20px;
-}
-
-footer{
-    margin-top:40px;
-    padding:30px;
-    text-align:center;
-    background:#8f174d;
-    color:white;
-}
-
-.empty{
-    text-align:center;
-    padding:20px;
-    color:#777;
-}
-
-@media(max-width:600px){
-
-    .logo{
-        font-size:20px;
-    }
-
-    .logo img{
-        width:38px;
-        height:38px;
-    }
-
-    .headerButtons button{
-        padding:8px;
-        font-size:12px;
-    }
-
-    .hero h1{
-        font-size:30px;
-    }
-
-    .products{
-        grid-template-columns:repeat(2,1fr);
-        gap:12px;
-    }
-
-    .product img{
-        height:150px;
-    }
-
-    .productInfo{
-        padding:10px;
-    }
-
-    .productInfo h3{
-        font-size:15px;
-    }
-
-    .price{
-        font-size:17px;
-    }
-
-    .productButtons button{
-        font-size:11px;
-    }
-
-}
-
-</style>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="supabase.js"></script>
-</head>
-
-<body>
-<div id="loginBox">
-  <input id="email" type="email" placeholder="Admin Gmail">
-  <input id="pass" type="password" placeholder="Password">
-  <button onclick="login()">Admin Login</button>
-</div>
-<header>
-
-<div class="logo">
-
-<img src="logo.png" alt="Gadhuli Logo">
-
-<span>Gadhuli</span>
-
+<!DOCTYPE html>  <html lang="bn">  
+<head>  
+  <meta charset="UTF-8">  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">    <meta name="google-site-verification" content="lkVxExaUcJinZDbyNwrJL4Jhc3kjkYTwQXLFYYKu_p8">    <title>Gadhuli | Official Website</title>    <style>  
+    *{  
+      margin:0;  
+      padding:0;  
+      box-sizing:border-box;  
+    }  
+  
+    body{  
+      font-family:Arial, sans-serif;  
+      background:#fff7fa;  
+      color:#222;  
+    }  
+  
+    header{  
+      background:#fff;  
+      position:sticky;  
+      top:0;  
+      z-index:1000;  
+      box-shadow:0 2px 10px rgba(0,0,0,.08);  
+    }  
+  
+    .navbar{  
+      max-width:1200px;  
+      margin:auto;  
+      padding:12px 18px;  
+      display:flex;  
+      align-items:center;  
+      justify-content:space-between;  
+    }  
+  
+    .logo{  
+      display:flex;  
+      align-items:center;  
+      gap:10px;  
+      color:#8f174d;  
+      font-size:24px;  
+      font-weight:800;  
+    }  
+  
+    .logo-icon{  
+      width:43px;  
+      height:43px;  
+      border-radius:12px;  
+      background:#8f174d;  
+      color:#fff;  
+      display:flex;  
+      align-items:center;  
+      justify-content:center;  
+      font-size:24px;  
+      font-weight:900;  
+    }  
+  
+    nav{  
+      display:flex;  
+      gap:18px;  
+    }  
+  
+    nav a{  
+      text-decoration:none;  
+      color:#333;  
+      font-weight:600;  
+    }  
+  
+    nav a:hover{  
+      color:#8f174d;  
+    }  
+    .hero{  
+      max-width:1200px;  
+      margin:20px auto;  
+      padding:55px 25px;  
+      border-radius:20px;  
+      background:linear-gradient(135deg,#ffd6e7,#f7b3d0);  
+      text-align:center;  
+    }  
+  
+    .hero h1{  
+      font-size:42px;  
+      color:#8f174d;  
+      margin-bottom:12px;  
+    }  
+  
+    .hero p{  
+      font-size:18px;  
+      color:#555;  
+      margin-bottom:22px;  
+    }  
+  
+    .shop-btn{  
+      display:inline-block;  
+      padding:13px 28px;  
+      border-radius:30px;  
+      background:#8f174d;  
+      color:#fff;  
+      text-decoration:none;  
+      font-weight:bold;  
+      border:none;  
+      cursor:pointer;  
+    }  
+  
+    .shop-btn:hover{  
+      opacity:.9;  
+    }  
+  
+    .section{  
+      max-width:1200px;  
+      margin:35px auto;  
+      padding:0 18px;  
+    }  
+  
+    .section-title{  
+      text-align:center;  
+      color:#8f174d;  
+      font-size:30px;  
+      margin-bottom:22px;  
+    }  
+  
+    .products{  
+      display:grid;  
+      grid-template-columns:repeat(auto-fit,minmax(210px,1fr));  
+      gap:20px;  
+    }  
+  
+    .product{  
+      background:#fff;  
+      border-radius:16px;  
+      overflow:hidden;  
+      box-shadow:0 4px 15px rgba(0,0,0,.08);  
+      transition:.2s;  
+    }  
+  
+    .product:hover{  
+      transform:translateY(-4px);  
+    }  
+  
+    .product img{  
+      width:100%;  
+      height:210px;  
+      object-fit:cover;  
+      display:block;  
+    }  
+  
+    .product-info{  
+      padding:15px;  
+    }  
+  
+    .product-info h3{  
+      font-size:18px;  
+      margin-bottom:8px;  
+    }  
+  
+    .price{  
+      color:#8f174d;  
+      font-size:20px;  
+      font-weight:bold;  
+      margin-bottom:12px;  
+    }  
+  
+    .cart-btn{  
+      width:100%;  
+      padding:10px;  
+      border:0;  
+      border-radius:8px;  
+      background:#8f174d;  
+      color:#fff;  
+      font-weight:bold;  
+      cursor:pointer;  
+    }  
+    .cart{  
+      max-width:1200px;  
+      margin:30px auto;  
+      padding:20px;  
+      background:#fff;  
+      border-radius:16px;  
+      box-shadow:0 4px 15px rgba(0,0,0,.08);  
+    }  
+  
+    .cart h2{  
+      color:#8f174d;  
+      margin-bottom:15px;  
+    }  
+  
+    #cartItems{  
+      margin-bottom:15px;  
+    }  
+  
+    .cart-item{  
+      display:flex;  
+      align-items:center;  
+      justify-content:space-between;  
+      gap:10px;  
+      padding:12px 0;  
+      border-bottom:1px solid #eee;  
+    }  
+  
+    .remove-btn{  
+      border:0;  
+      background:#eee;  
+      padding:7px 12px;  
+      border-radius:7px;  
+      cursor:pointer;  
+    }  
+  
+    .total{  
+      font-size:21px;  
+      font-weight:bold;  
+      color:#8f174d;  
+      margin-top:15px;  
+    }  
+  
+    footer{  
+      margin-top:40px;  
+      padding:25px 15px;  
+      background:#8f174d;  
+      color:#fff;  
+      text-align:center;  
+    }  
+  
+    footer p{  
+      margin:6px 0;  
+    }  
+  
+    @media(max-width:600px){  
+      .navbar{  
+        padding:10px 12px;  
+      }  
+  
+      .logo{  
+        font-size:20px;  
+      }  
+  
+      .logo-icon{  
+        width:38px;  
+        height:38px;  
+        font-size:21px;  
+      }  
+  
+      nav{  
+        gap:10px;  
+      }  
+  
+      nav a{  
+        font-size:13px;  
+      }  
+  
+      .hero{  
+        margin:12px;  
+        padding:40px 18px;  
+      }  
+  
+      .hero h1{  
+        font-size:32px;  
+      }  
+  
+      .hero p{  
+        font-size:16px;  
+      }  
+  
+      .products{  
+        grid-template-columns:repeat(2,1fr);  
+        gap:12px;  
+      }  
+  
+      .product img{  
+        height:160px;  
+      }  
+  
+      .product-info{  
+        padding:11px;  
+      }  
+  
+      .product-info h3{  
+        font-size:15px;  
+      }  
+  
+      .price{  
+        font-size:17px;  
+      }  
+    }  
+  </style>  </head>  <body>    <header>  
+    <div class="navbar">  
+      <div class="logo">  
+        <div class="logo-icon">G</div>  
+        Gadhuli  
+      </div>  <nav>  
+    <a href="#home">Home</a>  
+    <a href="#products">Products</a>  
+    <a href="#cart">Cart 🛒</a>  
+  </nav>  
 </div>
 
-<div class="headerButtons">
+  </header>    <main id="home">  
+    <section class="hero">  
+      <h1>Shopping? Gadhuli</h1>  
+      <p>আপনার পছন্দের পণ্য এখন এক জায়গায়</p>  
+      <a href="#products" class="shop-btn">Shop Now</a>  
+    </section>  <section class="section" id="products">  
+  <h2 class="section-title">Our Products</h2>  
 
-<button onclick="scrollToCart()">
-🛒 Cart (<span id="cartCount">0</span>)
-</button>
+  <div class="products" id="productList">  
 
-<button onclick="scrollToWishlist()">
-❤️ Wishlist
-</button>
+    <div class="product">  
+      <img src="https://via.placeholder.com/500x500?text=T-Shirt" alt="T-Shirt">  
+      <div class="product-info">  
+        <h3>Premium T-Shirt</h3>  
+        <div class="price">৳800</div>  
+        <button class="cart-btn" onclick="addToCart('Premium T-Shirt',800)">  
+          Add to Cart  
+        </button>  
+      </div>  
+    </div>  
 
-</div>
+    <div class="product">  
+      <img src="https://via.placeholder.com/500x500?text=Watch" alt="Watch">  
+      <div class="product-info">  
+        <h3>Stylish Watch</h3>  
+        <div class="price">৳1200</div>  
+        <button class="cart-btn" onclick="addToCart('Stylish Watch',1200)">  
+          Add to Cart  
+        </button>  
+      </div>  
+    </div>  
 
-</header>
+    <div class="product">  
+      <img src="https://via.placeholder.com/500x500?text=Cap" alt="Cap">  
+      <div class="product-info">  
+        <h3>Premium Cap</h3>  
+        <div class="price">৳500</div>  
+        <button class="cart-btn" onclick="addToCart('Premium Cap',500)">  
+          Add to Cart  
+        </button>  
+      </div>  
+    </div>  
 
+  </div>  
+</section>  
 
-<section class="hero">
-
-<h1>Gadhuli</h1>
-
-<p>Shop Smart. Shop Easy.</p>
-
+<section class="cart" id="cart">  
+  <h2>Your Cart 🛒</h2>  
+  <div id="cartItems">Cart is empty.</div>  
+  <div class="total" id="cartTotal">Total: ৳0</div>  
 </section>
 
-
-<div class="searchBox">
-
-<input
-type="text"
-id="search"
-placeholder="🔎 Product Search..."
-oninput="showProducts()"
->
-
-</div>
-
-
-<div class="container">
-
-<h2 class="sectionTitle">
-🛍️ Products
-</h2>
-
-<div id="products" class="products"></div>
-
-
-<section class="cartSection" id="cartSection">
-
-<h2 class="sectionTitle">
-🛒 Shopping Cart
-</h2>
-
-<div id="cart"></div>
-
-<div class="cartSummary">
-
-<p>
-🛍️ Product Total:
-৳<span id="productTotal">0</span>
-</p>
-
-<div class="deliveryBox">
-
-🚚 Delivery Charge:
-৳<span id="deliveryCharge">0</span>
-
-</div>
-
-<h3 class="grandTotal">
-
-💰 Grand Total:
-৳<span id="total">0</span>
-
-</h3>
-
-</div>
-
-</section>
-
-
-<section class="orderSection">
-
-<h2 class="sectionTitle">
-📦 Order Information
-</h2>
-
-<form onsubmit="placeOrder(event)">
-
-<input
-type="text"
-id="customerName"
-placeholder="আপনার নাম"
-required
->
-
-<input
-type="tel"
-id="customerPhone"
-placeholder="মোবাইল নম্বর"
-required
->
-
-<textarea
-id="customerAddress"
-placeholder="সম্পূর্ণ ঠিকানা"
-required
-></textarea>
-
-
-<select id="deliveryArea" onchange="updateCart()" required>
-
-<option value="">
-Delivery Area নির্বাচন করুন
-</option>
-
-<option value="dhaka">
-ঢাকার মধ্যে — ৳60
-</option>
-
-<option value="outside">
-ঢাকার বাইরে — ৳120
-</option>
-
-</select>
-
-
-<button
-class="mainButton whatsapp"
-type="submit"
->
-📲 WhatsApp এ Order করুন
-</button>
-
-</form>
-
-</section>
-
-
-<section
-class="historySection"
-id="historySection"
->
-
-<h2 class="sectionTitle">
-📋 My Order History
-</h2>
-
-<div id="orderHistory"></div>
-
-</section>
-
-
-<section
-class="reviewSection"
-id="reviewSection"
->
-
-<h2 class="sectionTitle">
-⭐ Product Reviews
-</h2>
-
-<form onsubmit="addReview(event)">
-
-<input
-type="text"
-id="reviewName"
-placeholder="আপনার নাম"
-required
->
-
-<select id="reviewRating" required>
-
-<option value="">
-Rating দিন
-</option>
-
-<option value="5">
-⭐⭐⭐⭐⭐
-</option>
-
-<option value="4">
-⭐⭐⭐⭐
-</option>
-
-<option value="3">
-⭐⭐⭐
-</option>
-
-<option value="2">
-⭐⭐
-</option>
-
-<option value="1">
-⭐
-</option>
-
-</select>
-
-<textarea
-id="reviewText"
-placeholder="আপনার মতামত লিখুন"
-required
-></textarea>
-
-<button class="mainButton">
-Review Submit
-</button>
-
-</form>
-
-<div id="reviews"></div>
-
-</section>
-
-
-<section class="adminSection">
-
-<h2 class="sectionTitle">
-⚙️ Admin Panel
-</h2>
-
-<form onsubmit="addProduct(event)">
-
-<input
-type="text"
-id="productName"
-placeholder="Product Name"
-required
->
-
-<input
-type="number"
-id="productPrice"
-placeholder="Product Price"
-required
->
-
-<input
-type="text"
-id="productImage"
-placeholder="Image URL"
->
-
-<button class="mainButton">
-➕ Add Product
-</button>
-
-</form>
-
-<br>
-
-<div id="adminProducts"></div>
-
-</section>
-
-</div>
-
-
-<footer>
-
-<p>© 2026 Gadhuli</p>
-
-<p>Online Shopping</p>
-
-</footer>
-
-
-<script>
-    const db = supabase;
-/* =========================
-   DEFAULT PRODUCTS
-========================= */
-
-let defaultProducts = [
-
-{
-name:"Premium T-Shirt",
-price:800,
-image:""
-},
-
-{
-name:"Stylish Watch",
-price:1200,
-image:""
-},
-
-{
-name:"Casual Shirt",
-price:950,
-image:""
-}
-
-];
-
-
-/* =========================
-   LOAD PRODUCTS
-========================= */
-
-let savedProducts =
-localStorage.getItem("gadhuliProducts");
-
-let products;
-
-if(savedProducts){
-
-try{
-
-products =
-JSON.parse(savedProducts);
-
-if(!Array.isArray(products)){
-
-products = defaultProducts;
-
-}
-
-}catch(error){
-
-products = defaultProducts;
-
-}
-
-}else{
-
-products = defaultProducts;
-
-saveProducts();
-
-}
-
-
-/* =========================
-   SAVE PRODUCTS
-========================= */
-
-function saveProducts(){
-
-localStorage.setItem(
-"gadhuliProducts",
-JSON.stringify(products)
-);
-
-}
-
-
-/* =========================
-   CART
-========================= */
-
-let cart =
-JSON.parse(
-localStorage.getItem("gadhuliCart")
-) || [];
-
-
-/* =========================
-   WISHLIST
-========================= */
-
-let wishlist =
-JSON.parse(
-localStorage.getItem("gadhuliWishlist")
-) || [];
-
-
-/* =========================
-   DELIVERY
-========================= */
-
-function getDeliveryCharge(){
-
-let area =
-document.getElementById(
-"deliveryArea"
-).value;
-
-if(area === "dhaka"){
-
-return 60;
-
-}
-
-if(area === "outside"){
-
-return 120;
-
-}
-
-return 0;
-
-}
-
-
-/* =========================
-   SHOW PRODUCTS
-========================= */
-
-function showProducts(){
-
-let search =
-document.getElementById(
-"search"
-).value.toLowerCase();
-
-let box =
-document.getElementById(
-"products"
-);
-
-box.innerHTML = "";
-
-
-let found = false;
-
-
-products.forEach(function(product,index){
-
-if(
-!product.name
-.toLowerCase()
-.includes(search)
-){
-
-return;
-
-}
-
-found = true;
-
-
-let image =
-product.image ||
-"https://via.placeholder.com/500x400?text=Gadhuli";
-
-
-let isWish =
-wishlist.includes(index);
-
-
-box.innerHTML += `
-
-<div class="product">
-
-<img
-src="${image}"
-alt="${product.name}"
-onerror="this.src='https://via.placeholder.com/500x400?text=Gadhuli'"
->
-
-<div class="productInfo">
-
-<h3>
-${product.name}
-</h3>
-
-<div class="price">
-৳${product.price}
-</div>
-
-<div class="productButtons">
-
-<button
-class="cartBtn"
-onclick="addToCart(${index})"
->
-🛒 Add
-</button>
-
-<button
-class="wishBtn ${isWish ? "wishActive" : ""}"
-onclick="toggleWishlist(${index})"
->
-❤️
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-`;
-
-});
-
-
-if(!found){
-
-box.innerHTML =
-'<div class="empty">কোনো Product পাওয়া যায়নি</div>';
-
-}
-
-}
-
-
-/* =========================
-   ADD CART
-========================= */
-
-function addToCart(index){
-
-cart.push(products[index]);
-
-saveCart();
-
-updateCart();
-
-alert(
-"Product Cart এ যোগ হয়েছে ✅"
-);
-
-}
-
-
-function saveCart(){
-
-localStorage.setItem(
-"gadhuliCart",
-JSON.stringify(cart)
-);
-
-}
-
-
-/* =========================
-   UPDATE CART
-========================= */
-
-function updateCart(){
-
-let box =
-document.getElementById("cart");
-
-box.innerHTML = "";
-
-
-let productTotal = 0;
-
-
-if(cart.length === 0){
-
-box.innerHTML =
-'<div class="empty">Cart এখন খালি</div>';
-
-}else{
-
-
-cart.forEach(function(item,index){
-
-productTotal +=
-Number(item.price);
-
-
-box.innerHTML += `
-
-<div class="cartItem">
-
-<div>
-
-<b>${item.name}</b>
-
-<br>
-
-৳${item.price}
-
-</div>
-
-<button
-onclick="removeCart(${index})"
->
-🗑️ Remove
-</button>
-
-</div>
-
-`;
-
-});
-
-}
-
-
-let delivery =
-getDeliveryCharge();
-
-
-let grandTotal =
-productTotal + delivery;
-
-
-document.getElementById(
-"productTotal"
-).innerText =
-productTotal;
-
-
-document.getElementById(
-"deliveryCharge"
-).innerText =
-cart.length > 0
-? delivery
-: 0;
-
-
-document.getElementById(
-"total"
-).innerText =
-grandTotal;
-
-
-document.getElementById(
-"cartCount"
-).innerText =
-cart.length;
-
-}
-
-
-function removeCart(index){
-
-cart.splice(index,1);
-
-saveCart();
-
-updateCart();
-
-}
-
-
-/* =========================
-   WISHLIST
-========================= */
-
-function toggleWishlist(index){
-
-let position =
-wishlist.indexOf(index);
-
-
-if(position === -1){
-
-wishlist.push(index);
-
-}else{
-
-wishlist.splice(position,1);
-
-}
-
-
-localStorage.setItem(
-"gadhuliWishlist",
-JSON.stringify(wishlist)
-);
-
-showProducts();
-
-}
-
-
-function scrollToWishlist(){
-
-window.scrollTo({
-
-top:
-document.getElementById(
-"reviewSection"
-).offsetTop,
-
-behavior:"smooth"
-
-});
-
-}
-
-
-/* =========================
-   ADD PRODUCT
-========================= */
-
-function addProduct(event){
-
-event.preventDefault();
-
-
-let name =
-document.getElementById(
-"productName"
-).value.trim();
-
-
-let price =
-document.getElementById(
-"productPrice"
-).value;
-
-
-let image =
-document.getElementById(
-"productImage"
-).value.trim();
-
-
-if(
-name === "" ||
-price === "" ||
-isNaN(Number(price)) ||
-Number(price) <= 0
-){
-
-alert(
-"সঠিক Product Name এবং Price দিন"
-);
-
-return;
-
-}
-
-
-products.push({
-
-name:name,
-
-price:Number(price),
-
-image:image
-
-});
-
-
-saveProducts();
-
-showProducts();
-
-showAdminProducts();
-
-
-document.getElementById(
-"productName"
-).value = "";
-
-
-document.getElementById(
-"productPrice"
-).value = "";
-
-
-document.getElementById(
-"productImage"
-).value = "";
-
-
-alert(
-"Product Added Successfully ✅"
-);
-
-}
-
-
-/* =========================
-   ADMIN PRODUCTS
-========================= */
-
-function showAdminProducts(){
-
-let box =
-document.getElementById(
-"adminProducts"
-);
-
-box.innerHTML = "";
-
-
-products.forEach(function(product,index){
-
-box.innerHTML += `
-
-<div class="adminProduct">
-
-<b>
-${product.name}
-</b>
-
-<br>
-
-৳${product.price}
-
-<br>
-
-<button
-class="editButton"
-onclick="editProduct(${index})"
->
-✏️ Edit Product
-</button>
-
-<button
-class="delete"
-onclick="deleteProduct(${index})"
->
-🗑️ Delete Product
-</button>
-
-</div>
-
-`;
-
-});
-
-}
-
-
-/* =========================
-   EDIT PRODUCT
-========================= */
-
-function editProduct(index){
-
-let name =
-prompt(
-"Product Name:",
-products[index].name
-);
-
-if(name === null){
-
-return;
-
-}
-
-
-let price =
-prompt(
-"Product Price:",
-products[index].price
-);
-
-if(price === null){
-
-return;
-
-}
-
-
-let image =
-prompt(
-"Image URL:",
-products[index].image || ""
-);
-
-if(image === null){
-
-return;
-
-}
-
-
-name = name.trim();
-
-price = price.trim();
-
-image = image.trim();
-
-
-if(
-name === "" ||
-price === "" ||
-isNaN(Number(price)) ||
-Number(price) <= 0
-){
-
-alert(
-"সঠিক Name এবং Price দিন"
-);
-
-return;
-
-}
-
-
-products[index].name =
-name;
-
-products[index].price =
-Number(price);
-
-products[index].image =
-image;
-
-
-saveProducts();
-
-showProducts();
-
-showAdminProducts();
-
-alert(
-"Product Updated Successfully ✅"
-);
-
-}
-
-
-/* =========================
-   DELETE PRODUCT
-========================= */
-
-function deleteProduct(index){
-
-let confirmDelete =
-confirm(
-"এই Product Delete করতে চান?"
-);
-
-if(!confirmDelete){
-
-return;
-
-}
-
-
-products.splice(index,1);
-
-saveProducts();
-
-showProducts();
-
-showAdminProducts();
-
-
-alert(
-"Product Deleted ✅"
-);
-
-}
-
-
-/* =========================
-   PLACE ORDER
-========================= */
-
-function placeOrder(event){
-
-event.preventDefault();
-
-
-if(cart.length === 0){
-
-alert(
-"আগে Cart এ Product যোগ করুন"
-);
-
-return;
-
-}
-
-
-let name =
-document.getElementById(
-"customerName"
-).value.trim();
-
-
-let phone =
-document.getElementById(
-"customerPhone"
-).value.trim();
-
-
-let address =
-document.getElementById(
-"customerAddress"
-).value.trim();
-
-
-let area =
-document.getElementById(
-"deliveryArea"
-).value;
-
-
-if(area === ""){
-
-alert(
-"Delivery Area নির্বাচন করুন"
-);
-
-return;
-
-}
-
-
-let productTotal = 0;
-
-
-let message =
-"🛍️ *Gadhuli Order*";
-
-
-message +=
-"\n\n👤 Customer Name: " +
-name;
-
-
-message +=
-"\n📞 Phone: " +
-phone;
-
-
-message +=
-"\n📍 Address: " +
-address;
-
-
-message +=
-"\n🚚 Delivery: " +
-(
-area === "dhaka"
-? "ঢাকার মধ্যে"
-: "ঢাকার বাইরে"
-);
-
-
-message +=
-"\n\n📦 *Products:*";
-
-
-cart.forEach(function(item,index){
-
-productTotal +=
-Number(item.price);
-
-
-message +=
-"\n" +
-(index + 1) +
-". " +
-item.name +
-" - ৳" +
-item.price;
-
-});
-
-
-let delivery =
-getDeliveryCharge();
-
-
-let grandTotal =
-productTotal + delivery;
-
-
-message +=
-"\n\n🛍️ Product Total: ৳" +
-productTotal;
-
-
-message +=
-"\n🚚 Delivery Charge: ৳" +
-delivery;
-
-
-message +=
-"\n💰 *Grand Total: ৳" +
-grandTotal +
-"*";
-
-
-let whatsapp =
-"https://wa.me/8801333088194?text=" +
-encodeURIComponent(message);
-
-
-saveOrderHistory({
-
-name:name,
-
-phone:phone,
-
-address:address,
-
-area:area,
-
-products:cart,
-
-productTotal:productTotal,
-
-delivery:delivery,
-
-grandTotal:grandTotal,
-
-date:new Date().toLocaleString()
-
-});
-
-
-window.open(
-whatsapp,
-"_blank"
-);
-
-}
-
-
-/* =========================
-   ORDER HISTORY
-========================= */
-
-function saveOrderHistory(order){
-
-let history =
-JSON.parse(
-localStorage.getItem(
-"gadhuliOrderHistory"
-)
-) || [];
-
-
-history.unshift(order);
-
-
-localStorage.setItem(
-"gadhuliOrderHistory",
-JSON.stringify(history)
-);
-
-showOrderHistory();
-
-}
-
-
-function showOrderHistory(){
-
-let history =
-JSON.parse(
-localStorage.getItem(
-"gadhuliOrderHistory"
-)
-) || [];
-
-
-let box =
-document.getElementById(
-"orderHistory"
-);
-
-box.innerHTML = "";
-
-
-if(history.length === 0){
-
-box.innerHTML =
-'<div class="empty">এখনো কোনো Order নেই</div>';
-
-return;
-
-}
-
-
-history.forEach(function(order,index){
-
-box.innerHTML += `
-
-<div class="historyItem">
-
-<b>
-Order #${history.length-index}
-</b>
-
-<p>
-👤 ${order.name}
-</p>
-
-<p>
-📞 ${order.phone}
-</p>
-
-<p>
-🚚 ${
-order.area === "dhaka"
-? "ঢাকার মধ্যে"
-: "ঢাকার বাইরে"
-}
-</p>
-
-<p>
-💰 Total: ৳${order.grandTotal}
-</p>
-
-<small>
-${order.date}
-</small>
-
-</div>
-
-`;
-
-});
-
-}
-
-
-/* =========================
-   REVIEWS
-========================= */
-
-function addReview(event){
-
-event.preventDefault();
-
-
-let name =
-document.getElementById(
-"reviewName"
-).value.trim();
-
-
-let rating =
-document.getElementById(
-"reviewRating"
-).value;
-
-
-let text =
-document.getElementById(
-"reviewText"
-).value.trim();
-
-
-let reviews =
-JSON.parse(
-localStorage.getItem(
-"gadhuliReviews"
-)
-) || [];
-
-
-reviews.unshift({
-
-name:name,
-
-rating:Number(rating),
-
-text:text,
-
-date:new Date().toLocaleDateString()
-
-});
-
-
-localStorage.setItem(
-"gadhuliReviews",
-JSON.stringify(reviews)
-);
-
-
-document.getElementById(
-"reviewName"
-).value = "";
-
-
-document.getElementById(
-"reviewRating"
-).value = "";
-
-
-document.getElementById(
-"reviewText"
-).value = "";
-
-
-showReviews();
-
-
-alert(
-"Review Added ⭐"
-);
-
-}
-
-
-function showReviews(){
-
-let reviews =
-JSON.parse(
-localStorage.getItem(
-"gadhuliReviews"
-)
-) || [];
-
-
-let box =
-document.getElementById(
-"reviews"
-);
-
-box.innerHTML = "";
-
-
-reviews.forEach(function(review){
-
-let stars =
-"⭐".repeat(review.rating);
-
-
-box.innerHTML += `
-
-<div class="review">
-
-<b>
-${review.name}
-</b>
-
-<div class="stars">
-${stars}
-</div>
-
-<p>
-${review.text}
-</p>
-
-<small>
-${review.date}
-</small>
-
-</div>
-
-`;
-
-});
-
-}
-
-
-/* =========================
-   SCROLL CART
-========================= */
-
-function scrollToCart(){
-
-document.getElementById(
-"cartSection"
-).scrollIntoView({
-
-behavior:"smooth"
-
-});
-
-}
-
-
-/* =========================
-   INITIAL LOAD
-========================= */
-
-showProducts();
-
-updateCart();
-
-showAdminProducts();
-
-showOrderHistory();
-
-showReviews();
-
-
-</script>
-<script>
-async function login() {
-  const { error } = await supabase.auth.signInWithPassword({
-    email: email.value,
-    password: pass.value
-  });
-  if (!error) {
-    loginBox.style.display = "none";
-    adminPanel.style.display = "block";
-  } else {
-    alert("Login failed");
-  }
-}
-
-supabase.auth.getUser().then(({data}) => {
-  if (data.user) {
-    loginBox.style.display = "none";
-    adminPanel.style.display = "block";
-  }
-});
-</body>
-    </html>
+  </main>    <footer>  
+    <p><strong>Gadhuli | Official Website</strong></p>  
+    <p>© 2026 Gadhuli. All rights reserved.</p>  
+  </footer>    <script>  
+    let cart = [];  
+  
+    function addToCart(name, price){  
+      cart.push({name:name, price:price});  
+      showCart();  
+    }  
+  
+    function removeFromCart(index){  
+      cart.splice(index,1);  
+      showCart();  
+    }  
+  
+    function showCart(){  
+      const items = document.getElementById("cartItems");  
+      const total = document.getElementById("cartTotal");  
+  
+      if(cart.length === 0){  
+        items.innerHTML = "Cart is empty.";  
+        total.innerHTML = "Total: ৳0";  
+        return;  
+      }  
+  
+      let html = "";  
+      let sum = 0;  
+  
+      cart.forEach((item,index)=>{  
+        sum += item.price;  
+  
+        html += `  
+          <div class="cart-item">  
+            <span>${item.name} — ৳${item.price}</span>  
+            <button class="remove-btn"  
+              onclick="removeFromCart(${index})">Remove</button>  
+          </div>  
+        `;  
+      });  
+  
+      items.innerHTML = html;  
+      total.innerHTML = "Total: ৳" + sum;  
+    }  
+  </script>  </body>  
+</html> 
