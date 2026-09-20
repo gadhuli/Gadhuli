@@ -646,7 +646,10 @@ Rating দিন
     required
 ></textarea>
 
-<button class="mainButton">
+<button
+    class="mainButton"
+    type="submit"
+>
 Review Submit
 </button>
 
@@ -690,7 +693,10 @@ Review Submit
     placeholder="Image URL"
 >
 
-<button class="mainButton">
+<button
+    class="mainButton"
+    type="submit"
+>
 ➕ Add Product
 </button>
 
@@ -699,6 +705,16 @@ Review Submit
 <br>
 
 <div id="adminProducts"></div>
+
+<br>
+
+<button
+    class="mainButton"
+    type="button"
+    onclick="logout()"
+>
+🚪 Admin Logout
+</button>
 
 </section>
 
@@ -715,13 +731,23 @@ Review Submit
 
 
 <script>
-alert("Gadhuli JavaScript চলছে ✅");
-const db = supabase;
+
+/* ================================================= */
+/* BASIC CHECK */
+/* ================================================= */
+
+if(typeof supabase === "undefined"){
+
+    alert("Supabase load হয়নি ❌");
+
+}
 
 
-/* DEFAULT PRODUCTS */
+/* ================================================= */
+/* PRODUCTS */
+/* ================================================= */
 
-let defaultProducts = [
+const defaultProducts = [
 
 {
     name:"Premium T-Shirt",
@@ -744,12 +770,11 @@ let defaultProducts = [
 ];
 
 
-/* PRODUCTS */
-
 let savedProducts =
 localStorage.getItem("gadhuliProducts");
 
 let products;
+
 
 if(savedProducts){
 
@@ -758,18 +783,20 @@ if(savedProducts){
         products = JSON.parse(savedProducts);
 
         if(!Array.isArray(products)){
-            products = defaultProducts;
+
+            products = [...defaultProducts];
+
         }
 
     }catch(error){
 
-        products = defaultProducts;
+        products = [...defaultProducts];
 
     }
 
 }else{
 
-    products = defaultProducts;
+    products = [...defaultProducts];
 
     saveProducts();
 
@@ -786,7 +813,9 @@ function saveProducts(){
 }
 
 
+/* ================================================= */
 /* CART */
+/* ================================================= */
 
 let cart =
 JSON.parse(
@@ -794,7 +823,9 @@ JSON.parse(
 ) || [];
 
 
+/* ================================================= */
 /* WISHLIST */
+/* ================================================= */
 
 let wishlist =
 JSON.parse(
@@ -802,11 +833,13 @@ JSON.parse(
 ) || [];
 
 
+/* ================================================= */
 /* DELIVERY */
+/* ================================================= */
 
 function getDeliveryCharge(){
 
-    let area =
+    const area =
     document.getElementById("deliveryArea").value;
 
     if(area === "dhaka"){
@@ -822,80 +855,93 @@ function getDeliveryCharge(){
 }
 
 
+/* ================================================= */
 /* SHOW PRODUCTS */
+/* ================================================= */
 
 function showProducts(){
 
-    let search =
+    const search =
     document.getElementById("search")
         .value
         .toLowerCase();
 
-    let box =
+    const box =
     document.getElementById("products");
 
     box.innerHTML = "";
 
     let found = false;
 
+
     products.forEach(function(product,index){
 
+        const productName =
+        String(product.name || "");
+
+
         if(
-            !product.name
+            !productName
                 .toLowerCase()
                 .includes(search)
         ){
+
             return;
+
         }
+
 
         found = true;
 
-        let image =
+
+        const image =
         product.image ||
         "https://via.placeholder.com/500x400?text=Gadhuli";
 
-        let isWish =
+
+        const isWish =
         wishlist.includes(index);
+
 
         box.innerHTML += `
 
         <div class="product">
 
-        <img
-            src="${image}"
-            alt="${product.name}"
-            onerror="this.src='https://via.placeholder.com/500x400?text=Gadhuli'"
-        >
+            <img
+                src="${image}"
+                alt="${productName}"
+                onerror="this.src='https://via.placeholder.com/500x400?text=Gadhuli'"
+            >
 
-        <div class="productInfo">
+            <div class="productInfo">
 
-        <h3>
-        ${product.name}
-        </h3>
+                <h3>
+                    ${productName}
+                </h3>
 
-        <div class="price">
-        ৳${product.price}
-        </div>
+                <div class="price">
+                    ৳${product.price}
+                </div>
 
-        <div class="productButtons">
+                <div class="productButtons">
 
-        <button
-            class="cartBtn"
-            onclick="addToCart(${index})"
-        >
-        🛒 Add
-        </button>
+                    <button
+                        class="cartBtn"
+                        onclick="addToCart(${index})"
+                    >
+                        🛒 Add
+                    </button>
 
-        <button
-            class="wishBtn ${isWish ? "wishActive" : ""}"
-            onclick="toggleWishlist(${index})"
-        >
-        ❤️
-        </button>
+                    <button
+                        class="wishBtn ${isWish ? "wishActive" : ""}"
+                        onclick="toggleWishlist(${index})"
+                    >
+                        ❤️
+                    </button>
 
-        </div>
+                </div>
 
-        </div>
+            </div>
 
         </div>
 
@@ -914,9 +960,15 @@ function showProducts(){
 }
 
 
+/* ================================================= */
 /* CART */
+/* ================================================= */
 
 function addToCart(index){
+
+    if(!products[index]){
+        return;
+    }
 
     cart.push(products[index]);
 
@@ -941,7 +993,7 @@ function saveCart(){
 
 function updateCart(){
 
-    let box =
+    const box =
     document.getElementById("cart");
 
     box.innerHTML = "";
@@ -958,27 +1010,31 @@ function updateCart(){
 
         cart.forEach(function(item,index){
 
-            productTotal += Number(item.price);
+            productTotal +=
+            Number(item.price) || 0;
+
 
             box.innerHTML += `
 
             <div class="cartItem">
 
-            <div>
+                <div>
 
-            <b>${item.name}</b>
+                    <b>
+                        ${item.name}
+                    </b>
 
-            <br>
+                    <br>
 
-            ৳${item.price}
+                    ৳${item.price}
 
-            </div>
+                </div>
 
-            <button
-                onclick="removeCart(${index})"
-            >
-            🗑️ Remove
-            </button>
+                <button
+                    onclick="removeCart(${index})"
+                >
+                    🗑️ Remove
+                </button>
 
             </div>
 
@@ -989,22 +1045,26 @@ function updateCart(){
     }
 
 
-    let delivery =
+    const delivery =
     getDeliveryCharge();
 
-    let grandTotal =
+
+    const grandTotal =
     productTotal + delivery;
 
 
     document.getElementById("productTotal")
         .innerText = productTotal;
 
+
     document.getElementById("deliveryCharge")
         .innerText =
         cart.length > 0 ? delivery : 0;
 
+
     document.getElementById("total")
         .innerText = grandTotal;
+
 
     document.getElementById("cartCount")
         .innerText = cart.length;
@@ -1023,12 +1083,29 @@ function removeCart(index){
 }
 
 
+/* ================================================= */
+/* CART SCROLL */
+/* ================================================= */
+
+function scrollToCart(){
+
+    document.getElementById("cartSection")
+        .scrollIntoView({
+            behavior:"smooth"
+        });
+
+}
+
+
+/* ================================================= */
 /* WISHLIST */
+/* ================================================= */
 
 function toggleWishlist(index){
 
-    let position =
+    const position =
     wishlist.indexOf(index);
+
 
     if(position === -1){
 
@@ -1046,6 +1123,7 @@ function toggleWishlist(index){
         JSON.stringify(wishlist)
     );
 
+
     showProducts();
 
 }
@@ -1061,23 +1139,27 @@ function scrollToWishlist(){
 }
 
 
+/* ================================================= */
 /* ADD PRODUCT */
+/* ================================================= */
 
 function addProduct(event){
 
     event.preventDefault();
 
 
-    let name =
+    const name =
     document.getElementById("productName")
         .value
         .trim();
 
-    let price =
+
+    const price =
     document.getElementById("productPrice")
         .value;
 
-    let image =
+
+    const image =
     document.getElementById("productImage")
         .value
         .trim();
@@ -1128,11 +1210,13 @@ function addProduct(event){
 }
 
 
+/* ================================================= */
 /* ADMIN PRODUCTS */
+/* ================================================= */
 
 function showAdminProducts(){
 
-    let box =
+    const box =
     document.getElementById("adminProducts");
 
     box.innerHTML = "";
@@ -1144,29 +1228,29 @@ function showAdminProducts(){
 
         <div class="adminProduct">
 
-        <b>
-        ${product.name}
-        </b>
+            <b>
+                ${product.name}
+            </b>
 
-        <br>
+            <br>
 
-        ৳${product.price}
+            ৳${product.price}
 
-        <br>
+            <br>
 
-        <button
-            class="editButton"
-            onclick="editProduct(${index})"
-        >
-        ✏️ Edit Product
-        </button>
+            <button
+                class="editButton"
+                onclick="editProduct(${index})"
+            >
+                ✏️ Edit Product
+            </button>
 
-        <button
-            class="delete"
-            onclick="deleteProduct(${index})"
-        >
-        🗑️ Delete Product
-        </button>
+            <button
+                class="delete"
+                onclick="deleteProduct(${index})"
+            >
+                🗑️ Delete Product
+            </button>
 
         </div>
 
@@ -1177,11 +1261,13 @@ function showAdminProducts(){
 }
 
 
+/* ================================================= */
 /* EDIT PRODUCT */
+/* ================================================= */
 
 function editProduct(index){
 
-    let name =
+    const name =
     prompt(
         "Product Name:",
         products[index].name
@@ -1193,7 +1279,7 @@ function editProduct(index){
     }
 
 
-    let price =
+    const price =
     prompt(
         "Product Price:",
         products[index].price
@@ -1205,7 +1291,7 @@ function editProduct(index){
     }
 
 
-    let image =
+    const image =
     prompt(
         "Image URL:",
         products[index].image || ""
@@ -1217,16 +1303,23 @@ function editProduct(index){
     }
 
 
-    name = name.trim();
-    price = price.trim();
-    image = image.trim();
+    const cleanName =
+    name.trim();
+
+
+    const cleanPrice =
+    price.trim();
+
+
+    const cleanImage =
+    image.trim();
 
 
     if(
-        name === "" ||
-        price === "" ||
-        isNaN(Number(price)) ||
-        Number(price) <= 0
+        cleanName === "" ||
+        cleanPrice === "" ||
+        isNaN(Number(cleanPrice)) ||
+        Number(cleanPrice) <= 0
     ){
 
         alert("সঠিক Name এবং Price দিন");
@@ -1236,9 +1329,16 @@ function editProduct(index){
     }
 
 
-    products[index].name = name;
-    products[index].price = Number(price);
-    products[index].image = image;
+    products[index].name =
+    cleanName;
+
+
+    products[index].price =
+    Number(cleanPrice);
+
+
+    products[index].image =
+    cleanImage;
 
 
     saveProducts();
@@ -1253,11 +1353,13 @@ function editProduct(index){
 }
 
 
+/* ================================================= */
 /* DELETE PRODUCT */
+/* ================================================= */
 
 function deleteProduct(index){
 
-    let confirmDelete =
+    const confirmDelete =
     confirm(
         "এই Product Delete করতে চান?"
     );
@@ -1282,7 +1384,9 @@ function deleteProduct(index){
 }
 
 
+/* ================================================= */
 /* ORDER */
+/* ================================================= */
 
 function placeOrder(event){
 
@@ -1298,202 +1402,13 @@ function placeOrder(event){
     }
 
 
-    let name =
+    const name =
     document.getElementById("customerName")
         .value
         .trim();
 
-    let phone =
+
+    const phone =
     document.getElementById("customerPhone")
         .value
-        .trim();
-
-    let address =
-    document.getElementById("customerAddress")
-        .value
-        .trim();
-
-    let area =
-    document.getElementById("deliveryArea")
-        .value;
-
-
-    if(area === ""){
-
-        alert("Delivery Area নির্বাচন করুন");
-
-        return;
-
-    }
-
-
-    let productTotal = 0;
-
-
-    let message =
-    "🛍️ *Gadhuli Order*";
-
-
-    message +=
-    "\n\n👤 Customer Name: " +
-    name;
-
-
-    message +=
-    "\n📞 Phone: " +
-    phone;
-
-
-    message +=
-    "\n📍 Address: " +
-    address;
-
-
-    message +=
-    "\n🚚 Delivery: " +
-    (
-        area === "dhaka"
-        ? "ঢাকার মধ্যে"
-        : "ঢাকার বাইরে"
-    );
-
-
-    message +=
-    "\n\n📦 *Products:*";
-
-
-    cart.forEach(function(item,index){
-
-        productTotal +=
-        Number(item.price);
-
-        message +=
-        "\n" +
-        (index + 1) +
-        ". " +
-        item.name +
-        " - ৳" +
-        item.price;
-
-    });
-
-
-    let delivery =
-    getDeliveryCharge();
-
-
-    let grandTotal =
-    productTotal + delivery;
-
-
-    message +=
-    "\n\n🛍️ Product Total: ৳" +
-    productTotal;
-
-
-    message +=
-    "\n🚚 Delivery Charge: ৳" +
-    delivery;
-
-
-    message +=
-    "\n💰 *Grand Total: ৳" +
-    grandTotal +
-    "*";
-
-
-    let whatsapp =
-    "https://wa.me/8801333088194?text=" +
-    encodeURIComponent(message);
-
-
-    saveOrderHistory({
-
-        name:name,
-        phone:phone,
-        address:address,
-        area:area,
-        products:cart,
-        productTotal:productTotal,
-        delivery:delivery,
-        grandTotal:grandTotal,
-        date:new Date().toLocaleString()
-
-    });
-
-
-    window.open(
-        whatsapp,
-        "_blank"
-    );
-
-}
-
-
-/* ORDER HISTORY */
-
-function saveOrderHistory(order){
-
-    let history =
-    JSON.parse(
-        localStorage.getItem("gadhuliOrderHistory")
-    ) || [];
-
-
-    history.unshift(order);
-
-
-    localStorage.setItem(
-        "gadhuliOrderHistory",
-        JSON.stringify(history)
-    );
-
-
-    showOrderHistory();
-
-}
-
-
-function showOrderHistory(){
-
-    let history =
-    JSON.parse(
-        localStorage.getItem("gadhuliOrderHistory")
-    ) || [];
-
-
-    let box =
-    document.getElementById("orderHistory");
-
-    box.innerHTML = "";
-
-
-    if(history.length === 0){
-
-        box.innerHTML =
-        '<div class="empty">এখনো কোনো Order নেই</div>';
-
-        return;
-
-    }
-
-
-    history.forEach(function(order,index){
-
-        box.innerHTML += `
-
-        <div class="historyItem">
-
-        <b>
-        Order #${history.length-index}
-        </b>
-
-        <p>👤 ${order.name}</p>
-
-        <p>📞 ${order.phone}</p>
-
-        <p>
-        🚚 ${
-            order.area === "dhaka"
-            ? "ঢাকার মধ্যে"
-            : "ঢাকার ব
+     
