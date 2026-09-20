@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Gadhuli | Admin</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,sans-serif
+}
+
+body{
+  background:#fff7fa;
+  color:#333;
+  min-height:100vh
+}
+
+header{
+  background:#fff;
+  padding:15px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  box-shadow:0 2px 10px #0001
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px
+}
+
+.logo img{
+  width:45px;
+  height:45px;
+  object-fit:contain;
+  border-radius:10px
+}
+
+.logo b{
+  font-size:23px;
+  color:#8f174d
+}
+
+.back{
+  text-decoration:none;
+  background:#8f174d;
+  color:#fff;
+  padding:10px 14px;
+  border-radius:8px
+}
+
+.container{
+  width:92%;
+  max-width:800px;
+  margin:35px auto
+}
+
+.box{
+  background:#fff;
+  padding:25px;
+  border-radius:15px;
+  box-shadow:0 3px 15px #0001;
+  margin-bottom:25px
+}
+
+h1,h2,h3{
+  color:#8f174d
+}
+
+.login-box{
+  max-width:500px;
+  margin:50px auto
+}
+
+input{
+  width:100%;
+  padding:13px;
+  border:1px solid #ddd;
+  border-radius:8px;
+  margin:10px 0;
+  outline:none;
+  font-size:16px
+}
+
+button{
+  border:0;
+  border-radius:8px;
+  padding:11px 15px;
+  cursor:pointer;
+  background:#8f174d;
+  color:#fff;
+  font-size:15px
+}
+
+button:active{
+  transform:scale(.97)
+}
+
+.login-btn{
+  width:100%;
+  margin-top:8px
+}
+
+.status{
+  margin-top:15px;
+  font-weight:bold;
+  word-break:break-word
+}
+
+#adminPanel{
+  display:none
+}
+
+.admin-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  padding:14px 0;
+  border-bottom:1px solid #eee
+}
+
+.actions{
+  display:flex;
+  gap:6px
+}
+
+.edit{
+  background:#ead0dc;
+  color:#8f174d
+}
+
+.delete{
+  background:#8f174d
+}
+
+.logout{
+  background:#555;
+  margin-top:15px
+}
+
+.empty{
+  color:#777;
+  padding:15px 0
+}
+
+footer{
+  background:#8f174d;
+  color:#fff;
+  text-align:center;
+  padding:25px;
+  margin-top:40px
+}
+
+@media(max-width:600px){
+  .logo b{
+    font-size:19px
+  }
+
+  .admin-item{
+    align-items:flex-start
+  }
+
+  .actions{
+    flex-shrink:0
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+<img src="logo.png"
+alt="Gadhuli Logo"
+onerror="this.style.display='none'">
+<b>Gadhuli Admin</b>
+</div>
+
+<a class="back" href="index.html">
+← Website
+</a>
+
+</header>
+
+
+<div class="container">
+
+<!-- LOGIN -->
+
+<div id="loginBox" class="box login-box">
+
+<h1>🔐 Admin Login</h1>
+
+<br>
+
+<p>Gadhuli Admin Dashboard</p>
+
+<form id="loginForm">
+
+<input
+id="email"
+type="email"
+placeholder="Admin Email"
+required>
+
+<input
+id="password"
+type="password"
+placeholder="Password"
+required>
+
+<button
+class="login-btn"
+type="submit">
+Login
+</button>
+
+</form>
+
+<div id="status" class="status"></div>
+
+</div>
+
+
+<!-- ADMIN PANEL -->
+
+<div id="adminPanel">
+
+<div class="box">
+
+<h2>🔐 Gadhuli Admin Panel</h2>
+
+<br>
+
+<p>Welcome to Gadhuli Admin Dashboard.</p>
+
+<button
+class="logout"
+type="button"
+onclick="logout()">
+Logout
+</button>
+
+</div>
+
+
+<!-- ADD PRODUCT -->
+
+<div class="box">
+
+<h2>➕ Add Product</h2>
+
+<br>
+
+<form id="productForm">
+
+<input
+id="pname"
+placeholder="Product Name"
+required>
+
+<input
+id="price"
+type="number"
+min="1"
+placeholder="Price"
+required>
+
+<input
+id="image"
+type="url"
+placeholder="Image URL">
+
+<button type="submit">
+Save Product
+</button>
+
+</form>
+
+</div>
+
+
+<!-- PRODUCTS -->
+
+<div class="box">
+
+<h2>📦 Manage Products</h2>
+
+<br>
+
+<div id="adminProducts"></div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<footer>
+
+<h3>Gadhuli</h3>
+
+<p>Admin Dashboard</p>
+
+<br>
+
+<p>© 2026 Gadhuli | Official Website</p>
+
+</footer>
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded",function(){
+
+const client=window.gadhuliSupabase;
+
+const status=document.getElementById("status");
+
+if(!client){
+
+status.innerText=
+"Supabase connection পাওয়া যায়নি ❌";
+
+status.style.color="red";
+
+return;
+
+}
+
+
+let products=[];
+
+try{
+
+products=JSON.parse(
+localStorage.getItem("gadhuli_products")||"null"
+);
+
+}catch(e){
+
+products=[];
+
+}
+
+
+if(!Array.isArray(products)){
+
+products=[
+{
+name:"Premium T-Shirt",
+price:800,
+image:""
+},
+{
+name:"Stylish Watch",
+price:1200,
+image:""
+},
+{
+name:"Casual Shirt",
+price:950,
+image:""
+}
+];
+
+}
+
+
+function saveProducts(){
+
+localStorage.setItem(
+"gadhuli_products",
+JSON.stringify(products)
+);
+
+}
+
+
+async function adminCheck(user){
+
+if(!user)return false;
+
+try{
+
+const result=await Promise.race([
+
+client
+.from("admins")
+.select("user_id")
+.eq("user_id",user.id)
+.maybeSingle(),
+
+new Promise(function(_,reject){
+
+setTimeout(function(){
+
+reject(
+new Error("Admin check timeout")
+);
+
+},10000);
+
+})
+
+]);
+
+
+if(result.error){
+
+console.error(result.error);
+
+return false;
+
+}
+
+return !!result.data;
+
+}catch(error){
+
+console.error(error);
+
+return false;
+
+}
+
+}
+
+
+document
+.getElementById("loginForm")
+.addEventListener("submit",async function(e){
+
+e.preventDefault();
+
+status.innerText="Login হচ্ছে...";
+status.style.color="#8f174d";
+
+
+const email=
+document.getElementById("email")
+.value.trim();
+
+const password=
+document.getElementById("password")
+.value;
+
+
+try{
+
+const result=await Promise.race([
+
+client.auth.signInWithPassword({
+email:email,
+password:password
+}),
+
+new Promise(function(_,reject){
+
+setTimeout(function(){
+
+reject(
+new Error(
+"Supabase response আসছে না। Internet বা connection check করুন।"
+)
+);
+
+},15000);
+
+})
+
+]);
+
+
+if(result.error){
+
+status.innerText=
+"Login failed ❌ "+
+result.error.message;
+
+status.style.color="red";
+
+return;
+
+}
+
+
+const user=result.data.user;
+
+
+if(!user){
+
+status.innerText=
+"User পাওয়া যায়নি ❌";
+
+status.style.color="red";
+
+return;
+
+}
+
+
+const isAdmin=
+await adminCheck(user);
+
+
+if(!isAdmin){
+
+await client.auth.signOut();
+
+status.innerText=
+"Admin Access নেই ❌";
+
+status.style.color="red";
+
+return;
+
+}
+
+
+status.innerText=
+"Admin Login সফল হয়েছে ✅";
+
+status.style.color="green";
+
+
+document
+.getElementById("loginBox")
+.style.display="none";
+
+
+document
+.getElementById("adminPanel")
+.style.display="block";
+
+
+showAdmin();
+
+
+}catch(error){
+
+console.error(error);
+
+status.innerText=
+"Login Error ❌ "+
+error.message;
+
+status.style.color="red";
+
+}
+
+});
+
+
+async function checkSession(){
+
+try{
+
+const result=
+await client.auth.getUser();
+
+if(result.error)return;
+
+const user=result.data.user;
+
+if(!user)return;
+
+
+const isAdmin=
+await adminCheck(user);
+
+
+if(isAdmin){
+
+document
+.getElementById("loginBox")
+.style.display="none";
+
+document
+.getElementById("adminPanel")
+.style.display="block";
+
+showAdmin();
+
+}
+
+}catch(error){
+
+console.error(error);
+
+}
+
+}
+
+
+document
+.getElementById("productForm")
+.addEventListener("submit",function(e){
+
+e.preventDefault();
+
+
+const name=
+document.getElementById("pname")
+.value.trim();
+
+const price=
+Number(
+document.getElementById("price").value
+);
+
+const image=
+document.getElementById("image")
+.value.trim();
+
+
+if(!name||price<=0){
+
+alert(
+"Product name এবং valid price দিন ❌"
+);
+
+return;
+
+}
+
+
+products.push({
+
+name:name,
+
+price:price,
+
+image:image
+
+});
+
+
+saveProducts();
+
+showAdmin();
+
+this.reset();
+
+
+alert(
+"Product add হয়েছে ✅"
+);
+
+});
+
+
+function showAdmin(){
+
+const box=
+document.getElementById("adminProducts");
+
+box.innerHTML="";
+
+
+if(!products.length){
+
+box.innerHTML=
+'<div class="empty">কোনো product নেই।</div>';
+
+return;
+
+}
+
+
+products.forEach(function(p,i){
+
+const item=
+document.createElement("div");
+
+item.className="admin-item";
+
+
+item.innerHTML=`
+
+<div>
+
+<b>${p.name}</b>
+
+<br>
+
+৳${p.price}
+
+</div>
+
+<div class="actions">
+
+<button
+class="edit"
+onclick="editProduct(${i})">
+✏️
+</button>
+
+<button
+class="delete"
+onclick="deleteProduct(${i})">
+🗑️
+</button>
+
+</div>
+
+`;
+
+
+box.appendChild(item);
+
+});
+
+}
+
+
+window.editProduct=
+function(i){
+
+if(!products[i])return;
+
+
+const name=
+prompt(
+"Product Name:",
+products[i].name
+);
+
+if(name===null)return;
+
+
+const price=
+prompt(
+"Price:",
+products[i].price
+);
+
+if(price===null)return;
+
+
+const image=
+prompt(
+"Image URL:",
+products[i].image||""
+);
+
+if(image===null)return;
+
+
+const newPrice=
+Number(price);
+
+
+if(!name.trim()||newPrice<=0){
+
+alert(
+"Valid product name ও price দিন ❌"
+);
+
+return;
+
+}
+
+
+products[i]={
+
+name:name.trim(),
+
+price:newPrice,
+
+image:image.trim()
+
+};
+
+
+saveProducts();
+
+showAdmin();
+
+
+alert(
+"Product update হয়েছে ✅"
+);
+
+};
+
+
+window.deleteProduct=
+function(i){
+
+if(!products[i])return;
+
+
+if(!confirm(
+`"${products[i].name}" delete করবেন?`
+))return;
+
+
+products.splice(i,1);
+
+saveProducts();
+
+showAdmin();
+
+
+alert(
+"Product delete হয়েছে 🗑️"
+);
+
+};
+
+
+window.logout=
+async function(){
+
+try{
+
+await client.auth.signOut();
+
+}catch(error){
+
+console.error(error);
+
+}
+
+
+document
+.getElementById("adminPanel")
+.style.display="none";
+
+
+document
+.getElementById("loginBox")
+.style.display="block";
+
+
+document
+.getElementById("password")
+.value="";
+
+
+status.innerText=
+"Logout হয়েছে ✅";
+
+status.style.color="#8f174d";
+
+};
+
+
+checkSession();
+
+});
+
+</script>
+
+</body>
+  </html>
