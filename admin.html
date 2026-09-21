@@ -278,10 +278,16 @@ min="1"
 placeholder="Price"
 required>
 
+<label>🖼️ Product Images (3–5)</label>
+
 <input
-id="image"
-type="url"
-placeholder="Image URL">
+id="images"
+type="file"
+accept="image/*"
+multiple
+required>
+
+<div id="preview"></div>
 
 <button type="submit">
 Save Product
