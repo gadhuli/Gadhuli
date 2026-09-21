@@ -628,9 +628,13 @@ Number(
 document.getElementById("price").value
 );
 
-const image=
-document.getElementById("image")
-.value.trim();
+const images =
+document.getElementById("images").files;
+
+if (images.length < 3 || images.length > 5) {
+  alert("৩–৫টি ছবি সিলেক্ট করুন ❌");
+  return;
+}
 
 
 if(!name||price<=0){
