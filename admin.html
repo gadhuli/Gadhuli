@@ -781,13 +781,9 @@ return;
 
 
 products[i]={
-
-name:name.trim(),
-
-price:newPrice,
-
-image:image.trim()
-
+  ...products[i],
+  name:name.trim(),
+  price:newPrice
 };
 
 
