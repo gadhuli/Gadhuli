@@ -884,7 +884,23 @@ console.log(
         ========================= */
 
         try{
+const testUser =
+  await client.auth.getUser();
 
+console.log(
+  "AUTH USER:",
+  testUser.data.user
+);
+
+if(testUser.error || !testUser.data.user){
+
+  alert(
+    "Browser session পাওয়া যায়নি ❌\n\n" +
+    (testUser.error?.message || "")
+  );
+
+  return;
+}
           const result =
   await client
   .from("products")
