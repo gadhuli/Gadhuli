@@ -648,26 +648,36 @@ return;
 }
 
 
-products.push({
+const { data, error } = await client
+  .from("products")
+  .insert([
+    {
+      name: name,
+      price: price,
+      images: [],
+      category: "Others"
+    }
+  ])
+  .select();
 
-  name: name,
+if(error){
 
-  price: price,
+  console.error(error);
 
-  images: []
+  alert(
+    "Product Database-এ Save হয়নি ❌\n" +
+    error.message
+  );
 
-});
-
+  return;
+}
 
 saveProducts();
-
 showAdmin();
-
 this.reset();
 
-
 alert(
-"Product add হয়েছে ✅"
+  "Product Supabase Database-এ Save হয়েছে ✅"
 );
 
 });
