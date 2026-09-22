@@ -348,8 +348,15 @@ localStorage.setItem(
 }
 
 function imageURL(url){
+
+if(Array.isArray(url)){
+return url[0]||
+"https://via.placeholder.com/400x300?text=Gadhuli";
+}
+
 return url||
 "https://via.placeholder.com/400x300?text=Gadhuli";
+
 }
 
 function showProducts(){
@@ -369,7 +376,7 @@ const card=document.createElement("div");
 card.className="card";
 
 card.innerHTML=`
-<img src="${imageURL(p.image)}"
+<img src="${imageURL(p.images||p.image)}"
 alt="${p.name}">
 <h3>${p.name}</h3>
 <div class="price">৳${Number(p.price)}</div>
@@ -494,7 +501,7 @@ const card=document.createElement("div");
 card.className="card";
 
 card.innerHTML=`
-<img src="${imageURL(p.image)}"
+<img src="${imageURL(p.images||p.image)}"
 alt="${p.name}">
 <h3>${p.name}</h3>
 <div class="price">৳${p.price}</div>
