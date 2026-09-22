@@ -868,7 +868,10 @@ document.addEventListener(
           "Supabase role:",
           sessionResult.data.session.user.role
         );
-
+console.log(
+  "Logged-in User ID:",
+  sessionResult.data.session.user.id
+);
 
         /* =========================
            DATABASE INSERT
