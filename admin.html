@@ -428,23 +428,7 @@ document.addEventListener(
 
     if(!Array.isArray(products)){
 
-      products = [
-        {
-          name:"Premium T-Shirt",
-          price:800,
-          images:[]
-        },
-        {
-          name:"Stylish Watch",
-          price:1200,
-          images:[]
-        },
-        {
-          name:"Casual Shirt",
-          price:950,
-          images:[]
-        }
-      ];
+      products = [];
 
     }
 
@@ -520,6 +504,7 @@ document.addEventListener(
           );
 
         loginButton.disabled = true;
+
         loginButton.innerText =
           "Login হচ্ছে...";
 
@@ -851,17 +836,45 @@ document.addEventListener(
           "Database-এ Save হচ্ছে...";
 
 
+        /* =========================
+           SESSION CHECK
+        ========================= */
+
+        const sessionResult =
+          await client.auth.getSession();
+
+
+        if(
+          sessionResult.error ||
+          !sessionResult.data.session
+        ){
+
+          alert(
+            "Supabase session পাওয়া যায়নি ❌\n\n" +
+            "Logout করে আবার Login করুন।"
+          );
+
+          saveButton.disabled = false;
+
+          saveButton.innerText =
+            "Save Product";
+
+          return;
+
+        }
+
+
+        console.log(
+          "Supabase role:",
+          sessionResult.data.session.user.role
+        );
+
+
+        /* =========================
+           DATABASE INSERT
+        ========================= */
+
         try{
-
-          /*
-           * STEP 5B:
-           * এখন Product Database-এ
-           * Save হবে।
-           *
-           * Image Storage upload
-           * পরের ধাপে করব।
-           */
-
 
           const result =
             await client
@@ -898,12 +911,6 @@ document.addEventListener(
           const newProduct =
             result.data;
 
-
-          /*
-           * Local list-এও রাখছি
-           * যাতে Admin Panel-এ
-           * সঙ্গে সঙ্গে দেখা যায়।
-           */
 
           products.push({
             id:newProduct.id,
@@ -977,11 +984,6 @@ document.addEventListener(
       box.innerHTML =
         "Products load হচ্ছে...";
 
-
-      /*
-       * Database থেকে
-       * সর্বশেষ products আনার চেষ্টা।
-       */
 
       try{
 
@@ -1192,11 +1194,6 @@ document.addEventListener(
 
 
       try{
-
-        /*
-         * Database product হলে
-         * id ব্যবহার করে update।
-         */
 
         if(product.id){
 
