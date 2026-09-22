@@ -868,6 +868,12 @@ document.addEventListener(
           "Supabase role:",
           sessionResult.data.session.user.role
         );
+        alert(
+  "User ID:\n" +
+  sessionResult.data.session.user.id +
+  "\n\nRole:\n" +
+  sessionResult.data.session.user.role
+);
 console.log(
   "Logged-in User ID:",
   sessionResult.data.session.user.id
