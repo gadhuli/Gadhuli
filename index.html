@@ -220,9 +220,49 @@ min="1"
 placeholder="Price"
 required>
 
-<input id="image"
-type="url"
-placeholder="Image URL">
+<label>🖼️ Product Images (3–5)</label>
+
+<input id="images"
+type="file"
+accept="image/*"
+multiple
+required>
+
+<div id="preview"></div>
+  <script>
+document.getElementById("images").addEventListener("change",function(){
+
+const preview=document.getElementById("preview");
+
+preview.innerHTML="";
+
+if(this.files.length<3 || this.files.length>5){
+
+preview.innerHTML=
+"⚠️ ৩–৫টি ছবি select করুন";
+
+return;
+
+}
+
+Array.from(this.files).forEach(function(file){
+
+const img=document.createElement("img");
+
+img.src=URL.createObjectURL(file);
+
+img.style.width="80px";
+img.style.height="80px";
+img.style.objectFit="cover";
+img.style.borderRadius="8px";
+img.style.margin="5px";
+
+preview.appendChild(img);
+
+});
+
+});
+  </script>
 
 <button type="submit">
 Save Product
