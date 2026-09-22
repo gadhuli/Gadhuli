@@ -815,7 +815,7 @@ status.style.color="#8f174d";
 };
 
 document.getElementById("productForm")
-.addEventListener("submit",function(e){
+.addEventListener("submit",async function(e){
 
 e.preventDefault();
 
@@ -826,8 +826,8 @@ const price=Number(
 document.getElementById("price").value
 );
 
-const image=document.getElementById(
-"image").value.trim();
+const files=document.getElementById(
+"images").files;
 
 if(!name||price<=0){
 
@@ -836,10 +836,69 @@ return;
 
 }
 
+if(files.length<3||files.length>5){
+
+alert("৩–৫টি ছবি select করুন ❌");
+return;
+
+}
+
+const button=this.querySelector(
+'button[type="submit"]'
+);
+
+button.disabled=true;
+button.innerText="ছবি Upload হচ্ছে... ⏳";
+
+try{
+
+const imageUrls=[];
+
+for(let i=0;i<files.length;i++){
+
+const file=files[i];
+
+const extension=
+file.name.split(".").pop();
+
+const fileName=
+Date.now()+"-"+Math.random()
+.toString(36)
+.substring(2,10)
++"."+extension;
+
+const filePath=
+"products/"+fileName;
+
+const uploadResult=
+await client.storage
+.from("product-images")
+.upload(filePath,file,{
+contentType:file.type,
+upsert:false
+});
+
+if(uploadResult.error){
+
+throw uploadResult.error;
+
+}
+
+const publicResult=
+client.storage
+.from("product-images")
+.getPublicUrl(filePath);
+
+imageUrls.push(
+publicResult.data.publicUrl
+);
+
+}
+
 products.push({
 name:name,
 price:price,
-image:image
+images:imageUrls
 });
 
 save();
@@ -848,8 +907,28 @@ showAdmin();
 
 this.reset();
 
-alert("Product add হয়েছে ✅");
+document.getElementById("preview")
+.innerHTML="";
 
+alert("Product এবং ছবি Upload হয়েছে ✅");
+
+}catch(error){
+
+console.error(error);
+
+alert(
+"ছবি Upload হয়নি ❌\n"+
+error.message
+);
+
+}finally{
+
+button.disabled=false;
+button.innerText="Save Product";
+
+}
+
+});
 });
 
 function showAdmin(){
