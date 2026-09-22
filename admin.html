@@ -877,18 +877,18 @@ document.addEventListener(
         try{
 
           const result =
-            await client
-            .from("products")
-            .insert([
-              {
-                name:name,
-                price:price,
-                images:[],
-                category:"Others"
-              }
-            ])
-            .select()
-            .single();
+  await client
+  .from("products")
+  .insert([
+    {
+      name: name,
+      price: price,
+      images: "",
+      category: "Others"
+    }
+  ])
+  .select()
+  .single();
 
 
           if(result.error){
