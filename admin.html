@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
 
 <meta charset="UTF-8">
 
 <meta
   name="viewport"
-  content="width=device-width,initial-scale=1.0">
+  content="width=device-width, initial-scale=1.0"
+>
 
 <title>Gadhuli | Admin</title>
 
@@ -27,6 +29,8 @@ body{
   color:#333;
   min-height:100vh;
 }
+
+/* HEADER */
 
 header{
   background:#fff;
@@ -63,11 +67,15 @@ header{
   border-radius:8px;
 }
 
+/* CONTAINER */
+
 .container{
   width:92%;
   max-width:800px;
   margin:35px auto;
 }
+
+/* BOX */
 
 .box{
   background:#fff;
@@ -77,9 +85,13 @@ header{
   margin-bottom:25px;
 }
 
-h1,h2,h3{
+h1,
+h2,
+h3{
   color:#8f174d;
 }
+
+/* LOGIN */
 
 .login-box{
   max-width:500px;
@@ -123,12 +135,41 @@ button:disabled{
 .status{
   margin-top:15px;
   font-weight:bold;
+  white-space:pre-line;
   word-break:break-word;
 }
+
+/* ADMIN PANEL */
 
 #adminPanel{
   display:none;
 }
+
+/* IMAGE */
+
+.image-note{
+  display:block;
+  color:#777;
+  font-size:13px;
+  margin-top:4px;
+}
+
+#preview{
+  display:flex;
+  flex-wrap:wrap;
+  margin:5px 0 10px;
+}
+
+.preview-img{
+  width:80px;
+  height:80px;
+  object-fit:cover;
+  border-radius:8px;
+  margin:5px;
+  border:1px solid #ddd;
+}
+
+/* PRODUCTS */
 
 .admin-item{
   display:flex;
@@ -139,9 +180,35 @@ button:disabled{
   border-bottom:1px solid #eee;
 }
 
+.product-left{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:0;
+}
+
+.product-thumb{
+  width:65px;
+  height:65px;
+  object-fit:cover;
+  border-radius:10px;
+  border:1px solid #eee;
+  flex-shrink:0;
+}
+
+.product-info{
+  min-width:0;
+}
+
+.product-info b{
+  display:block;
+  word-break:break-word;
+}
+
 .actions{
   display:flex;
   gap:6px;
+  flex-shrink:0;
 }
 
 .edit{
@@ -163,20 +230,7 @@ button:disabled{
   padding:15px 0;
 }
 
-#preview{
-  display:flex;
-  flex-wrap:wrap;
-  margin:5px 0 10px;
-}
-
-.preview-img{
-  width:80px;
-  height:80px;
-  object-fit:cover;
-  border-radius:8px;
-  margin:5px;
-  border:1px solid #ddd;
-}
+/* FOOTER */
 
 footer{
   background:#8f174d;
@@ -186,6 +240,8 @@ footer{
   margin-top:40px;
 }
 
+/* MOBILE */
+
 @media(max-width:600px){
 
   .logo b{
@@ -194,6 +250,11 @@ footer{
 
   .admin-item{
     align-items:flex-start;
+  }
+
+  .product-thumb{
+    width:55px;
+    height:55px;
   }
 
   .actions{
@@ -206,7 +267,11 @@ footer{
 
 </head>
 
+
 <body>
+
+
+<!-- HEADER -->
 
 <header>
 
@@ -215,15 +280,18 @@ footer{
     <img
       src="logo.png"
       alt="Gadhuli Logo"
-      onerror="this.style.display='none'">
+      onerror="this.style.display='none'"
+    >
 
     <b>Gadhuli Admin</b>
 
   </div>
 
+
   <a
     class="back"
-    href="index.html">
+    href="index.html"
+  >
     ← Website
   </a>
 
@@ -232,17 +300,22 @@ footer{
 
 <div class="container">
 
+
   <!-- LOGIN -->
 
   <div
     id="loginBox"
-    class="box login-box">
+    class="box login-box"
+  >
 
     <h1>🔐 Admin Login</h1>
 
     <br>
 
-    <p>Gadhuli Admin Dashboard</p>
+    <p>
+      Gadhuli Admin Dashboard
+    </p>
+
 
     <form id="loginForm">
 
@@ -250,27 +323,33 @@ footer{
         id="email"
         type="email"
         placeholder="Admin Email"
-        required>
+        required
+      >
+
 
       <input
         id="password"
         type="password"
         placeholder="Password"
-        required>
+        required
+      >
+
 
       <button
         class="login-btn"
         id="loginButton"
-        type="submit">
+        type="submit"
+      >
         Login
       </button>
 
     </form>
 
+
     <div
       id="status"
-      class="status">
-    </div>
+      class="status"
+    ></div>
 
   </div>
 
@@ -279,9 +358,14 @@ footer{
 
   <div id="adminPanel">
 
+
+    <!-- ADMIN HEADER -->
+
     <div class="box">
 
-      <h2>🔐 Gadhuli Admin Panel</h2>
+      <h2>
+        🔐 Gadhuli Admin Panel
+      </h2>
 
       <br>
 
@@ -289,10 +373,12 @@ footer{
         Welcome to Gadhuli Admin Dashboard.
       </p>
 
+
       <button
         class="logout"
         type="button"
-        onclick="logout()">
+        onclick="logout()"
+      >
         Logout
       </button>
 
@@ -303,40 +389,68 @@ footer{
 
     <div class="box">
 
-      <h2>➕ Add Product</h2>
+      <h2>
+        ➕ Add Product
+      </h2>
 
       <br>
 
+
       <form id="productForm">
+
+
+        <!-- PRODUCT NAME -->
 
         <input
           id="pname"
+          type="text"
           placeholder="Product Name"
-          required>
+          required
+        >
+
+
+        <!-- PRICE -->
 
         <input
           id="price"
           type="number"
           min="1"
           placeholder="Price"
-          required>
+          required
+        >
+
+
+        <!-- IMAGES -->
 
         <label>
           🖼️ Product Images (3–5)
         </label>
+
+        <span class="image-note">
+          ৩ থেকে ৫টি ছবি select করুন
+        </span>
+
 
         <input
           id="images"
           type="file"
           accept="image/*"
           multiple
-          required>
+          required
+        >
+
+
+        <!-- PREVIEW -->
 
         <div id="preview"></div>
 
+
+        <!-- SAVE -->
+
         <button
           id="saveProductButton"
-          type="submit">
+          type="submit"
+        >
           Save Product
         </button>
 
@@ -345,11 +459,13 @@ footer{
     </div>
 
 
-    <!-- PRODUCTS -->
+    <!-- MANAGE PRODUCTS -->
 
     <div class="box">
 
-      <h2>📦 Manage Products</h2>
+      <h2>
+        📦 Manage Products
+      </h2>
 
       <br>
 
@@ -362,11 +478,17 @@ footer{
 </div>
 
 
+<!-- FOOTER -->
+
 <footer>
 
-  <h3>Gadhuli</h3>
+  <h3>
+    Gadhuli
+  </h3>
 
-  <p>Admin Dashboard</p>
+  <p>
+    Admin Dashboard
+  </p>
 
   <br>
 
@@ -383,6 +505,7 @@ document.addEventListener(
   "DOMContentLoaded",
   async function(){
 
+
     /* =========================
        SUPABASE
     ========================= */
@@ -390,15 +513,20 @@ document.addEventListener(
     const client =
       window.gadhuliSupabase;
 
+
     const status =
-      document.getElementById("status");
+      document.getElementById(
+        "status"
+      );
+
 
     if(!client){
 
       status.innerText =
         "Supabase connection পাওয়া যায়নি ❌";
 
-      status.style.color = "red";
+      status.style.color =
+        "red";
 
       return;
 
@@ -411,13 +539,15 @@ document.addEventListener(
 
     let products = [];
 
+
     try{
 
-      products = JSON.parse(
-        localStorage.getItem(
-          "gadhuli_products"
-        ) || "null"
-      );
+      products =
+        JSON.parse(
+          localStorage.getItem(
+            "gadhuli_products"
+          ) || "null"
+        );
 
     }catch(error){
 
@@ -450,8 +580,11 @@ document.addEventListener(
     async function adminCheck(user){
 
       if(!user){
+
         return false;
+
       }
+
 
       try{
 
@@ -459,8 +592,12 @@ document.addEventListener(
           await client
           .from("admins")
           .select("user_id")
-          .eq("user_id",user.id)
+          .eq(
+            "user_id",
+            user.id
+          )
           .maybeSingle();
+
 
         if(result.error){
 
@@ -473,7 +610,9 @@ document.addEventListener(
 
         }
 
+
         return !!result.data;
+
 
       }catch(error){
 
@@ -498,18 +637,24 @@ document.addEventListener(
 
         e.preventDefault();
 
+
         const loginButton =
           document.getElementById(
             "loginButton"
           );
 
-        loginButton.disabled = true;
+
+        loginButton.disabled =
+          true;
+
 
         loginButton.innerText =
           "Login হচ্ছে...";
 
+
         status.innerText =
           "Supabase-এর সাথে যোগাযোগ হচ্ছে...";
+
 
         status.style.color =
           "#8f174d";
@@ -521,6 +666,7 @@ document.addEventListener(
           .value
           .trim();
 
+
         const password =
           document
           .getElementById("password")
@@ -529,11 +675,15 @@ document.addEventListener(
 
         try{
 
+
           const result =
             await client.auth
             .signInWithPassword({
+
               email:email,
+
               password:password
+
             });
 
 
@@ -543,8 +693,10 @@ document.addEventListener(
               "Login failed ❌\n" +
               result.error.message;
 
+
             status.style.color =
               "red";
+
 
             return;
 
@@ -560,8 +712,10 @@ document.addEventListener(
             status.innerText =
               "User পাওয়া যায়নি ❌";
 
+
             status.style.color =
               "red";
+
 
             return;
 
@@ -569,18 +723,23 @@ document.addEventListener(
 
 
           const isAdmin =
-            await adminCheck(user);
+            await adminCheck(
+              user
+            );
 
 
           if(!isAdmin){
 
             await client.auth.signOut();
 
+
             status.innerText =
               "এই account-এর Admin Access নেই ❌";
 
+
             status.style.color =
               "red";
+
 
             return;
 
@@ -590,18 +749,25 @@ document.addEventListener(
           status.innerText =
             "Admin Login সফল হয়েছে ✅";
 
+
           status.style.color =
             "green";
 
 
           document
-          .getElementById("loginBox")
-          .style.display = "none";
+          .getElementById(
+            "loginBox"
+          )
+          .style.display =
+            "none";
 
 
           document
-          .getElementById("adminPanel")
-          .style.display = "block";
+          .getElementById(
+            "adminPanel"
+          )
+          .style.display =
+            "block";
 
 
           await showAdmin();
@@ -614,17 +780,21 @@ document.addEventListener(
             error
           );
 
+
           status.innerText =
             "Login Error ❌\n" +
             error.message;
 
+
           status.style.color =
             "red";
+
 
         }finally{
 
           loginButton.disabled =
             false;
+
 
           loginButton.innerText =
             "Login";
@@ -648,7 +818,9 @@ document.addEventListener(
 
 
         if(result.error){
+
           return;
+
         }
 
 
@@ -657,24 +829,34 @@ document.addEventListener(
 
 
         if(!user){
+
           return;
+
         }
 
 
         const isAdmin =
-          await adminCheck(user);
+          await adminCheck(
+            user
+          );
 
 
         if(isAdmin){
 
           document
-          .getElementById("loginBox")
-          .style.display = "none";
+          .getElementById(
+            "loginBox"
+          )
+          .style.display =
+            "none";
 
 
           document
-          .getElementById("adminPanel")
-          .style.display = "block";
+          .getElementById(
+            "adminPanel"
+          )
+          .style.display =
+            "block";
 
 
           await showAdmin();
@@ -703,16 +885,21 @@ document.addEventListener(
       "change",
       function(){
 
+
         const preview =
           document.getElementById(
             "preview"
           );
 
-        preview.innerHTML = "";
+
+        preview.innerHTML =
+          "";
 
 
         const files =
-          this.files;
+          Array.from(
+            this.files
+          );
 
 
         if(
@@ -725,30 +912,37 @@ document.addEventListener(
             "⚠️ ৩–৫টি ছবি select করুন" +
             "</p>";
 
+
           return;
 
         }
 
 
-        Array.from(files)
-        .forEach(function(file){
+        files.forEach(
+          function(file){
 
-          const img =
-            document.createElement(
-              "img"
+            const img =
+              document.createElement(
+                "img"
+              );
+
+
+            img.className =
+              "preview-img";
+
+
+            img.src =
+              URL.createObjectURL(
+                file
+              );
+
+
+            preview.appendChild(
+              img
             );
 
-          img.className =
-            "preview-img";
-
-          img.src =
-            URL.createObjectURL(
-              file
-            );
-
-          preview.appendChild(img);
-
-        });
+          }
+        );
 
       }
     );
@@ -759,7 +953,9 @@ document.addEventListener(
     ========================= */
 
     document
-    .getElementById("productForm")
+    .getElementById(
+      "productForm"
+    )
     .addEventListener(
       "submit",
       async function(e){
@@ -769,7 +965,9 @@ document.addEventListener(
 
         const name =
           document
-          .getElementById("pname")
+          .getElementById(
+            "pname"
+          )
           .value
           .trim();
 
@@ -777,16 +975,24 @@ document.addEventListener(
         const price =
           Number(
             document
-            .getElementById("price")
+            .getElementById(
+              "price"
+            )
             .value
           );
 
 
         const files =
-          document
-          .getElementById("images")
-          .files;
+          Array.from(
+            document
+            .getElementById(
+              "images"
+            )
+            .files
+          );
 
+
+        /* VALIDATION */
 
         if(!name){
 
@@ -830,160 +1036,283 @@ document.addEventListener(
           );
 
 
-        saveButton.disabled = true;
+        saveButton.disabled =
+          true;
 
-        saveButton.innerText =
-          "Database-এ Save হচ্ছে...";
-
-
-        /* =========================
-           SESSION CHECK
-        ========================= */
-
-        const sessionResult =
-          await client.auth.getSession();
-
-
-        if(
-          sessionResult.error ||
-          !sessionResult.data.session
-        ){
-
-          alert(
-            "Supabase session পাওয়া যায়নি ❌\n\n" +
-            "Logout করে আবার Login করুন।"
-          );
-
-          saveButton.disabled = false;
-
-          saveButton.innerText =
-            "Save Product";
-
-          return;
-
-        }
-
-
-        console.log(
-          "Supabase role:",
-          sessionResult.data.session.user.role
-        );
-        alert(
-  "User ID:\n" +
-  sessionResult.data.session.user.id +
-  "\n\nRole:\n" +
-  sessionResult.data.session.user.role
-);
-console.log(
-  "Logged-in User ID:",
-  sessionResult.data.session.user.id
-);
-
-        /* =========================
-           DATABASE INSERT
-        ========================= */
 
         try{
-const testUser =
-  await client.auth.getUser();
 
-console.log(
-  "AUTH USER:",
-  testUser.data.user
-);
 
-if(testUser.error || !testUser.data.user){
+          /* =========================
+             USER CHECK
+          ========================= */
 
-  alert(
-    "Browser session পাওয়া যায়নি ❌\n\n" +
-    (testUser.error?.message || "")
-  );
+          saveButton.innerText =
+            "Login check হচ্ছে...";
 
-  return;
-}
+
+          const userResult =
+            await client.auth.getUser();
+
+
+          if(
+            userResult.error ||
+            !userResult.data.user
+          ){
+
+            throw new Error(
+              "Supabase login session পাওয়া যায়নি। আবার Login করুন।"
+            );
+
+          }
+
+
+          const user =
+            userResult.data.user;
+
+
+          /* =========================
+             ADMIN CHECK
+          ========================= */
+
+          const isAdmin =
+            await adminCheck(
+              user
+            );
+
+
+          if(!isAdmin){
+
+            throw new Error(
+              "এই account-এর Admin permission নেই।"
+            );
+
+          }
+
+
+          /* =========================
+             IMAGE UPLOAD
+          ========================= */
+
+          const imageUrls = [];
+
+
+          for(
+            let i = 0;
+            i < files.length;
+            i++
+          ){
+
+            const file =
+              files[i];
+
+
+            const extension =
+              file.name
+              .split(".")
+              .pop()
+              .toLowerCase();
+
+
+            const safeExtension =
+              extension || "jpg";
+
+
+            const fileName =
+              Date.now() +
+              "_" +
+              crypto.randomUUID() +
+              "." +
+              safeExtension;
+
+
+            const filePath =
+              user.id +
+              "/" +
+              fileName;
+
+
+            saveButton.innerText =
+              "ছবি " +
+              (i + 1) +
+              "/" +
+              files.length +
+              " Upload হচ্ছে...";
+
+
+            const uploadResult =
+              await client.storage
+              .from(
+                "product-images"
+              )
+              .upload(
+                filePath,
+                file,
+                {
+                  cacheControl:"3600",
+                  upsert:false,
+                  contentType:file.type
+                }
+              );
+
+
+            if(uploadResult.error){
+
+              throw uploadResult.error;
+
+            }
+
+
+            const publicResult =
+              client.storage
+              .from(
+                "product-images"
+              )
+              .getPublicUrl(
+                filePath
+              );
+
+
+            const publicUrl =
+              publicResult
+              .data
+              .publicUrl;
+
+
+            if(!publicUrl){
+
+              throw new Error(
+                "Image Public URL পাওয়া যায়নি।"
+              );
+
+            }
+
+
+            imageUrls.push(
+              publicUrl
+            );
+
+          }
+
+
+          /* =========================
+             DATABASE SAVE
+          ========================= */
+
+          saveButton.innerText =
+            "Database-এ Save হচ্ছে...";
+
+
           const result =
-  await client
-  .from("products")
-  .insert([
-    {
-      name: name,
-      price: price,
-      images: "",
-      category: "Others"
-    }
-  ])
-  .select()
-  .single();
+            await client
+            .from("products")
+            .insert([
+
+              {
+
+                name:name,
+
+                price:price,
+
+                images:
+                  JSON.stringify(
+                    imageUrls
+                  ),
+
+                category:"Others"
+
+              }
+
+            ])
+            .select()
+            .single();
 
 
           if(result.error){
 
-            console.error(
-              "Product insert error:",
-              result.error
-            );
-
-            alert(
-              "Product Database-এ Save হয়নি ❌\n\n" +
-              result.error.message
-            );
-
-            return;
+            throw result.error;
 
           }
 
+
+          /* =========================
+             LOCAL STORAGE
+          ========================= */
 
           const newProduct =
             result.data;
 
 
-          products.push({
+          products.unshift({
+
             id:newProduct.id,
+
             name:newProduct.name,
+
             price:newProduct.price,
-            images:newProduct.images || [],
+
+            images:imageUrls,
+
             category:
               newProduct.category ||
               "Others"
+
           });
 
 
           saveProducts();
 
-          await showAdmin();
 
+          /* =========================
+             RESET
+          ========================= */
 
           document
-          .getElementById("productForm")
+          .getElementById(
+            "productForm"
+          )
           .reset();
 
 
           document
-          .getElementById("preview")
-          .innerHTML = "";
+          .getElementById(
+            "preview"
+          )
+          .innerHTML =
+            "";
+
+
+          await showAdmin();
 
 
           alert(
-            "Product Supabase Database-এ Save হয়েছে ✅"
+            "Product সফলভাবে Save হয়েছে ✅\n\n" +
+            "🖼️ " +
+            imageUrls.length +
+            "টি ছবি Storage-এ গেছে\n" +
+            "🗄️ Product Database-এ গেছে"
           );
 
 
         }catch(error){
 
           console.error(
-            "Product error:",
+            "Product save error:",
             error
           );
 
+
           alert(
-            "Product Save Error ❌\n\n" +
+            "Product Save হয়নি ❌\n\n" +
             error.message
           );
+
 
         }finally{
 
           saveButton.disabled =
             false;
+
 
           saveButton.innerText =
             "Save Product";
@@ -992,6 +1321,62 @@ if(testUser.error || !testUser.data.user){
 
       }
     );
+
+
+    /* =========================
+       IMAGE URL
+    ========================= */
+
+    function imageURL(value){
+
+      const placeholder =
+        "https://via.placeholder.com/100x100?text=Gadhuli";
+
+
+      if(!value){
+
+        return placeholder;
+
+      }
+
+
+      if(Array.isArray(value)){
+
+        return value[0] ||
+          placeholder;
+
+      }
+
+
+      try{
+
+        const parsed =
+          JSON.parse(
+            value
+          );
+
+
+        if(
+          Array.isArray(
+            parsed
+          )
+        ){
+
+          return parsed[0] ||
+            placeholder;
+
+        }
+
+      }catch(error){
+
+        /* Normal URL */
+
+      }
+
+
+      return value;
+
+    }
 
 
     /* =========================
@@ -1012,6 +1397,7 @@ if(testUser.error || !testUser.data.user){
 
       try{
 
+
         const result =
           await client
           .from("products")
@@ -1024,38 +1410,102 @@ if(testUser.error || !testUser.data.user){
           );
 
 
-        if(!result.error){
+        if(result.error){
 
-          if(
-            Array.isArray(
-              result.data
-            )
-          ){
-
-            products =
-              result.data;
-
-            saveProducts();
-
-          }
-
-        }else{
-
-          console.error(
-            "Products load error:",
-            result.error
-          );
+          throw result.error;
 
         }
 
+
+        if(
+          Array.isArray(
+            result.data
+          )
+        ){
+
+          products =
+            result.data.map(
+              function(p){
+
+                let images =
+                  p.images;
+
+
+                try{
+
+                  if(
+                    typeof images ===
+                    "string"
+                  ){
+
+                    const parsed =
+                      JSON.parse(
+                        images
+                      );
+
+
+                    if(
+                      Array.isArray(
+                        parsed
+                      )
+                    ){
+
+                      images =
+                        parsed;
+
+                    }
+
+                  }
+
+                }catch(error){
+
+                  /* Keep original */
+
+                }
+
+
+                return {
+
+                  ...p,
+
+                  images:
+                    images || []
+
+                };
+
+              }
+            );
+
+
+          saveProducts();
+
+        }
+
+
       }catch(error){
 
-        console.error(error);
+        console.error(
+          "Products load error:",
+          error
+        );
+
+
+        box.innerHTML =
+          "<p style='color:red'>" +
+          "Products load হয়নি ❌<br><br>" +
+          escapeHTML(
+            error.message
+          ) +
+          "</p>";
+
+
+        return;
 
       }
 
 
-      box.innerHTML = "";
+      box.innerHTML =
+        "";
 
 
       if(!products.length){
@@ -1065,6 +1515,7 @@ if(testUser.error || !testUser.data.user){
           'কোনো product নেই।' +
           '</div>';
 
+
         return;
 
       }
@@ -1072,6 +1523,7 @@ if(testUser.error || !testUser.data.user){
 
       products.forEach(
         function(p,i){
+
 
           const item =
             document.createElement(
@@ -1083,44 +1535,67 @@ if(testUser.error || !testUser.data.user){
             "admin-item";
 
 
+          const thumb =
+            imageURL(
+              p.images ||
+              p.image
+            );
+
+
           item.innerHTML = `
 
-            <div>
+            <div class="product-left">
 
-              <b>
-                ${escapeHTML(
-                  p.name || "Unnamed"
+              <img
+                class="product-thumb"
+                src="${escapeHTML(thumb)}"
+                alt="Product"
+                onerror="this.src='https://via.placeholder.com/100x100?text=Gadhuli'"
+              >
+
+              <div class="product-info">
+
+                <b>
+                  ${escapeHTML(
+                    p.name ||
+                    "Unnamed"
+                  )}
+                </b>
+
+                <br>
+
+                ৳${Number(
+                  p.price || 0
                 )}
-              </b>
 
-              <br>
+                <br>
 
-              ৳${Number(
-                p.price || 0
-              )}
+                <small>
+                  ${escapeHTML(
+                    p.category ||
+                    "Others"
+                  )}
+                </small>
 
-              <br>
-
-              <small>
-                ${
-                  p.category ||
-                  "Others"
-                }
-              </small>
+              </div>
 
             </div>
+
 
             <div class="actions">
 
               <button
                 class="edit"
-                onclick="editProduct(${i})">
+                onclick="editProduct(${i})"
+              >
                 ✏️
               </button>
 
+
               <button
                 class="delete"
-                onclick="deleteProduct(${i})">
+                onclick="deleteProduct(${i})"
+              >
                 🗑️
               </button>
 
@@ -1129,7 +1604,9 @@ if(testUser.error || !testUser.data.user){
           `;
 
 
-          box.appendChild(item);
+          box.appendChild(
+            item
+          );
 
         }
       );
@@ -1138,16 +1615,28 @@ if(testUser.error || !testUser.data.user){
 
 
     /* =========================
-       SAFE TEXT
+       SAFE HTML
     ========================= */
 
     function escapeHTML(value){
 
       return String(value)
-      .replace(/&/g,"&amp;")
-      .replace(/</g,"&lt;")
-      .replace(/>/g,"&gt;")
-      .replace(/"/g,"&quot;")
+      .replace(
+        /&/g,
+        "&amp;"
+      )
+      .replace(
+        /</g,
+        "&lt;"
+      )
+      .replace(
+        />/g,
+        "&gt;"
+      )
+      .replace(
+        /"/g,
+        "&quot;"
+      )
       .replace(
         /'/g,
         "&#039;"
@@ -1158,13 +1647,17 @@ if(testUser.error || !testUser.data.user){
 
     /* =========================
        EDIT PRODUCT
+       IMAGE WILL NOT EDIT
     ========================= */
 
     window.editProduct =
     async function(i){
 
+
       if(!products[i]){
+
         return;
+
       }
 
 
@@ -1180,7 +1673,9 @@ if(testUser.error || !testUser.data.user){
 
 
       if(name === null){
+
         return;
+
       }
 
 
@@ -1192,7 +1687,9 @@ if(testUser.error || !testUser.data.user){
 
 
       if(price === null){
+
         return;
+
       }
 
 
@@ -1201,7 +1698,9 @@ if(testUser.error || !testUser.data.user){
 
 
       const newPrice =
-        Number(price);
+        Number(
+          price
+        );
 
 
       if(
@@ -1213,6 +1712,7 @@ if(testUser.error || !testUser.data.user){
           "Valid product name ও price দিন ❌"
         );
 
+
         return;
 
       }
@@ -1220,14 +1720,18 @@ if(testUser.error || !testUser.data.user){
 
       try{
 
+
         if(product.id){
 
           const result =
             await client
             .from("products")
             .update({
+
               name:newName,
+
               price:newPrice
+
             })
             .eq(
               "id",
@@ -1245,25 +1749,34 @@ if(testUser.error || !testUser.data.user){
 
 
         products[i] = {
+
           ...products[i],
+
           name:newName,
+
           price:newPrice
+
         };
 
 
         saveProducts();
 
+
         await showAdmin();
 
 
         alert(
-          "Product update হয়েছে ✅"
+          "Product update হয়েছে ✅\n\n" +
+          "ছবি Edit করা যাবে না।"
         );
 
 
       }catch(error){
 
-        console.error(error);
+        console.error(
+          error
+        );
+
 
         alert(
           "Product update হয়নি ❌\n\n" +
@@ -1282,8 +1795,11 @@ if(testUser.error || !testUser.data.user){
     window.deleteProduct =
     async function(i){
 
+
       if(!products[i]){
+
         return;
+
       }
 
 
@@ -1303,6 +1819,56 @@ if(testUser.error || !testUser.data.user){
 
 
       try{
+
+
+        /* GET IMAGE LIST */
+
+        let imageList =
+          [];
+
+
+        if(
+          Array.isArray(
+            product.images
+          )
+        ){
+
+          imageList =
+            product.images;
+
+        }else{
+
+          try{
+
+            const parsed =
+              JSON.parse(
+                product.images ||
+                "[]"
+              );
+
+
+            if(
+              Array.isArray(
+                parsed
+              )
+            ){
+
+              imageList =
+                parsed;
+
+            }
+
+          }catch(error){
+
+            imageList =
+              [];
+
+          }
+
+        }
+
+
+        /* DELETE DATABASE */
 
         if(product.id){
 
@@ -1325,9 +1891,98 @@ if(testUser.error || !testUser.data.user){
         }
 
 
-        products.splice(i,1);
+        /* DELETE STORAGE IMAGES */
+
+        if(
+          imageList.length
+        ){
+
+          const paths =
+            [];
+
+
+          imageList.forEach(
+            function(url){
+
+              if(
+                typeof url !==
+                "string"
+              ){
+
+                return;
+
+              }
+
+
+              const marker =
+                "/product-images/";
+
+
+              const position =
+                url.indexOf(
+                  marker
+                );
+
+
+              if(
+                position !== -1
+              ){
+
+                const path =
+                  decodeURIComponent(
+                    url.substring(
+                      position +
+                      marker.length
+                    )
+                  );
+
+
+                paths.push(
+                  path
+                );
+
+              }
+
+            }
+          );
+
+
+          if(paths.length){
+
+            const removeResult =
+              await client.storage
+              .from(
+                "product-images"
+              )
+              .remove(
+                paths
+              );
+
+
+            if(
+              removeResult.error
+            ){
+
+              console.error(
+                "Storage delete error:",
+                removeResult.error
+              );
+
+            }
+
+          }
+
+        }
+
+
+        products.splice(
+          i,
+          1
+        );
+
 
         saveProducts();
+
 
         await showAdmin();
 
@@ -1339,7 +1994,10 @@ if(testUser.error || !testUser.data.user){
 
       }catch(error){
 
-        console.error(error);
+        console.error(
+          error
+        );
+
 
         alert(
           "Product delete হয়নি ❌\n\n" +
@@ -1358,34 +2016,47 @@ if(testUser.error || !testUser.data.user){
     window.logout =
     async function(){
 
+
       try{
 
         await client.auth.signOut();
 
       }catch(error){
 
-        console.error(error);
+        console.error(
+          error
+        );
 
       }
 
 
       document
-      .getElementById("adminPanel")
-      .style.display = "none";
+      .getElementById(
+        "adminPanel"
+      )
+      .style.display =
+        "none";
 
 
       document
-      .getElementById("loginBox")
-      .style.display = "block";
+      .getElementById(
+        "loginBox"
+      )
+      .style.display =
+        "block";
 
 
       document
-      .getElementById("password")
-      .value = "";
+      .getElementById(
+        "password"
+      )
+      .value =
+        "";
 
 
       status.innerText =
         "Logout হয়েছে ✅";
+
 
       status.style.color =
         "#8f174d";
@@ -1406,4 +2077,5 @@ if(testUser.error || !testUser.data.user){
 </script>
 
 </body>
+
 </html>
